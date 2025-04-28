@@ -15,7 +15,7 @@ const Products: React.FC = () => {
       <ul className="space-y-2">
         {data!.map(p => (
           <li key={p.id}>
-            <Link to={`/products/${p.id}`} className="text-blue-600 hover:underline">
+            <Link to={`/products/${p.id}`} className="text-red hover:underline">
               {p.name} – ${p.price}
             </Link>
           </li>
