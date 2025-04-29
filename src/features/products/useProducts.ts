@@ -1,9 +1,19 @@
 // src/features/products/useProducts.ts
 import { useQuery } from '@tanstack/react-query'
-import { fetchProducts } from './api'
+import { getProducts, getProductById, Product } from './api'
 
-export const useProducts = () =>
-  useQuery({
+// list
+export function useProducts() {
+  return useQuery<Product[], Error>({
     queryKey: ['products'],
-    queryFn: fetchProducts,
+    queryFn: () => getProducts(),
   })
+}
+
+// single
+export function useProduct(id: number) {
+  return useQuery<Product, Error>({
+    queryKey: ['product', id],
+    queryFn: () => getProductById(id),
+  })
+}
