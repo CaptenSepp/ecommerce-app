@@ -10,8 +10,8 @@ const Products: React.FC = () => {
   if (isError) return <p>Failed to load products.</p>
 
   return (
-    <div>
-      <h1 className="text-2xl mb-4">Products</h1>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-1000">
+      <h1 className="text-2xl " >Products</h1>
       <ul className="space-y-2">
         {data!.map(p => (
           <li key={p.id}>
