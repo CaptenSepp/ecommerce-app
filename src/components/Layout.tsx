@@ -17,6 +17,8 @@ const Layout: React.FC = () => (
         <NavLink to="/cart" className={({ isActive }) => navClass(isActive)}>Cart</NavLink>
         <span>|</span>
         <NavLink to="/about" className={({ isActive }) => navClass(isActive)}>About</NavLink>
+        <span>|</span>
+        <NavLink to="/wishlist" className={({ isActive }) => navClass(isActive)}>Wishlist</NavLink>
       </nav>
     </header>
     <main className="flex-1"><Outlet /></main>
