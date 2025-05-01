@@ -1,13 +1,15 @@
 // src/store/store.ts
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import cartReducer from '../features/cart/slices/cartSlice'
+import cartReducer from '../features/cart/cartSlice'
+
+import wishlistReducer from '../features/wishlist/wishlistSlice'
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
-      // ← add other feature slices here
-  },
+    wishlist: wishlistReducer
+  }
 })
 
 export type RootState = ReturnType<typeof store.getState>
