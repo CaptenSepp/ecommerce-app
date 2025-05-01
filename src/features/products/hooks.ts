@@ -17,3 +17,14 @@ export function useProduct(id: number) {
     queryFn: () => getProductById(id),
   })
 }
+
+export const useCategories = () => {
+  return useQuery({
+    queryKey: ['categories'],
+    queryFn: async (): Promise<{ slug: string; name: string; url: string }[]> => {
+      const res = await fetch('/api/categories')
+      return res.json()
+    }
+  })
+}
+
