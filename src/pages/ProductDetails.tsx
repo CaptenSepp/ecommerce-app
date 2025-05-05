@@ -1,6 +1,6 @@
 // src/pages/ProductDetails.tsx
 import { Link, useParams } from 'react-router-dom'
-import { useProduct } from '../features/products/hooks'
+import { useProduct } from '../features/products/hooks/productsHooks'
 
 const ProductDetails = () => {
   const { productId } = useParams<{ productId: string }>()
