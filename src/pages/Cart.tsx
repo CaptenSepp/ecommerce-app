@@ -1,7 +1,7 @@
 // src/pages/Cart.tsx
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../store/store'
-import { removeFromCart, updateQuantity } from '../features/cart/cartSlice'
+import { clearCart, removeFromCart, updateQuantity } from '../features/cart/cartSlice'
 
 const CartPage = () => {
   const dispatch = useDispatch()
@@ -25,6 +25,11 @@ const CartPage = () => {
             </li>
           ))}
         </ul>
+      )}
+      {cart.length > 0 && (
+        <button onClick={() => dispatch(clearCart())}>
+          clear the cart
+        </button>
       )}
     </div>
   )

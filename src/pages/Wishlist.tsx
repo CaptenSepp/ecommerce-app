@@ -2,8 +2,13 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '../store/store'
 
+import { useDispatch } from 'react-redux'
+import { clearWishlist } from '../features/wishlist/wishlistSlice';
+
 const WishlistPage = () => {
-  const wishlist = useSelector((state: RootState) => state.wishlist.items)
+
+  const dispatch = useDispatch();
+  const wishlist = useSelector((state: RootState) => state.wishlist.items);
 
   return (
     <div>
@@ -15,7 +20,12 @@ const WishlistPage = () => {
           ))}
         </ul>
       )}
+      {wishlist.length > 0 && (
+        <button onClick={() => dispatch(clearWishlist())}>
+          clear the wishlist
+        </button>
+      )}
     </div>
-  )
+  );
 }
 export default WishlistPage
