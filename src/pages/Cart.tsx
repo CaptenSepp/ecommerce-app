@@ -21,13 +21,13 @@ const CartPage = () => {
                 min={1}
                 onChange={e => dispatch(updateQuantity({ id: item.id, quantity: +e.target.value }))}
               />
-              <button onClick={() => dispatch(removeFromCart(item.id))}>Remove</button>
+              <button className='btn btn-secondary' onClick={() => dispatch(removeFromCart(item.id))}>Remove</button>
             </li>
           ))}
         </ul>
       )}
       {cart.length > 0 && (
-        <button onClick={() => dispatch(clearCart())}>
+        <button className='btn btn-primary' onClick={() => dispatch(clearCart())}>
           clear the cart
         </button>
       )}

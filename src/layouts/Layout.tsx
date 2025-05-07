@@ -2,14 +2,12 @@ import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 const navClass = (isActive: boolean) =>
-  isActive
-    ? 'px-3 py-2 text-white bg-blue-600 rounded'
-    : 'px-3 py-2 text-blue-600 hover:bg-blue-100 rounded';
+  `nav-link${isActive ? ' nav-link-active' : ''}`;
 
 const Layout: React.FC = () => (
   <div className="min-h-screen flex flex-col">
-    <header className="bg-gray-100 p-4">
-      <nav className="space-x-4">
+    <header className="bg-gray-100 p-4 ">
+      <nav className="space-x-4 text-center ">
         <NavLink to="/" end className={({ isActive }) => navClass(isActive)}>Home</NavLink>
         <span>|</span>
         <NavLink to="/products" className={({ isActive }) => navClass(isActive)}>Products</NavLink>
@@ -19,6 +17,8 @@ const Layout: React.FC = () => (
         <NavLink to="/about" className={({ isActive }) => navClass(isActive)}>About</NavLink>
         <span>|</span>
         <NavLink to="/wishlist" className={({ isActive }) => navClass(isActive)}>Wishlist</NavLink>
+        <span>|</span>
+        <NavLink to="/contact" className={({ isActive }) => navClass(isActive)}>Contact</NavLink>
       </nav>
     </header>
     <main className="flex-1"><Outlet /></main>

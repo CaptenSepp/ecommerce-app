@@ -1,11 +1,12 @@
 // src/pages/Products.tsx
+import { Heart, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../features/cart/cartSlice'
-import { toggleWishlist } from '../features/wishlist/wishlistSlice'
-import { useProducts, useCategories } from '../features/products/hooks/productsHooks'
 import { Product } from '../features/products/api'
-import { Heart, ShoppingCart } from 'lucide-react'
+import { useCategories, useProducts } from '../features/products/hooks/productsHooks'
+import { toggleWishlist } from '../features/wishlist/wishlistSlice'
+
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -23,14 +24,14 @@ const Products = () => {
     : products!
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="card">
       <h1 className="text-2xl font-bold mb-4">Products</h1>
 
       {/* Category dropdown */}
-      <div className="mb-6">
-        <label className="block text-sm font-medium mb-1">Category:</label>
+      <div className="mb-6 ">
+        <label className="block text-sm font-medium mb-2">Category:</label>
         <select
-          className="border rounded px-3 py-2 w-full sm:w-64"
+          className="border rounded px-3 py-2 w-full sm:w-64 "
           value={selectedCategory}
           onChange={e => setSelectedCategory(e.target.value)}
         >
@@ -44,7 +45,7 @@ const Products = () => {
       </div>
 
       {/* Product grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {filtered.map((product: Product) => (
           <div
             key={product.id}
@@ -55,19 +56,19 @@ const Products = () => {
               alt={product.title}
               className="w-full h-48 object-cover rounded mb-3"
             />
-            <h2 className="text-lg font-semibold">{product.title}</h2>
-            <p className="text-gray-600 text-sm">{product.brand}</p>
-            <p className="text-blue-600 font-bold mb-3">${product.price}</p>
-            <div className="flex gap-2">
+            <h2 className="text-brand-navy font-semibold">{product.title}</h2>
+            <p className="text-brand-navy text-sm">{product.brand}</p>
+            <p className="text-brand-orange">${product.price}</p>
+            <div className="flex gap-2 mt-4">
               <button
                 onClick={() => dispatch(addToCart(product))}
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 flex items-center gap-1"
+                className="btn btn-primary"
               >
                 <ShoppingCart size={16} /> Add to Cart
               </button>
               <button
                 onClick={() => dispatch(toggleWishlist(product))}
-                className="border px-3 py-2 rounded hover:bg-gray-100 flex items-center gap-1"
+                className="btn btn-secondary "
               >
                 <Heart size={16} /> Wishlist
               </button>
