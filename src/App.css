@@ -1,42 +1,164 @@
+/********************
+ * Layout wrappers  *
+ ********************/
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.layout {
+
+  padding-inline: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-items: space-between;
+}
+
+
+/********************
+   * Home grids *
+   ********************/
+
+.grid__cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/****************
+   * Header Block *
+   ****************/
+
+.header {
+  display: flex;
+  padding: 0.75rem;
+  background: var(--brand-white);
+}
+
+.header__items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.header__logo {}
+
+.header__logo__img {
+  height: 3rem;
+}
+
+
+.header__icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header__icon-btn {}
+
+.header__icon-btn:hover {}
+
+/****************
+   * Body Block *
+   ****************/
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-column__grid {
+  display: flex;
+  padding: 1rem;
+}
+
+.home-banner {
+  width: 100%;
+}
+
+.richtext-topic {
+  font-size: var(--fs-3xl);
+  font-weight: bold;
+  font-family: Georgia, Times, "Times New Roman", serif;
+}
+
+/* ***************************
+   * Body scroll-row *
+   ****************************/
+
+.scroll-row__card {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+
+.scroll-row__card__img {
+  object-fit: cover;
+  max-height: 50px;
+
+}
+
+/****************
+   * Buttons *
+   ****************/
+
+/* Basisklassen kommen aus index.css (btn, btn-primary …). 
+     Hier nur Größenmodifier: */
+.btn-lg {
+  padding: 0.75rem 1.75rem;
+  font-size: var(--fs-lg);
+}
+
+.btn-sm {
+  padding: 0.25rem 0.75rem;
+  font-size: var(--fs-sm);
+}
+
+/*********************
+   * Products Cards *
+   *********************/
+
+.card--product:hover {
+  transform: translateY(-3px);
+}
+
+.card--product__img {
+  min-height: 180px;
+  /* override */
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+/*************************
+   * Products Sidebar Filter *
+   *************************/
+
+
+/*******************
+   * Footer   *
+   *******************/
+
+.footer {
+  background: var(--brand-navy);
+  color: var(--brand-white);
   text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: var(--fs-sm);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+/****************************************************
+   * Hilfs‑Utilities (nur, wenn Tailwind keins bietet) *
+   ****************************************************/
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+/* Textüberschneidung (eine Zeile)  */
+.truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
