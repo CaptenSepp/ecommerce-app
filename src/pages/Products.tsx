@@ -1,5 +1,5 @@
-// src/pages/Products.tsx
-import { Heart, ShoppingCart } from 'lucide-react'
+// Products.tsx
+import { Heart, Link, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../features/cart/cartSlice'
@@ -7,75 +7,103 @@ import { Product } from '../features/products/api'
 import { useCategories, useProducts } from '../features/products/hooks/productsHooks'
 import { toggleWishlist } from '../features/wishlist/wishlistSlice'
 
-
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState('')
   const dispatch = useDispatch()
 
-  const { data: products, isLoading: loadingProducts } = useProducts()
-  const { data: categories, isLoading: loadingCategories } = useCategories()
+  const EXTRA_CATEGORIES = [
+    { slug: 'beauty', name: 'Beauty' },
+    { slug: 'fragrances', name: 'Fragrances' },
+    { slug: 'furniture', name: 'Furniture' },
+    { slug: 'groceries', name: 'Groceries' },
+  ]
 
-  if (loadingProducts || loadingCategories)
-    return <p className="text-center mt-10">Loading...</p>
+  const { data: products = [], isLoading: lp } = useProducts()
+  const { data: categories = [], isLoading: lc } = useCategories()
+  if (lp || lc) return <p>Loading…</p>
 
-  // filter by category string
+  const mergedCats = [
+    ...categories,
+    ...EXTRA_CATEGORIES.filter(
+      ex => !categories.some(c => c.slug === ex.slug)
+    ),
+  ]
+ 
   const filtered = selectedCategory
-    ? products!.filter(p => p.category === selectedCategory)
-    : products!
+    ? products.filter(p => p.category === selectedCategory)
+    : products
 
   return (
-    <div className="card">
-      <h1 className="text-2xl font-bold mb-4">Products</h1>
-
-      {/* Category dropdown */}
-      <div className="mb-6 ">
-        <label className="block text-sm font-medium mb-2">Category:</label>
-        <select
-          className="border rounded px-3 py-2 w-full sm:w-64 "
-          value={selectedCategory}
-          onChange={e => setSelectedCategory(e.target.value)}
-        >
-          <option value="">All</option>
-          {categories?.map(cat => (
-            <option key={cat.slug} value={cat.slug}>
+    <div className="px-4 py-8 flex gap-8">
+      {/* ───── Sidebar Filter ───── */}
+      <aside className="w-50 shrink-0 space-y-4">
+        <h2 className="font-semibold">Filter and Sort</h2>
+        <form className="space-y-2">
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="cat"
+              value=""
+              checked={selectedCategory === ''}
+              onChange={() => setSelectedCategory('')}
+            />
+            All
+          </label>
+          {mergedCats.map(cat => (
+            <label key={cat.slug} className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="cat"
+                value={cat.slug}
+                checked={selectedCategory === cat.slug}
+                onChange={() => setSelectedCategory(cat.slug)}
+              />
               {cat.name}
-            </option>
+            </label>
           ))}
-        </select>
-      </div>
 
-      {/* Product grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+        </form>
+      </aside>
+
+      {/* ───── Produkt-Grid 3 Spalten ───── */}
+      <section className="flex-1 grid__cards ">
         {filtered.map((product: Product) => (
           <div
             key={product.id}
-            className="border p-4 rounded shadow hover:shadow-md transition"
+            className="card card--product bg-cover bg-center backgroundcolor-brand-gray"
+            style={{ backgroundImage: `url(${product.thumbnail})` }}
           >
-            <img
-              src={product.thumbnail}
-              alt={product.title}
-              className="w-full h-48 object-cover rounded mb-3"
-            />
-            <h2 className="text-brand-navy font-semibold">{product.title}</h2>
-            <p className="text-brand-navy text-sm">{product.brand}</p>
-            <p className="text-brand-orange">${product.price}</p>
-            <div className="flex gap-2 mt-4">
-              <button
-                onClick={() => dispatch(addToCart(product))}
-                className="btn btn-primary"
-              >
-                <ShoppingCart size={16} /> Add to Cart
-              </button>
-              <button
-                onClick={() => dispatch(toggleWishlist(product))}
-                className="btn btn-secondary "
-              >
-                <Heart size={16} /> Wishlist
-              </button>
+            {/* Klickbare Fläche für Produkt­details */}
+            <Link to={`/products/${product.id}`} className="absolute inset-0" />
+
+            {/* Halbtransparenter Over­lay */}
+            <span className="overlay" />
+
+            {/* Inhalt über dem Bild */}
+            <div className="card--product__content">
+              <h3 className="font-semibold">{product.title}</h3>
+              <p className="text-sm mb-2">{product.brand}</p>
+              <p className="text-brand-orange font-bold mb-3">${product.price}</p>
+
+              <div className="flex gap-2">
+                <button
+                  onClick={() => dispatch(addToCart(product))}
+                  className="btn btn-primary btn-sm"
+                >
+                  <ShoppingCart size={14} /> Add
+                </button>
+                <button
+                  onClick={() => dispatch(toggleWishlist(product))}
+                  className="btn btn-secondary btn-sm"
+                >
+                  <Heart size={14} /> Wish
+                </button>
+              </div>
             </div>
           </div>
         ))}
-      </div>
+      </section>
+
     </div>
   )
 }

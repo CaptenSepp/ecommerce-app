@@ -21,7 +21,7 @@ const WishlistPage = () => {
         </ul>
       )}
       {wishlist.length > 0 && (
-        <button className='btn btn-primary' onClick={() => dispatch(clearWishlist())}>
+        <button className='btn btn-primary btn-sm' onClick={() => dispatch(clearWishlist())}>
           clear the wishlist
         </button>
       )}
