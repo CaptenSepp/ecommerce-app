@@ -1,81 +1,49 @@
+@import "tailwindcss";
 /********************
  * Layout wrappers  *
  ********************/
-
 #root {
-  max-width: 100%;
-  margin-inline: auto;
-}
+  @apply w-full mx-auto;
+} /* UPDATE: Tailwind statt raw */
 
 .layout {
-
-  padding-inline: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-items: space-between;
+  @apply flex flex-col gap-y-0 px-4; /* UPDATE: ersetzt old props */
 }
 
+/****************
+ * Header Block *
+ ****************/
+.header {
+  @apply flex p-3 bg-[color:var(--brand-white)];
+}
+.header__items {
+  @apply flex items-center justify-between w-full;
+}
+.header__logo_img {
+  @apply h-12;
+} /* Höhe via util */
+.header__icons {
+  @apply flex items-center gap-4;
+}
+.header__icon-btn {
+  @apply p-2 rounded-md hover:bg-gray-100;
+}
 
-/********************
-   * Home grids *
-   ********************/
+/****************
+ * Body Block *
+ ****************/
+.flex-column {
+  @apply flex flex-col items-center;
+}
+.flex-column__grid {
+  @apply flex p-4;
+}
+.flex-column__banner {
+  @apply w-full;
+}
 
 .grid__cards {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-/****************
-   * Header Block *
-   ****************/
-
-.header {
-  display: flex;
-  padding: 0.75rem;
-  background: var(--brand-white);
-}
-
-.header__items {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.header__logo {}
-
-.header__logo__img {
-  height: 3rem;
-}
-
-
-.header__icons {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.header__icon-btn {}
-
-.header__icon-btn:hover {}
-
-/****************
-   * Body Block *
-   ****************/
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.home-column__grid {
-  display: flex;
-  padding: 1rem;
-}
-
-.home-banner {
-  width: 100%;
+  @apply grid gap-4 grid-cols-[repeat(auto-fit,minmax(300px,1fr))];
 }
 
 .richtext-topic {
@@ -84,81 +52,44 @@
   font-family: Georgia, Times, "Times New Roman", serif;
 }
 
-/* ***************************
-   * Body scroll-row *
-   ****************************/
-
+/* Scroll-Row */
 .scroll-row__card {
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
+  @apply flex gap-6 overflow-x-auto pb-2;
 }
-
-
-.scroll-row__card__img {
-  object-fit: cover;
-  max-height: 50px;
-
+.scroll-row__card_img {
+  @apply object-cover max-h-12;
 }
 
 /****************
-   * Buttons *
-   ****************/
-
-/* Basisklassen kommen aus index.css (btn, btn-primary …). 
-     Hier nur Größenmodifier: */
+ * Buttons *
+ ****************/
 .btn-lg {
-  padding: 0.75rem 1.75rem;
-  font-size: var(--fs-lg);
+  @apply px-7 py-3 text-[length:var(--fs-lg)];
 }
-
 .btn-sm {
-  padding: 0.25rem 0.75rem;
-  font-size: var(--fs-sm);
+  @apply px-3 py-1 text-[length:var(--fs-sm)];
 }
 
 /*********************
-   * Products Cards *
-   *********************/
-
+ * Products Cards *
+ *********************/
 .card--product:hover {
-  transform: translateY(-3px);
+  @apply -translate-y-[3px];
+} /* transform via util */
+.card--product_img {
+  @apply min-h-[180px] object-cover rounded-lg;
 }
-
-.card--product__img {
-  min-height: 180px;
-  /* override */
-  object-fit: cover;
-  border-radius: 0.5rem;
-}
-
-/*************************
-   * Products Sidebar Filter *
-   *************************/
-
 
 /*******************
-   * Footer   *
-   *******************/
-
+ * Footer *
+ *******************/
 .footer {
-  background: var(--brand-navy);
-  color: var(--brand-white);
-  text-align: center;
-  padding: 1.5rem 1rem;
-  font-size: var(--fs-sm);
+  @apply bg-[color:var(--brand-navy)] text-white text-center p-6 text-[length:var(--fs-sm)];
 }
 
 /****************************************************
-   * Hilfs‑Utilities (nur, wenn Tailwind keins bietet) *
-   ****************************************************/
-
-
-/* Textüberschneidung (eine Zeile)  */
+ * Utilities (wenn Tailwind fehlt)
+ ****************************************************/
 .truncate {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  @apply max-w-full overflow-hidden text-ellipsis whitespace-nowrap;
 }
