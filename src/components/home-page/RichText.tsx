@@ -1,6 +1,6 @@
 const RichText: React.FC<{ children: string }> = ({ children }) => {
   return (
-    <div className="home-column__grid">
+    <div className="flex-column__grid">
       <h1 className="richtext-topic">{children}</h1>
     </div>
   );

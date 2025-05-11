@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
-import { useProducts } from "../features/products/hooks/productsHooks";
-import { Product } from "../features/products/api";
+import { useProducts } from "../../features/products/hooks/productsHooks";
+import { Product } from "../../features/products/api";
+
 
 interface Props {
   limit?: number;
   offset?: number;
 }
 
-const ProductScroll = ({ limit = 8, offset = 0 }: Props) => {
+const SliderComponent = ({ limit = 8, offset = 0 }: Props) => {
   const { data: products = [] } = useProducts();
   const visible = products.slice(offset, offset + limit);
 
@@ -32,4 +33,4 @@ const ProductScroll = ({ limit = 8, offset = 0 }: Props) => {
   );
 };
 
-export default ProductScroll;
+export default SliderComponent;
