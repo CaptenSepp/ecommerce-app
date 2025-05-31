@@ -1,4 +1,3 @@
-// Products.tsx
 import { Heart, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -62,23 +61,33 @@ const Products = () => {
               {cat.name}
             </label>
           ))}
-
         </form>
       </aside>
 
-      {/* ───── Produkt-Grid */}
-      <section className="flex-1 grid__cards ">
+      {/* ───── Produkt-Grid ───── */}
+      <section className="flex-1 grid__cards">
         {filtered.map((product: Product) => (
           <div
             key={product.id}
-            className="card card--product bg-cover bg-center backgroundcolor-brand-gray"
+            className="card card--product bg-cover bg-center relative overflow-hidden"
             style={{ backgroundImage: `url(${product.thumbnail})` }}
           >
-            <Link to={`/products/${product.id}`} className="absolute inset-0" />
+            <Link
+              to={`/products/${product.id}`}
+              className="absolute inset-0 z-10 block cursor-pointer"
+              aria-label={`View ${product.title}`}
+              onClick={(e) => {
+                const target = e.target as HTMLElement
+                if (target.closest('button')) {
+                  e.preventDefault()
+                  e.stopPropagation()
+                }
+              }}
+            >
+              <span className="sr-only">View {product.title}</span>
+            </Link>
 
-            <span className="overlay" />
-
-            <div className="card--product__content">
+            <div className="relative z-20 card--product__content text-white">
               <h3 className="font-semibold">{product.title}</h3>
               <p className="text-sm mb-2">{product.brand}</p>
               <p className="text-brand-orange font-bold mb-3">${product.price}</p>
@@ -86,22 +95,22 @@ const Products = () => {
               <div className="flex gap-2">
                 <button
                   onClick={() => dispatch(addToCart(product))}
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-primary btn-sm z-30 relative"
                 >
                   <ShoppingCart size={14} /> Add
                 </button>
                 <button
                   onClick={() => dispatch(toggleWishlist(product))}
-                  className="btn btn-secondary btn-sm"
+                  className="btn btn-secondary btn-sm z-30 relative"
                 >
                   <Heart size={14} /> Wish
                 </button>
               </div>
             </div>
           </div>
+
         ))}
       </section>
-
     </div>
   )
 }
