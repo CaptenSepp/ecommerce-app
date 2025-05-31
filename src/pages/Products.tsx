@@ -1,7 +1,8 @@
 // Products.tsx
-import { Heart, Link, ShoppingCart } from 'lucide-react'
+import { Heart, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { addToCart } from '../features/cart/cartSlice'
 import { Product } from '../features/products/api'
 import { useCategories, useProducts } from '../features/products/hooks/productsHooks'
@@ -28,7 +29,7 @@ const Products = () => {
       ex => !categories.some(c => c.slug === ex.slug)
     ),
   ]
- 
+
   const filtered = selectedCategory
     ? products.filter(p => p.category === selectedCategory)
     : products
@@ -65,7 +66,7 @@ const Products = () => {
         </form>
       </aside>
 
-      {/* ───── Produkt-Grid 3 Spalten ───── */}
+      {/* ───── Produkt-Grid */}
       <section className="flex-1 grid__cards ">
         {filtered.map((product: Product) => (
           <div
@@ -73,13 +74,10 @@ const Products = () => {
             className="card card--product bg-cover bg-center backgroundcolor-brand-gray"
             style={{ backgroundImage: `url(${product.thumbnail})` }}
           >
-            {/* Klickbare Fläche für Produkt­details */}
             <Link to={`/products/${product.id}`} className="absolute inset-0" />
 
-            {/* Halbtransparenter Over­lay */}
             <span className="overlay" />
 
-            {/* Inhalt über dem Bild */}
             <div className="card--product__content">
               <h3 className="font-semibold">{product.title}</h3>
               <p className="text-sm mb-2">{product.brand}</p>

@@ -13,7 +13,6 @@ interface Props {
 }
 
 const CategoryGrid = ({ cards }: Props) => (
-  // vorhandene Utility-Klasse grid__cards wiederverwenden
   <section className="grid__cards">
     {cards.map((card) => (
       <CategoryGridCard

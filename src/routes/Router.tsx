@@ -3,15 +3,15 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import Layout from "../pages/layout/Layout";
 import About from "../pages/About";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
+import Layout from "../pages/layout/Layout";
+import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import ProductDetails from "../pages/ProductDetails";
 import Products from "../pages/Products";
 import Wishlist from "../pages/Wishlist";
-import Login from "../pages/Login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,6 +51,7 @@ const router = createBrowserRouter(
         path="login"
         element={<Login />}
       />
+
     </Route>
   )
 );

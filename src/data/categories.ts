@@ -1,4 +1,3 @@
-// Globale Kategorie-Definition für HomeCardGrid & Co.
 export interface CategoryCard {
   id: string;
   img: string;
@@ -6,7 +5,6 @@ export interface CategoryCard {
   href: string;
 }
 
-/** Master-Liste (bei Bedarf einfach um weitere Objekte ergänzen) */
 export const categoryCards: CategoryCard[] = [
   {
     id: "groceries",
@@ -34,6 +32,5 @@ export const categoryCards: CategoryCard[] = [
   },
 ];
 
-/* Feste 2er-Blöcke für die drei Grids auf der Startseite */
 export const gridTop = categoryCards.slice(0, 2);
 export const gridMiddle = categoryCards.slice(2, 4);

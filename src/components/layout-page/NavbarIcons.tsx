@@ -1,9 +1,9 @@
-import { Heart, Info, ShoppingCart, User } from "lucide-react";
+import { Heart, Info, ShoppingCart } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import LoginDrawer from "./LoginDrawer";
 
 const iconClass = (isActive: boolean) =>
-  `p-2 rounded-md transition ${
-    isActive ? "bg-brand-navy text-white" : "hover:bg-gray-100"
+  `p-2 rounded-md transition ${isActive ? "bg-brand-navy text-white" : "hover:bg-gray-100"
   }`;
 
 const NavbarIcons = () => {
@@ -27,12 +27,13 @@ const NavbarIcons = () => {
       >
         <Info size={20} />
       </NavLink>
-      <NavLink
+      {/* <NavLink
         to="/login"
         className={({ isActive }) => iconClass(isActive)}
       >
         <User size={20} />
-      </NavLink>
+      </NavLink> */}
+      <LoginDrawer />
     </div>
   );
 };

@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 const ContactSection = () => {
-  // Local state to store form values (no actual submit logic yet)
+  // Local state to store form values
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
 
