@@ -18,23 +18,9 @@ const NavbarCategories = () => {
       >
         Products
       </NavLink>
-      <NavLink
-        to="/products"
-        className={({ isActive }) => navClass(isActive)}
-      >
-        Products
-      </NavLink>
-      <NavLink
-        to="/products"
-        className={({ isActive }) => navClass(isActive)}
-      >
-        Products
-      </NavLink>
-      <NavLink
-        to="/products"
-        className={({ isActive }) => navClass(isActive)}
-      >
-        Products
+
+      <NavLink to="/alt-products" className={({ isActive }) => navClass(isActive)}>
+        Alt Products
       </NavLink>
     </div>
   );
