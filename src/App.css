@@ -73,6 +73,14 @@
 /*********************
  * Products Cards *
  *********************/
+
+.card {
+  @apply rounded-lg bg-orange-100 hover:shadow-sm transition p-4;
+}
+
+.card--product{
+  @apply max-h-700 max-w-80
+}
 .card--product:hover {
   @apply -translate-y-[3px];
 } /* transform via util */
@@ -85,6 +93,22 @@
  *******************/
 .footer {
   @apply bg-[color:var(--brand-navy)] text-white text-center p-6 text-[length:var(--fs-sm)];
+}
+
+/******************
+ * Login Page *
+ ******************/
+
+.login-wrapper {
+  @apply container  max-w-md mx-auto;
+}
+
+.login-box {
+  @apply w-full max-w-sm p-6 m-auto bg-white rounded-lg shadow-md;
+}
+
+.login-logo {
+  @apply w-auto h-7 sm:h-8;
 }
 
 /****************************************************

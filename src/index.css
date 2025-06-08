@@ -1,29 +1,30 @@
-/* ------------------------------------------------------------------
-   Tailwind v4: offizielle Direktiven statt @import                 */
-/* ------------------------------------------------------------------ */
 
 @import "tailwindcss";
 
-/* Register custom layers (bleibt gültig) */
+@theme {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
 @layer theme, base, components, utilities;
 
 /* --- THEME TOKENS ------------------------------------------------ */
 @layer theme {
   :root {
-    /* Farbpalette & Typo wie gehabt */
     --brand-white: #ffffff;
     --brand-black: #111111;
     --brand-orange: #ff7d1a;
     --brand-orange-hover: #ffa159;
     --brand-navy: #12356b;
 
-    /* fluid root-font-size */
     font-size: 62.5%;
     @media (max-width: 480px) {
       font-size: 56.25%;
     }
 
-    /* rem-Slots bleiben */
     --fs-xs: 0.5rem;
     --fs-sm: 1rem;
     --fs-md: 1.25rem;
@@ -85,13 +86,6 @@
             px-4 py-2 touch-manipulation; /* UPDATE: @apply statt raw padding  */
   }
 
-  @screen sm {
-    /* UPDATE: Tailwind v4 @screen helper */
-    .btn {
-      @apply px-5 py-3;
-    } /*   ersetzt manuelles @media        */
-  }
-
   .btn-primary {
     @apply bg-[color:var(--brand-orange)] text-white;
   }
@@ -100,7 +94,7 @@
   }
 
   .btn-secondary {
-    @apply border text-[color:var(--brand-black)];
+    @apply p-2 text-sm font-medium text-gray-500 transition-colors duration-300 transform bg-gray-300 rounded-lg hover:bg-gray-200;
   }
   .btn-secondary:hover {
     @apply bg-[color:var(--brand-black)] text-white;
@@ -108,7 +102,7 @@
 
   .btn-icon {
     @apply p-1;
-  } /* padding via util */
+  }
 
   .btn-danger {
     @apply bg-red-600 text-white;
@@ -117,17 +111,10 @@
     @apply bg-red-800;
   }
 
-  /* Card */
-  .card {
-    @apply rounded-lg border border-gray-200 bg-white shadow-sm
-            hover:shadow-md transition p-4;
+  .submit-button {
+    @apply w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring ;
   }
-  @screen xs {
-    .card {
-      @apply p-3;
-    }
-  } /* UPDATE: xs-Breakpoint */
-
+  
   /* Navigation */
   .nav-link {
     @apply px-3 py-2 rounded-md font-medium text-[color:var(--brand-black)];
@@ -137,6 +124,10 @@
   }
   .nav-link-active {
     @apply bg-[color:var(--brand-orange)] text-white;
+  }
+
+  .input-field {
+    @apply block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring focus:ring-blue-300 focus:outline-none;
   }
 }
 
@@ -158,7 +149,6 @@
     background: var(--brand-navy);
   }
 
-  /* line-clamp-2 existiert in Tailwind v4 – hier nur Fallback */
   .line-clamp-2 {
     @apply overflow-hidden;
     display: -webkit-box;
