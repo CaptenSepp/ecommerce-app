@@ -3,12 +3,13 @@ import { NavLink } from "react-router-dom";
 import { Heart, Info, ShoppingCart } from "lucide-react";
 import { FiLogIn } from "react-icons/fi";
 import LoginPage from "../../pages/Login";
+import logoUrl from "../../assets/logos/logo.svg";
 
 const Logo = () => {
   return (
     <div className="flex items-center justify-center p-4">
       <NavLink to="/" end className="hover:opacity-60 transition-opacity duration-200">
-        <img src="../src/assets/logos/logo.svg" alt="Home" className="h-12" />
+        <img src={logoUrl} alt="Home" className="h-12" />
       </NavLink>
     </div>
   );
@@ -21,12 +22,6 @@ const NavbarCategories = () => {
     <div>
       <NavLink to="/products" className={({ isActive }) => getNavLinkClassName(isActive)}>
         Products
-      </NavLink>
-      <NavLink to="/products" className={({ isActive }) => getNavLinkClassName(isActive)}>
-        Products
-      </NavLink>
-      <NavLink to="/alt-products" className={({ isActive }) => getNavLinkClassName(isActive)}>
-        Alt Products
       </NavLink>
     </div>
   );
@@ -102,3 +97,4 @@ const Header = () => {
 };
 
 export default Header;
+

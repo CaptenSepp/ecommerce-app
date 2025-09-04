@@ -8,25 +8,25 @@ export interface CategoryCard {
 export const categoryCards: CategoryCard[] = [
   {
     id: "groceries",
-    img: "/src/assets/images/groceries.jpg",
+    img: imgGroceries,
     label: "Groceries",
     href: "/products?cat=groceries",
   },
   {
     id: "furniture",
-    img: "/src/assets/images/furniture.jpg",
+    img: imgFurniture,
     label: "Furniture",
     href: "/products?cat=furniture",
   },
   {
     id: "beauty",
-    img: "/src/assets/images/beauty.jpg",
+    img: imgBeauty,
     label: "Beauty",
     href: "/products?cat=beauty",
   },
   {
     id: "fragrances",
-    img: "/src/assets/images/fragrances.jpg",
+    img: imgFragrances,
     label: "Fragrances",
     href: "/products?cat=fragrances",
   },
@@ -34,3 +34,7 @@ export const categoryCards: CategoryCard[] = [
 
 export const gridTop = categoryCards.slice(0, 2);
 export const gridMiddle = categoryCards.slice(2, 4);
+import imgGroceries from '../assets/images/groceries.jpg';
+import imgFurniture from '../assets/images/furniture.jpg';
+import imgBeauty from '../assets/images/beauty.jpg';
+import imgFragrances from '../assets/images/fragrances.jpg';

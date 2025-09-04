@@ -4,7 +4,6 @@ import { getCategories, getProductById, getProducts, Product, Category } from '.
 
 // list
 export function useProducts() {
-  console.log('query ran')
   return useQuery<Product[], Error>({
     queryKey: ['products'],
     queryFn: () => getProducts(),

@@ -4,6 +4,7 @@ import CategoryGrid from "../components/home-page/CategoryGrid";
 import RichText from "../components/home-page/RichText";
 import Scrollbar from "../components/home-page/Scrollbar";
 import { gridMiddle, gridTop } from "../data/categories";
+import heroImg from "../assets/images/fragrances-hero.jpg";
 
 const Home = () => {
   return (
@@ -19,7 +20,8 @@ const Home = () => {
       <div>
         <img
           className="flex-column__banner"
-          src="/src/assets/images/fragrances-hero.jpg"
+          src={heroImg}
+          alt="Fragrances hero"
         />
       </div>
 
@@ -38,7 +40,8 @@ const Home = () => {
       <div>
         <img
           className="flex-column__banner"
-          src="/src/assets/images/fragrances-hero.jpg"
+          src={heroImg}
+          alt="Fragrances hero"
         />
       </div>
 

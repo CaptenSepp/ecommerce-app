@@ -7,7 +7,7 @@ const ProductDetails = () => {
   const productIdNumber = Number(productId)
   const { data: product, isLoading, error } = useProductById(productIdNumber)
 
-  if (isLoading) return <div>Loading…</div>
+  if (isLoading) return <div>Loading...</div>
   if (error) return <div>Error: {error.message}</div>
   if (!product) return <div>Not found</div>
 
@@ -27,3 +27,4 @@ const ProductDetails = () => {
 }
 
 export default ProductDetails
+

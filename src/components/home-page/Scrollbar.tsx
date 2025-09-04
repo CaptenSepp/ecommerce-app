@@ -37,7 +37,7 @@ const ProductScroll = ({ limit = 8, offset = 0 }: ProductScrollProps) => {
           <img
             src={product.thumbnail}
             alt={product.title}
-            className="scroll-row__card__img"
+            className="scroll-row__card_img"
           />
           <p className="font-medium">{product.title}</p>
           <p className="text-brand-orange font-semibold">${product.price}</p>

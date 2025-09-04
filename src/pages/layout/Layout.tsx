@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { NavLink } from "react-router-dom";
 import Header from "../../components/layout-page/Header";
 import Main from "../../components/layout-page/Main";
@@ -28,3 +28,5 @@ const Footer: React.FC = () => (
     © {new Date().getFullYear()} My E-commerce
   </footer>
 );
+
+

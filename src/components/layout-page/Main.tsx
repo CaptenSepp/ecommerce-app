@@ -16,6 +16,8 @@ const Main = () => {
 export default Main;
 
 // Inlined contact section from layout-page/ContactSection
+import heroImg from '../../assets/images/fragrances-hero.jpg';
+
 const ContactSection = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -28,7 +30,7 @@ const ContactSection = () => {
   return (
     <section
       className="contact-section bg-cover-center"
-      style={{ backgroundImage: "url('/src/assets/images/contact-bg.jpg')" }}
+      style={{ backgroundImage: `url(${heroImg})` }}
     >
       <form className="contact-form" onSubmit={handleSubmit}>
         <input

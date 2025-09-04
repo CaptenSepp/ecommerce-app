@@ -23,7 +23,7 @@ const CategoryGridCard = ({ img, label, href }: CategoryCardProps) => {
       <div className="absolute inset-0 bg-black/10" />
       <Link
         to={href}
-        className="absolute left-1/8 bottom-4 -translate-x-1/2 btn btn-primary btn-sm "
+        className="absolute left-1/2 bottom-4 -translate-x-1/2 btn btn-primary btn-sm "
       >
         {label}
       </Link>

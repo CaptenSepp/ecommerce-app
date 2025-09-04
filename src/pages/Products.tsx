@@ -16,7 +16,7 @@ const ProductsPage = () => {
   // Fetch products and categories
   const { data: products = [], isLoading: isProductsLoading } = useProducts();
   const { data: categories = [], isLoading: isCategoriesLoading } = useCategories();
-  if (isProductsLoading || isCategoriesLoading) return <p>Loading…</p>;
+  if (isProductsLoading || isCategoriesLoading) return <p>Loading...</p>;
 
   // Fallback categories if API returns none
   const FALLBACK_CATEGORIES = [
