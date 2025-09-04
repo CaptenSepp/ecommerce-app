@@ -22,3 +22,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# build/output
+dist/
+build/
+.out/
+.next/
+.cache/
+.vite/
+*.log
+
+# dependencies
+node_modules/
+
+# tailwind artifacts (falls generiert)
+*.css
+*.css.map

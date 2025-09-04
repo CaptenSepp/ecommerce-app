@@ -1,42 +1,119 @@
+@import "tailwindcss";
+/********************
+ * Layout wrappers  *
+ ********************/
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  @apply w-full mx-auto;
+} /* UPDATE: Tailwind statt raw */
+
+.layout {
+  @apply flex flex-col gap-y-0 px-4; /* UPDATE: ersetzt old props */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/****************
+ * Header Block *
+ ****************/
+.header {
+  @apply flex p-3 bg-[color:var(--brand-white)];
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.header__items {
+  @apply flex items-center justify-between w-full;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.header__logo_img {
+  @apply h-12;
+} /* Höhe via util */
+.header__icons {
+  @apply flex items-center gap-4;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header__icon-btn {
+  @apply p-2 rounded-md hover:bg-gray-100;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/****************
+ * Body Block *
+ ****************/
+.flex-column {
+  @apply flex flex-col items-center;
 }
+.flex-column__grid {
+  @apply flex p-4;
+}
+.flex-column__banner {
+  @apply w-full;
+}
+
+.grid__cards {
+  @apply grid gap-4 grid-cols-[repeat(auto-fit,minmax(300px,1fr))];
+}
+
+.richtext-topic {
+  font-size: var(--fs-3xl);
+  font-weight: bold;
+  font-family: Georgia, Times, "Times New Roman", serif;
+}
+
+/* Scroll-Row */
+.scroll-row__card {
+  @apply flex gap-6 overflow-x-auto pb-2;
+}
+.scroll-row__card_img {
+  @apply object-cover max-h-12;
+}
+
+/****************
+ * Buttons *
+ ****************/
+.btn-lg {
+  @apply px-7 py-3 text-[length:var(--fs-lg)];
+}
+.btn-sm {
+  @apply px-3 py-1 text-[length:var(--fs-sm)];
+}
+
+/*********************
+ * Products Cards *
+ *********************/
 
 .card {
-  padding: 2em;
+  @apply rounded-lg bg-orange-100 hover:shadow-sm transition p-4;
 }
 
-.read-the-docs {
-  color: #888;
+.card--product{
+  @apply max-h-700 max-w-80
+}
+.card--product:hover {
+  @apply -translate-y-[3px];
+} /* transform via util */
+.card--product_img {
+  @apply min-h-[180px] object-cover rounded-lg;
+}
+
+/*******************
+ * Footer *
+ *******************/
+.footer {
+  @apply bg-[color:var(--brand-navy)] text-white text-center p-6 text-[length:var(--fs-sm)];
+}
+
+/******************
+ * Login Page *
+ ******************/
+
+.login-wrapper {
+  @apply container  max-w-md mx-auto;
+}
+
+.login-box {
+  @apply w-full max-w-sm p-6 m-auto bg-white rounded-lg shadow-md;
+}
+
+.login-logo {
+  @apply w-auto h-7 sm:h-8;
+}
+
+/****************************************************
+ * Utilities (wenn Tailwind fehlt)
+ ****************************************************/
+.truncate {
+  @apply max-w-full overflow-hidden text-ellipsis whitespace-nowrap;
 }
