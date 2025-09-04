@@ -1,7 +1,7 @@
 import { Heart, ShoppingCart } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { addToCart } from "../features/cart/cartSlice";
 import { Product } from "../features/products/api";
 import {
@@ -10,15 +10,12 @@ import {
 } from "../features/products/hooks/productsHooks";
 import { toggleWishlist } from "../features/wishlist/wishlistSlice";
 
-const EXTRA_CATEGORIES = [
-  { slug: "beauty", name: "Beauty" },
-  { slug: "fragrances", name: "Fragrances" },
-  { slug: "furniture", name: "Furniture" },
-  { slug: "groceries", name: "Groceries" },
-];
+
 
 const Products = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const catParam = searchParams.get("cat") || "";
+  const [selectedCategory, setSelectedCategory] = useState(catParam);
   const dispatch = useDispatch();
 
   /* ---- Daten abrufen ---- */
@@ -27,12 +24,18 @@ const Products = () => {
   if (lp || lc) return <p>Loading…</p>;
 
   /* ---- Kategorien mergen ---- */
-  const mergedCats = [
-    ...categories,
-    ...EXTRA_CATEGORIES.filter(
-      (ex) => !categories.some((c) => c.slug === ex.slug)
-    ),
+  const FALLBACK_CATEGORIES = [
+    { slug: "beauty", name: "Beauty" },
+    { slug: "fragrances", name: "Fragrances" },
+    { slug: "furniture", name: "Furniture" },
+    { slug: "groceries", name: "Groceries" },
   ];
+  const mergedCats = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
+
+  // keep local state in sync with query param
+  useEffect(() => {
+    setSelectedCategory(catParam);
+  }, [catParam]);
 
   /* ---- Produkte filtern ---- */
   const filtered = selectedCategory
@@ -51,7 +54,10 @@ const Products = () => {
               name="cat"
               value=""
               checked={selectedCategory === ""}
-              onChange={() => setSelectedCategory("")}
+              onChange={() => {
+                setSelectedCategory("");
+                setSearchParams({});
+              }}
             />
             All
           </label>
@@ -66,7 +72,10 @@ const Products = () => {
                 name="cat"
                 value={cat.slug}
                 checked={selectedCategory === cat.slug}
-                onChange={() => setSelectedCategory(cat.slug)}
+                onChange={() => {
+                  setSelectedCategory(cat.slug);
+                  setSearchParams(cat.slug ? { cat: cat.slug } : {});
+                }}
               />
               {cat.name}
             </label>
@@ -127,3 +136,4 @@ const Products = () => {
 };
 
 export default Products;
+

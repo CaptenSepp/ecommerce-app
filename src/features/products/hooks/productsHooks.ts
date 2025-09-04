@@ -1,6 +1,6 @@
 // src/features/products/productsHooks.ts
 import { useQuery } from '@tanstack/react-query'
-import { getCategories, getProductById, getProducts, Product } from '../api'
+import { getCategories, getProductById, getProducts, Product, Category } from '../api'
 
 // list
 export function useProducts() {
@@ -28,7 +28,7 @@ export function useProduct(id: number) {
 }
 
 export const useCategories = () => {
-  return useQuery({
+  return useQuery<Category[], Error>({
     queryKey: ['categories'],
     queryFn: () => getCategories(),
     staleTime: 5 * 60 * 1000,

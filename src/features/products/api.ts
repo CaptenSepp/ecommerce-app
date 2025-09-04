@@ -14,6 +14,11 @@ export interface Product {
   images: string[];
 }
 
+export interface Category {
+  slug: string;
+  name: string;
+}
+
 // fetch list
 export async function getProducts(): Promise<Product[]> {
   const res = await fetch("https://dummyjson.com/products"); // fetches the list of products
@@ -28,9 +33,16 @@ export async function getProductById(id: number): Promise<Product> {
   return (await res.json()) as Product;
 }
 
-export async function getCategories(): Promise<
-  { slug: string; name: string; url: string }[]
-> {
-  const res = await fetch("/api/categories");
-  return res.json();
+// fetch categories from DummyJSON and map to Category
+export async function getCategories(): Promise<Category[]> {
+  const res = await fetch("https://dummyjson.com/products/categories");
+  if (!res.ok) throw new Error("Failed to fetch categories");
+  const list: string[] = await res.json();
+  return list.map((slug) => ({
+    slug,
+    name: slug
+      .split("-")
+      .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+      .join(" "),
+  }));
 }
