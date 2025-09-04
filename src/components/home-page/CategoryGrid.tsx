@@ -1,7 +1,7 @@
 // Reiner Presentational-Wrapper für eine Gruppe von HomeCards
-import CategoryGridCard from "./CategoryGridCard";
+import { Link } from "react-router-dom";
 
-interface Card {
+interface CategoryCardProps {
   id: string;
   img: string;
   label: string;
@@ -9,16 +9,32 @@ interface Card {
 }
 
 interface Props {
-  cards: Card[];
+  cards: CategoryCardProps[];
 }
+
+const CategoryGridCard = ({ img, label, href }: CategoryCardProps) => {
+  return (
+    <div className="relative group h-64 sm:h-80 overflow-hidden rounded-lg">
+      <img
+        src={img}
+        alt={label}
+        className="w-full h-full object-cover transition duration-300 group-hover:brightness-110"
+      />
+      <div className="absolute inset-0 bg-black/10" />
+      <Link
+        to={href}
+        className="absolute left-1/8 bottom-4 -translate-x-1/2 btn btn-primary btn-sm "
+      >
+        {label}
+      </Link>
+    </div>
+  );
+};
 
 const CategoryGrid = ({ cards }: Props) => (
   <section className="grid__cards">
     {cards.map((card) => (
-      <CategoryGridCard
-        key={card.id}
-        {...card}
-      />
+      <CategoryGridCard key={card.id} {...card} />
     ))}
   </section>
 );

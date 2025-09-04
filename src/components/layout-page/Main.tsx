@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import ContactSection from "./ContactSection";
+import { useState } from 'react'
 
 const Main = () => {
   return (
@@ -14,3 +14,43 @@ const Main = () => {
 };
 
 export default Main;
+
+// Inlined contact section from layout-page/ContactSection
+const ContactSection = () => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    alert(`Thanks, ${name}! We'll reach you at ${email}.`)
+  }
+
+  return (
+    <section
+      className="contact-section bg-cover-center"
+      style={{ backgroundImage: "url('/src/assets/images/contact-bg.jpg')" }}
+    >
+      <form className="contact-form" onSubmit={handleSubmit}>
+        <input
+          className="contact-input"
+          type="text"
+          placeholder="Your name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+        />
+        <input
+          className="contact-input"
+          type="email"
+          placeholder="Email address"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+        />
+        <button className="btn btn-primary btn-sm" type="submit">
+          Subscribe
+        </button>
+      </form>
+    </section>
+  )
+}
