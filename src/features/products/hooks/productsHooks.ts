@@ -16,7 +16,7 @@ export function useProducts() {
 }
 
 // single
-export function useProduct(id: number) {
+export function useProductById(id: number) {
   return useQuery<Product, Error>({
     queryKey: ['product', id],
     queryFn: () => getProductById(id),

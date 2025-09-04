@@ -4,47 +4,42 @@ import { useDispatch } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import { addToCart } from "../features/cart/cartSlice";
 import { Product } from "../features/products/api";
-import {
-  useCategories,
-  useProducts,
-} from "../features/products/hooks/productsHooks";
+import { useCategories, useProducts } from "../features/products/hooks/productsHooks";
 import { toggleWishlist } from "../features/wishlist/wishlistSlice";
 
-
-
-const Products = () => {
+const ProductsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const catParam = searchParams.get("cat") || "";
-  const [selectedCategory, setSelectedCategory] = useState(catParam);
+  const categoryQueryParam = searchParams.get("cat") || "";
+  const [selectedCategory, setSelectedCategory] = useState(categoryQueryParam);
   const dispatch = useDispatch();
 
-  /* ---- Daten abrufen ---- */
-  const { data: products = [], isLoading: lp } = useProducts();
-  const { data: categories = [], isLoading: lc } = useCategories();
-  if (lp || lc) return <p>Loading…</p>;
+  // Fetch products and categories
+  const { data: products = [], isLoading: isProductsLoading } = useProducts();
+  const { data: categories = [], isLoading: isCategoriesLoading } = useCategories();
+  if (isProductsLoading || isCategoriesLoading) return <p>Loading…</p>;
 
-  /* ---- Kategorien mergen ---- */
+  // Fallback categories if API returns none
   const FALLBACK_CATEGORIES = [
     { slug: "beauty", name: "Beauty" },
     { slug: "fragrances", name: "Fragrances" },
     { slug: "furniture", name: "Furniture" },
     { slug: "groceries", name: "Groceries" },
   ];
-  const mergedCats = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
+  const availableCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
 
-  // keep local state in sync with query param
+  // Keep local state in sync with query param
   useEffect(() => {
-    setSelectedCategory(catParam);
-  }, [catParam]);
+    setSelectedCategory(categoryQueryParam);
+  }, [categoryQueryParam]);
 
-  /* ---- Produkte filtern ---- */
-  const filtered = selectedCategory
-    ? products.filter((p) => p.category === selectedCategory)
+  // Filter products by selected category
+  const filteredProducts = selectedCategory
+    ? products.filter((product) => product.category === selectedCategory)
     : products;
 
   return (
     <div className="px-4 py-8 flex gap-8">
-      {/* ───── Sidebar Filter ───── */}
+      {/* Sidebar Filter */}
       <aside className="w-52 shrink-0 space-y-4">
         <h2 className="font-semibold">Filter & Sort</h2>
         <form className="space-y-2 text-sm">
@@ -62,11 +57,8 @@ const Products = () => {
             All
           </label>
 
-          {mergedCats.map((cat) => (
-            <label
-              key={cat.slug}
-              className="flex items-center gap-2"
-            >
+          {availableCategories.map((cat) => (
+            <label key={cat.slug} className="flex items-center gap-2">
               <input
                 type="radio"
                 name="cat"
@@ -83,9 +75,9 @@ const Products = () => {
         </form>
       </aside>
 
-      {/* ───── Produkt-Grid ───── */}
+      {/* Product Grid */}
       <section className="flex-1 grid__cards">
-        {filtered.map((product: Product) => (
+        {filteredProducts.map((product: Product) => (
           <Link
             key={product.id}
             to={`/products/${product.id}`}
@@ -93,17 +85,15 @@ const Products = () => {
             style={{ backgroundImage: `url(${product.thumbnail})` }}
             aria-label={`View ${product.title}`}
           >
-            {/* Leichter Overlay für bessere Lesbarkeit */}
+            {/* Overlay for readability */}
             <span className="inset-0 absolute" />
 
             <div className="relative flex flex-col justify-end">
               <h3 className="font-semibold">{product.title}</h3>
               <p className="text-sm mb-2">{product.brand}</p>
-              <p className="text-brand-orange font-bold mb-4">
-                ${product.price}
-              </p>
+              <p className="text-brand-orange font-bold mb-4">${product.price}</p>
 
-              {/* ----- Buttons: Navigation blockieren ----- */}
+              {/* Buttons: prevent navigation */}
               <div className="flex gap-2">
                 <button
                   onClick={(e) => {
@@ -135,5 +125,5 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductsPage;
 

@@ -1,11 +1,11 @@
 // src/pages/ProductDetails.tsx
 import { Link, useParams } from 'react-router-dom'
-import { useProduct } from '../features/products/hooks/productsHooks'
+import { useProductById } from '../features/products/hooks/productsHooks'
 
 const ProductDetails = () => {
   const { productId } = useParams<{ productId: string }>()
-  const id = Number(productId)
-  const { data: product, isLoading, error } = useProduct(id)
+  const productIdNumber = Number(productId)
+  const { data: product, isLoading, error } = useProductById(productIdNumber)
 
   if (isLoading) return <div>Loading…</div>
   if (error) return <div>Error: {error.message}</div>
@@ -13,7 +13,7 @@ const ProductDetails = () => {
 
   return (
     <div>
-      <h1 className="text-2xl mb-4">Product Detail: {id}</h1>
+      <h1 className="text-2xl mb-4">Product Detail: {productIdNumber}</h1>
       <Link to="/products" className="text-blue-600 hover:underline">
         ← Back to products
       </Link>

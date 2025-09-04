@@ -1,16 +1,16 @@
 // src/components/LoginDrawer.tsx
 import { useState } from "react";
 import { FiLogIn } from "react-icons/fi";
-import Login from "../../pages/Login";
+import LoginPage from "../../pages/Login";
 
 const LoginDrawer = () => {
-  const [open, setOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <>
       {/* Trigger-Button */}
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => setIsDrawerOpen(true)}
         className=""
       >
         <FiLogIn
@@ -20,10 +20,10 @@ const LoginDrawer = () => {
       </button>
 
       {/* Backdrop */}
-      {open && (
+      {isDrawerOpen && (
         <div
           className="fixed inset-0 bg-black/40 backdrop-blur-xs z-40"
-          onClick={() => setOpen(false)}
+          onClick={() => setIsDrawerOpen(false)}
         />
       )}
 
@@ -31,10 +31,10 @@ const LoginDrawer = () => {
       <aside
         className={`fixed right-0 top-0 h-screen bg-white shadow-lg z-50
                     transition-transform duration-300
-                    ${open ? "translate-x-0" : "translate-x-full"}`}
+                    ${isDrawerOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         <button
-          onClick={() => setOpen(false)}
+          onClick={() => setIsDrawerOpen(false)}
           className="absolute top-4 right-4 text-2xl"
           aria-label="Close"
         >
@@ -42,7 +42,7 @@ const LoginDrawer = () => {
         </button>
 
         <div className="p-6">
-          <Login /> {/* vorhandene Login-Komponente */}
+          <LoginPage /> {/* vorhandene Login-Komponente */}
         </div>
       </aside>
     </>

@@ -7,10 +7,10 @@ import About from "../pages/About";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
 import Layout from "../pages/layout/Layout";
-import Login from "../pages/Login";
-import NotFound from "../pages/NotFound";
+import LoginPage from "../pages/Login";
+import NotFoundPage from "../pages/NotFound";
 import ProductDetails from "../pages/ProductDetails";
-import Products from "../pages/Products";
+import ProductsPage from "../pages/Products";
 import Wishlist from "../pages/Wishlist";
 
 const router = createBrowserRouter(
@@ -25,7 +25,7 @@ const router = createBrowserRouter(
       />
       <Route
         path="products"
-        element={<Products />}
+        element={<ProductsPage />}
       />
       <Route
         path="products/:productId"
@@ -45,11 +45,11 @@ const router = createBrowserRouter(
       />
       <Route
         path="*"
-        element={<NotFound />}
+        element={<NotFoundPage />}
       />
       <Route
         path="login"
-        element={<Login />}
+        element={<LoginPage />}
       />
 
     </Route>
