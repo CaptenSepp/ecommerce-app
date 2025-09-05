@@ -1,4 +1,4 @@
-// src/features/products/api.ts
+// src/features/products/services.ts
 
 export interface Product {
   id: number;

@@ -1,6 +1,6 @@
 // src/pages/Cart.tsx
-import CartItemsList from '../components/cart/CartItemsList'
-import CartSummary from '../components/cart/CartSummary'
+import CartItemsList from '../features/cart/components/CartItemsList'
+import CartSummary from '../features/cart/components/CartSummary'
 
 const CartPage = () => {
   return (
@@ -18,4 +18,3 @@ const CartPage = () => {
 }
 
 export default CartPage
-

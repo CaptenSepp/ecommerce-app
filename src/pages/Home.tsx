@@ -1,9 +1,9 @@
 // src/pages/Home.tsx
-import Banner from "../components/home-page/Banner";
-import CategoryGrid from "../components/home-page/CategoryGrid";
-import RichText from "../components/home-page/RichText";
-import Scrollbar from "../components/home-page/Scrollbar";
-import { gridMiddle, gridTop } from "../data/categories";
+import Banner from "./Home/components/Banner";
+import CategoryGrid from "./Home/components/CategoryGrid";
+import RichText from "./Home/components/RichText";
+import Scrollbar from "./Home/components/Scrollbar";
+import { gridMiddle, gridTop } from "../features/products/data/categories";
 import heroImg from "../assets/images/fragrances-hero.jpg";
 
 const Home = () => {

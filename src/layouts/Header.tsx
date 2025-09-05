@@ -3,9 +3,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Heart, Info, ShoppingCart } from "lucide-react";
 import { FiLogIn } from "react-icons/fi";
-import LoginPage from "../../pages/Login";
-import logoUrl from "../../assets/logos/logo.svg";
-import { RootState } from "../../store/store";
+import LoginPage from "../pages/Login";
+import logoUrl from "../assets/logos/logo.svg";
+import { RootState } from "../app/store";
 
 const Logo = () => {
   return (

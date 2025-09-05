@@ -6,7 +6,7 @@ import {
 import About from "../pages/About";
 import Cart from "../pages/Cart";
 import Home from "../pages/Home";
-import Layout from "../pages/layout/Layout";
+import Layout from "../layouts/RootLayout";
 import LoginPage from "../pages/Login";
 import NotFoundPage from "../pages/NotFound";
 import ProductDetails from "../pages/ProductDetails";
