@@ -1,6 +1,6 @@
 // src/App.tsx
 import { RouterProvider } from 'react-router-dom'
-import router from './app/router'
+import router from '@/app/router'
 
 const App = () => (
 

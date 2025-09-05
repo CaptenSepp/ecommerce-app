@@ -1,10 +1,7 @@
 // src/pages/Home.tsx
-import Banner from "./Home/components/Banner";
-import CategoryGrid from "./Home/components/CategoryGrid";
-import RichText from "./Home/components/RichText";
-import Scrollbar from "./Home/components/Scrollbar";
-import { gridMiddle, gridTop } from "../features/products/data/categories";
-import heroImg from "../assets/images/fragrances-hero.jpg";
+import { Banner, CategoryGrid, RichText, Scrollbar } from "@/pages/Home/components";
+import { gridMiddle, gridTop } from "@/features/products/data/categories";
+import heroImg from "@/assets/images/fragrances-hero.jpg";
 
 const Home = () => {
   return (

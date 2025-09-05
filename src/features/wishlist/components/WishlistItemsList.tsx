@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
-import { RootState, useAppDispatch } from '../../../app/store'
-import { addToCart } from '../../features/cart/cartSlice'
-import { toggleWishlist } from '../../features/wishlist/wishlistSlice'
+import { RootState, useAppDispatch } from '@/app/store'
+import { addToCart } from '@/features/cart/cartSlice'
+import { toggleWishlist } from '@/features/wishlist/wishlistSlice'
 import { Link } from 'react-router-dom'
 
 const WishlistItemsList = () => {

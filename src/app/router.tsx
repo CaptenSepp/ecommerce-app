@@ -3,17 +3,17 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import About from "../pages/About";
-import Cart from "../pages/Cart";
-import Home from "../pages/Home";
-import Layout from "../layouts/RootLayout";
-import LoginPage from "../pages/Login";
-import NotFoundPage from "../pages/NotFound";
-import ProductDetails from "../pages/ProductDetails";
-import ProductsPage from "../pages/Products";
-import Wishlist from "../pages/Wishlist";
-import Checkout from "../pages/Checkout";
-import OrderConfirmation from "../pages/OrderConfirmation";
+import About from "@/pages/About";
+import Cart from "@/pages/Cart";
+import Home from "@/pages/Home";
+import Layout from "@/layouts/RootLayout";
+import LoginPage from "@/pages/Login";
+import NotFoundPage from "@/pages/NotFound";
+import ProductDetails from "@/pages/ProductDetails";
+import ProductsPage from "@/pages/Products";
+import Wishlist from "@/pages/Wishlist";
+import Checkout from "@/pages/Checkout";
+import OrderConfirmation from "@/pages/OrderConfirmation";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

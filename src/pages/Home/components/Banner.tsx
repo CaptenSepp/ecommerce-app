@@ -1,4 +1,4 @@
-import heroImg from "../../../assets/images/fragrances-hero.jpg";
+import heroImg from "@/assets/images/fragrances-hero.jpg";
 
 const Banner = () => {
   return (

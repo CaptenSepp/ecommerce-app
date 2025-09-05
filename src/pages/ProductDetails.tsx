@@ -1,10 +1,10 @@
 ﻿// src/pages/ProductDetails.tsx
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useProductById } from '../features/products/hooks'
-import { addToCart } from '../features/cart/cartSlice'
-import { toggleWishlist } from '../features/wishlist/wishlistSlice'
-import { useToast } from '../components/ui/Toast'
+import { useProductById } from '@/features/products/hooks'
+import { addToCart } from '@/features/cart/cartSlice'
+import { toggleWishlist } from '@/features/wishlist/wishlistSlice'
+import { useToast } from '@/components/ui/Toast'
 
 const ProductDetails = () => {
   const dispatch = useDispatch()

@@ -1,8 +1,8 @@
 // src/pages/Wishlist.tsx
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../app/store'
-import { clearWishlist } from '../features/wishlist/wishlistSlice'
-import WishlistItemsList from '../features/wishlist/components/WishlistItemsList'
+import { RootState } from '@/app/store'
+import { clearWishlist } from '@/features/wishlist/wishlistSlice'
+import WishlistItemsList from '@/features/wishlist/components/WishlistItemsList'
 
 const WishlistPage = () => {
   const dispatch = useDispatch()

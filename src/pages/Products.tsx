@@ -2,11 +2,11 @@ import { Heart, ShoppingCart } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
-import { addToCart } from "../features/cart/cartSlice";
-import { Product } from "../features/products/services";
-import { useCategories, useProducts } from "../features/products/hooks";
-import { toggleWishlist } from "../features/wishlist/wishlistSlice";
-import { useToast } from "../components/ui/Toast";
+import { addToCart } from "@/features/cart/cartSlice";
+import { Product } from "@/features/products/services";
+import { useCategories, useProducts } from "@/features/products/hooks";
+import { toggleWishlist } from "@/features/wishlist/wishlistSlice";
+import { useToast } from "@/components/ui/Toast";
 
 const ProductsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();

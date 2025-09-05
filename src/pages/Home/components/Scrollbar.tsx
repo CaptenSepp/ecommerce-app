@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { useProducts } from "../../../features/products/hooks";
-import { Product } from "../../../features/products/services";
+import { useProducts } from "@/features/products/hooks";
+import { Product } from "@/features/products/services";
 
 type ScrollbarProps = {
   count: number;

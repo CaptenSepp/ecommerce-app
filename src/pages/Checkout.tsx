@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
-import { RootState, useAppDispatch } from '../app/store'
-import { clearCart } from '../features/cart/cartSlice'
+import { RootState, useAppDispatch } from '@/app/store'
+import { clearCart } from '@/features/cart/cartSlice'
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 

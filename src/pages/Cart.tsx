@@ -1,6 +1,6 @@
 // src/pages/Cart.tsx
-import CartItemsList from '../features/cart/components/CartItemsList'
-import CartSummary from '../features/cart/components/CartSummary'
+import CartItemsList from '@/features/cart/components/CartItemsList'
+import CartSummary from '@/features/cart/components/CartSummary'
 
 const CartPage = () => {
   return (

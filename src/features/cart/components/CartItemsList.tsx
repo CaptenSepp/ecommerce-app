@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
-import { RootState, useAppDispatch } from '../../../app/store'
-import { addToCart, removeFromCart, updateQuantity } from '../../features/cart/cartSlice'
+import { RootState, useAppDispatch } from '@/app/store'
+import { addToCart, removeFromCart, updateQuantity } from '@/features/cart/cartSlice'
 
 const CartItemsList = () => {
   const dispatch = useAppDispatch();

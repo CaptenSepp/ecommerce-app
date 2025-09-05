@@ -1,6 +1,6 @@
 // src/features/wishlist/wishlistSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Product } from '../products/api'
+import { Product } from '../products/services'
 
 interface WishlistState {
   items: Product[]
