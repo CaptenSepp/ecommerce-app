@@ -19,7 +19,7 @@ const Home = () => {
 
       <div>
         <img
-          className="flex-column__banner"
+          className="flex-column__banner full-bleed"
           src={heroImg}
           alt="Fragrances hero"
         />
@@ -39,7 +39,7 @@ const Home = () => {
 
       <div>
         <img
-          className="flex-column__banner"
+          className="flex-column__banner full-bleed"
           src={heroImg}
           alt="Fragrances hero"
         />
