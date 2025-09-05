@@ -2,8 +2,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import cartReducer from '../features/cart/cartSlice'
-
 import wishlistReducer from '../features/wishlist/wishlistSlice'
+import type { Product } from '../features/products/api'
 
 // Safe localStorage helpers
 function loadState<T>(key: string): T | undefined {
@@ -24,8 +24,11 @@ function saveState(key: string, value: unknown) {
   }
 }
 
-const preloadedCart = loadState<{ items: unknown[] }>('cart')
-const preloadedWishlist = loadState<{ items: unknown[] }>('wishlist')
+type PreloadedCart = { items: (Product & { quantity: number })[] }
+type PreloadedWishlist = { items: Product[] }
+
+const preloadedCart = loadState<PreloadedCart>('cart')
+const preloadedWishlist = loadState<PreloadedWishlist>('wishlist')
 
 export const store = configureStore({
   reducer: {
@@ -33,8 +36,8 @@ export const store = configureStore({
     wishlist: wishlistReducer
   },
   preloadedState: {
-    cart: preloadedCart ?? undefined,
-    wishlist: preloadedWishlist ?? undefined
+    cart: (preloadedCart ?? undefined) as any,
+    wishlist: (preloadedWishlist ?? undefined) as any
   }
 })
 
