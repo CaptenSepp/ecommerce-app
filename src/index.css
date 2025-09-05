@@ -105,6 +105,10 @@
             px-4 py-2 touch-manipulation; /* UPDATE: @apply statt raw padding  */
   }
 
+  .btn-sm {
+    @apply text-sm px-2.5 py-1.5;
+  }
+
   .btn-primary {
     @apply bg-[color:var(--brand-orange)] text-white;
   }
@@ -154,6 +158,58 @@
   .input-field:focus {
     border-color: var(--brand-orange);
     box-shadow: 0 0 0 3px var(--brand-orange-100);
+  }
+
+  /* Reusable card/grid */
+  .grid__cards {
+    @apply grid gap-4 sm:gap-6;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  .card {
+    @apply rounded-lg overflow-hidden border border-[color:var(--border-color)] bg-white;
+  }
+
+  .card--product {
+    @apply p-4 min-h-64;
+  }
+
+  /* Line item (cart/wishlist) */
+  .line-item {
+    @apply flex flex-wrap gap-x-4 overflow-hidden rounded-lg border border-[color:var(--border-color)] sm:gap-y-4 lg:gap-6 p-2;
+  }
+  .line-item__actions {
+    @apply flex w-full justify-between border-t border-[color:var(--border-color)] p-4 sm:w-auto sm:border-none sm:pl-0 lg:p-6 lg:pl-0;
+  }
+  .item-title {
+    @apply mb-1 text-lg font-bold text-brand-black lg:text-xl;
+  }
+  .item-brand {
+    @apply block text-muted;
+  }
+  .item-price {
+    @apply mb-1 block font-bold text-brand-black md:text-lg;
+  }
+  .stock-note {
+    @apply block text-sm text-muted;
+  }
+
+  /* Media thumbnail with hover zoom */
+  .media-thumb {
+    @apply group relative block h-48 w-32 overflow-hidden bg-gray-100 sm:h-56 sm:w-40 rounded-md;
+  }
+  .media-thumb__img {
+    @apply h-full w-full object-cover object-center transition duration-200 group-hover:scale-110;
+  }
+
+  /* Empty state text */
+  .empty-state {
+    @apply text-center text-muted;
+  }
+
+  /* Small badge counter (e.g., cart/wishlist) */
+  .badge-counter {
+    @apply absolute -top-2 -right-2 bg-brand-orange text-white rounded-full text-[10px] leading-none px-1.5 py-0.5;
   }
 
   /* Footer navigation: force white text on dark footer */
@@ -221,6 +277,9 @@
 
 /* --- UTILITIES --------------------------------------------------- */
 @layer utilities {
+  .text-muted {
+    color: var(--text-muted);
+  }
   .text-brand-black {
     color: var(--brand-black);
   }
