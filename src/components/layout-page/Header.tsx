@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Heart, Info, ShoppingCart } from "lucide-react";
 import { FiLogIn } from "react-icons/fi";
 import LoginPage from "../../pages/Login";
 import logoUrl from "../../assets/logos/logo.svg";
+import { RootState } from "../../store/store";
 
 const Logo = () => {
   return (
@@ -31,8 +33,8 @@ const LoginDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   return (
     <>
-      <button onClick={() => setIsDrawerOpen(true)} className="">
-        <FiLogIn size={22} color="red" />
+      <button onClick={() => setIsDrawerOpen(true)} className="text-brand-black hover:text-brand-orange">
+        <FiLogIn size={22} />
       </button>
       {isDrawerOpen && (
         <div
@@ -61,16 +63,33 @@ const LoginDrawer = () => {
 };
 
 const getIconLinkClassName = (isActive: boolean) =>
-  `p-2 rounded-md transition ${isActive ? "bg-brand-navy text-white" : "hover:bg-gray-100"}`;
+  `p-2 rounded-md transition ${isActive ? "bg-brand-orange text-white" : "hover:bg-gray-100"}`;
 
 const NavbarIcons = () => {
+  const cartCount = useSelector((s: RootState) => s.cart.items.reduce((sum, it: any) => sum + (it.quantity ?? 0), 0));
+  const wishCount = useSelector((s: RootState) => s.wishlist.items.length);
+
   return (
     <div className="flex items-center gap-3">
       <NavLink to="/cart" className={({ isActive }) => getIconLinkClassName(isActive)}>
-        <ShoppingCart size={20} />
+        <span className="relative inline-flex">
+          <ShoppingCart size={20} />
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-brand-orange text-white rounded-full text-[10px] leading-none px-1.5 py-0.5">
+              {cartCount}
+            </span>
+          )}
+        </span>
       </NavLink>
       <NavLink to="/wishlist" className={({ isActive }) => getIconLinkClassName(isActive)}>
-        <Heart size={20} />
+        <span className="relative inline-flex">
+          <Heart size={20} />
+          {wishCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-brand-orange text-white rounded-full text-[10px] leading-none px-1.5 py-0.5">
+              {wishCount}
+            </span>
+          )}
+        </span>
       </NavLink>
       <NavLink to="/about" className={({ isActive }) => getIconLinkClassName(isActive)}>
         <Info size={20} />

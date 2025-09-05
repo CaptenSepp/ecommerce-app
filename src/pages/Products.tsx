@@ -86,7 +86,7 @@ const ProductsPage = () => {
             aria-label={`View ${product.title}`}
           >
             {/* Overlay for readability */}
-            <span className="inset-0 absolute" />
+            <span className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
             <div className="relative flex flex-col justify-end">
               <h3 className="font-semibold">{product.title}</h3>
@@ -126,4 +126,3 @@ const ProductsPage = () => {
 };
 
 export default ProductsPage;
-

@@ -32,15 +32,15 @@ const ProductScroll = ({ limit = 8, offset = 0 }: ProductScrollProps) => {
         <Link
           to={`/products/${product.id}`}
           key={product.id}
-          className="card min-w-[250px] shrink-0"
+          className="relative shrink-0 rounded-lg overflow-hidden min-w-[250px] min-h-[180px] bg-cover bg-center"
+          style={{ backgroundImage: `url(${product.thumbnail})` }}
+          aria-label={`View ${product.title}`}
         >
-          <img
-            src={product.thumbnail}
-            alt={product.title}
-            className="scroll-row__card_img"
-          />
-          <p className="font-medium">{product.title}</p>
-          <p className="text-brand-orange font-semibold">${product.price}</p>
+          <span className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" aria-hidden="true" />
+          <div className="relative p-3 text-white">
+            <p className="font-semibold line-clamp-2">{product.title}</p>
+            <p className="text-brand-orange font-bold">${product.price}</p>
+          </div>
         </Link>
       ))}
     </div>

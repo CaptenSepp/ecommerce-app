@@ -7,7 +7,7 @@
 } /* UPDATE: Tailwind statt raw */
 
 .layout {
-  @apply flex flex-col gap-y-0 px-4; /* UPDATE: ersetzt old props */
+  @apply flex flex-col gap-y-0 px-4 min-h-screen; /* sticky footer layout */
 }
 
 /****************
@@ -75,7 +75,8 @@
  *********************/
 
 .card {
-  @apply rounded-lg bg-orange-100 hover:shadow-sm transition p-4;
+  @apply rounded-lg hover:shadow-sm transition p-4;
+  background: var(--surface);
 }
 
 .card--product{
@@ -92,7 +93,8 @@
  * Footer *
  *******************/
 .footer {
-  @apply bg-[color:var(--brand-navy)] text-white text-center p-6 text-[length:var(--fs-sm)];
+  @apply text-white text-center p-6 text-[length:var(--fs-sm)];
+  background: var(--brand-black);
 }
 
 /******************
