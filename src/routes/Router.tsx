@@ -12,6 +12,8 @@ import NotFoundPage from "../pages/NotFound";
 import ProductDetails from "../pages/ProductDetails";
 import ProductsPage from "../pages/Products";
 import Wishlist from "../pages/Wishlist";
+import Checkout from "../pages/Checkout";
+import OrderConfirmation from "../pages/OrderConfirmation";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +36,14 @@ const router = createBrowserRouter(
       <Route
         path="cart"
         element={<Cart />}
+      />
+      <Route
+        path="checkout"
+        element={<Checkout />}
+      />
+      <Route
+        path="order-confirmation"
+        element={<OrderConfirmation />}
       />
       <Route
         path="wishlist"

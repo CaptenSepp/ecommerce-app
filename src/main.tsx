@@ -9,13 +9,16 @@ import App from './App';
 import './App.css';
 import './index.css';
 import { store } from './store/store';
+import { ToastProvider } from './components/ui/Toast';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={getQueryClient()}>
-        <App />
+        <ToastProvider>
+          <App />
+        </ToastProvider>
       </QueryClientProvider>
     </Provider>
   </React.StrictMode>

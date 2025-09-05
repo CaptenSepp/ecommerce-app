@@ -4,9 +4,11 @@ import { useDispatch } from 'react-redux'
 import { useProductById } from '../features/products/hooks/productsHooks'
 import { addToCart } from '../features/cart/cartSlice'
 import { toggleWishlist } from '../features/wishlist/wishlistSlice'
+import { useToast } from '../components/ui/Toast'
 
 const ProductDetails = () => {
   const dispatch = useDispatch()
+  const { notify } = useToast()
   const { productId } = useParams<{ productId: string }>()
   const productIdNumber = Number(productId)
   const { data: product, isLoading, error } = useProductById(productIdNumber)
@@ -33,8 +35,18 @@ const ProductDetails = () => {
           <p className="mb-4">{product.description}</p>
           <p className="text-brand-orange font-bold text-xl mb-4">${product.price}</p>
           <div className="flex gap-3">
-            <button className="btn btn-primary" onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
-            <button className="btn btn-secondary" onClick={() => dispatch(toggleWishlist(product))}>Wishlist</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => { dispatch(addToCart(product)); notify('Added to cart', 'success'); }}
+            >
+              Add to Cart
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => { dispatch(toggleWishlist(product)); notify('Wishlist updated', 'info'); }}
+            >
+              Wishlist
+            </button>
           </div>
         </div>
       </div>
