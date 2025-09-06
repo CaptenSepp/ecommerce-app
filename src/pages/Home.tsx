@@ -8,11 +8,11 @@ const Home = () => {
     <div className="flex-column">
       <Banner/>
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"Fresh Picks for You"}</RichText>
 
       <CategoryGrid cards={gridTop} />
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"Shop by Category"}</RichText>
 
       <div>
         <img
@@ -24,15 +24,15 @@ const Home = () => {
 
       <Scrollbar count={0} />
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"Trending Now"}</RichText>
 
       <CategoryGrid cards={gridMiddle} />
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"Top Rated Deals"}</RichText>
 
       <Scrollbar count={8} />
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"Fragrance Spotlight"}</RichText>
 
       <div>
         <img
@@ -42,7 +42,7 @@ const Home = () => {
         />
       </div>
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"More to Explore"}</RichText>
 
       <CategoryGrid cards={gridTop} />
     </div>

@@ -19,25 +19,24 @@ const Banner = () => {
           <div className="absolute left-[clamp(1rem,3vw,4rem)] top-[clamp(2rem,8vw,10rem)]">
             <div className="max-w-prose">
               <h1>
-                Inspiring Quote and
-                <strong className="text-brand-orange"> word in Focus </strong>
-                after it
+                Everyday essentials with a
+                <strong className="text-brand-orange"> bold</strong>
+                
+                touch
               </h1>
 
               <p className="mt-4 text-pretty text-brand-black">
-                {/* TODO must be changed */}
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque,
-                nisi. Natus, provident accusamus impedit minima harum corporis
-                iusto.
+                Discover fresh arrivals and trusted bestsellers curated for your day-to-day.
+                Shop quality products, fair prices, fast delivery.
               </p>
 
               <div className="mt-4 flex gap-4">
-                <a className="btn btn-primary" href="#">
-                  Get Started
+                <a className="btn btn-primary" href="/products">
+                  Shop Now
                 </a>
 
-                <a className="btn btn-secondary" href="#">
-                  Learn More
+                <a className="btn btn-secondary" href="/products?sale=1&sort=price-asc">
+                  Explore Deals
                 </a>
               </div>
             </div>
