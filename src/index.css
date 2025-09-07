@@ -97,6 +97,15 @@
 
 /* --- COMPONENTS -------------------------------------------------- */
 @layer components {
+  /* NEW: Full-width footer with no side padding */
+  .footer {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    background: var(--brand-black);
+    color: #ffffff;
+    text-align: center;
+  }
   /* Buttons */
   .btn {
     @apply inline-flex items-center gap-2 rounded-md font-medium
@@ -223,6 +232,7 @@
 
   /* Footer navigation: force white text on dark footer */
   .footer-nav {
+    padding: 0.5rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;

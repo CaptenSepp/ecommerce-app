@@ -36,7 +36,7 @@
   @apply flex flex-col items-center;
 }
 .flex-column__grid {
-  @apply flex p-4;
+  @apply flex flex-col w-full p-4;
 }
 .flex-column__banner {
   @apply w-full;
@@ -54,7 +54,7 @@
 
 /* Scroll-Row */
 .scroll-row__card {
-  @apply flex gap-6 overflow-x-auto pb-2;
+  @apply flex gap-6 w-full overflow-x-auto overflow-y-hidden pb-2;
 }
 .scroll-row__card_img {
   @apply object-cover max-h-12;
@@ -93,7 +93,7 @@
  * Footer *
  *******************/
 .footer {
-  @apply text-white text-center p-6 text-[length:var(--fs-sm)];
+  @apply text-white text-center text-[length:var(--fs-sm)];
   background: var(--brand-black);
 }
 

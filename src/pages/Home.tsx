@@ -6,7 +6,7 @@ import heroImg from "@/assets/images/fragrances-hero.jpg";
 const Home = () => {
   return (
     <div className="flex-column">
-      <Banner/>
+      <Banner />
 
       <RichText>{"Fresh Picks for You"}</RichText>
 
@@ -14,14 +14,17 @@ const Home = () => {
 
       <RichText>{"Shop by Category"}</RichText>
 
-      <div>
+      {/* NEW: Make banner truly edge-to-edge (full-bleed) */}
+      <div className="full-bleed">
         <img
-          className="flex-column__banner full-bleed"
+          className="flex-column__banner w-full h-auto"
           src={heroImg}
           alt="Fragrances hero"
         />
       </div>
-
+      <div>
+      // scrollbar controller buttons
+      </div>
       <Scrollbar count={0} />
 
       <RichText>{"Trending Now"}</RichText>
@@ -34,9 +37,10 @@ const Home = () => {
 
       <RichText>{"Fragrance Spotlight"}</RichText>
 
-      <div>
+      {/* NEW: Make banner truly edge-to-edge (full-bleed) */}
+      <div className="full-bleed">
         <img
-          className="flex-column__banner full-bleed"
+          className="flex-column__banner w-full h-auto"
           src={heroImg}
           alt="Fragrances hero"
         />

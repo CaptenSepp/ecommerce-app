@@ -1,7 +1,8 @@
 const RichText: React.FC<{ children: string }> = ({ children }) => {
   return (
     <div className="flex-column__grid">
-      <h1 className="richtext-topic">{children}</h1>
+      {/* NEW: Center section titles */}
+      <h1 className="richtext-topic" style={{ textAlign: 'center' }}>{children}</h1>
     </div>
   );
 };
