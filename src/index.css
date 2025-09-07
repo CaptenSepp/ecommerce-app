@@ -67,6 +67,7 @@
     font-family: "Poynter", "New York", serif;
     color: var(--brand-black);
     background: var(--brand-white);
+    overflow-x: hidden;
   }
 
   h1 {
@@ -97,7 +98,6 @@
 
 /* --- COMPONENTS -------------------------------------------------- */
 @layer components {
-  /* NEW: Full-width footer with no side padding */
   .footer {
     width: 100vw;
     margin-left: calc(50% - 50vw);
