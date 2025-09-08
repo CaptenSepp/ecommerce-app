@@ -1,8 +1,9 @@
-const RichText: React.FC<{ children: string }> = ({ children }) => {
+import React from 'react';
+
+const RichText: React.FC<{ children: React.ReactNode; as?: 'h2' | 'h3' | 'p' }> = ({ children, as = 'h2' }) => {
   return (
     <div className="flex-column__grid">
-      {/* NEW: Center section titles */}
-      <h1 className="richtext-topic" style={{ textAlign: 'center' }}>{children}</h1>
+      {React.createElement(as, { className: 'richtext-topic', style: { textAlign: 'center' } }, children)}
     </div>
   );
 };

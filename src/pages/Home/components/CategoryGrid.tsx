@@ -1,4 +1,3 @@
-// Reiner Presentational-Wrapper für eine Gruppe von HomeCards
 import { Link } from "react-router-dom";
 
 interface CategoryCardProps {
@@ -19,6 +18,8 @@ const CategoryGridCard = ({ img, label, href }: CategoryCardProps) => {
         src={img}
         alt={label}
         className="w-full h-full object-cover transition duration-300 group-hover:brightness-110"
+        loading="lazy"
+        decoding="async"
       />
       <div className="absolute inset-0 bg-black/10" />
       <Link

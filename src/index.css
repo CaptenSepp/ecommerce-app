@@ -183,6 +183,13 @@
     @apply p-4 min-h-64;
   }
 
+  .card--product.bg-cover:hover {
+    background-size: contain; // !!!: important!
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #fff;
+  }
+
   /* Line item (cart/wishlist) */
   .line-item {
     @apply flex flex-wrap gap-x-4 overflow-hidden rounded-lg border border-[color:var(--border-color)] sm:gap-y-4 lg:gap-6 p-2;

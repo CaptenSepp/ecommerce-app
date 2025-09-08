@@ -4,7 +4,8 @@ import { useProducts } from "@/features/products/hooks";
 import { Product } from "@/features/products/services";
 
 type ScrollbarProps = {
-  count: number;
+  offset?: number;
+  title?: string;
 };
 
 type ProductScrollProps = {
@@ -17,12 +18,12 @@ type ProductScrollHandle = {
   scrollRight: () => void;
 };
 
-const Scrollbar: React.FC<ScrollbarProps> = ({ count }) => {
+const Scrollbar: React.FC<ScrollbarProps> = ({ offset = 0, title }) => {
   const rowRef = React.useRef<ProductScrollHandle | null>(null);
 
   return (
     <div className="flex-column__grid">
-      <h2 className="text-3xl">New Arrivals</h2>
+      {title ? <h2 className="text-3xl">{title}</h2> : null}
 
       <div className="mb-3 flex gap-2">
         <button type="button" className="btn btn-secondary" aria-label="Scroll left" onClick={() => rowRef.current?.scrollLeft()}>
@@ -33,7 +34,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ count }) => {
         </button>
       </div>
 
-      <ProductScroll ref={rowRef} offset={count} />
+      <ProductScroll ref={rowRef} offset={offset} />
     </div>
   );
 };
