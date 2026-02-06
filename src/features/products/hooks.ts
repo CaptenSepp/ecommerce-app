@@ -1,6 +1,6 @@
 // src/features/products/productsHooks.ts
 import { useQuery } from '@tanstack/react-query'
-import { getCategories, getProductById, getProducts, Product, Category } from '../api'
+import { getCategories, getProductById, getProducts, Product, Category } from './services'
 
 // list
 export function useProducts() {

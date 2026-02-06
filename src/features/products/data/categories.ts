@@ -34,7 +34,7 @@ export const categoryCards: CategoryCard[] = [
 
 export const gridTop = categoryCards.slice(0, 2);
 export const gridMiddle = categoryCards.slice(2, 4);
-import imgGroceries from '../assets/images/groceries.jpg';
-import imgFurniture from '../assets/images/furniture.jpg';
-import imgBeauty from '../assets/images/beauty.jpg';
-import imgFragrances from '../assets/images/fragrances.jpg';
+import imgGroceries from '../../../assets/images/groceries.jpg';
+import imgFurniture from '../../../assets/images/furniture.jpg';
+import imgBeauty from '../../../assets/images/beauty.jpg';
+import imgFragrances from '../../../assets/images/fragrances.jpg';

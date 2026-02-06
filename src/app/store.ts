@@ -1,9 +1,9 @@
 // src/store/store.ts
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import cartReducer from '../features/cart/cartSlice'
-import wishlistReducer from '../features/wishlist/wishlistSlice'
-import type { Product } from '../features/products/api'
+import cartReducer from '@/features/cart/cartSlice'
+import wishlistReducer from '@/features/wishlist/wishlistSlice'
+import type { Product } from '@/features/products/services'
 
 // Safe localStorage helpers
 function loadState<T>(key: string): T | undefined {

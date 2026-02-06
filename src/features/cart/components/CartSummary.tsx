@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { RootState } from '../../store/store'
+import { RootState } from '../../../app/store'
 import { useNavigate } from 'react-router-dom'
 
 const CartSummary = () => {

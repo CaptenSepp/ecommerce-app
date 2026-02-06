@@ -1,51 +1,42 @@
-// src/pages/Home.tsx
-import Banner from "../components/home-page/Banner";
-import CategoryGrid from "../components/home-page/CategoryGrid";
-import RichText from "../components/home-page/RichText";
-import Scrollbar from "../components/home-page/Scrollbar";
-import { gridMiddle, gridTop } from "../data/categories";
-import heroImg from "../assets/images/fragrances-hero.jpg";
+// src/pages/Home.tsx — composes the marketing homepage (route/view) using reusable components (UI)
+import { Banner, CategoryGrid, RichText, Scrollbar, FullBleedImage } from "@/pages/Home/components";
+import { gridMiddle, gridTop } from "@/features/products/data/categories";
+import heroImg from "@/assets/images/fragrances-hero.jpg";
 
 const Home = () => {
   return (
     <div className="flex-column">
-      <Banner/>
+      {/* hero banner at the top (component) */}
+      <Banner />
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      {/* section heading (typography component) */}
+      <RichText>{"Fresh Picks for You"}</RichText>
 
+      {/* grid of category cards (UI grid) */}
       <CategoryGrid cards={gridTop} />
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"Shop by Category"}</RichText>
 
-      <div>
-        <img
-          className="flex-column__banner full-bleed"
-          src={heroImg}
-          alt="Fragrances hero"
-        />
-      </div>
+      {/* full-bleed image strip (layout) */}
+      <FullBleedImage src={heroImg} alt="Fragrances hero" />
 
-      <Scrollbar count={0} />
+      {/* horizontal product scroller with start offset 0 (offset) */}
+      <Scrollbar offset={0} />
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"Trending Now"}</RichText>
 
       <CategoryGrid cards={gridMiddle} />
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"Top Rated Deals"}</RichText>
 
-      <Scrollbar count={8} />
+      {/* horizontal product scroller starting further in the list (offset) */}
+      <Scrollbar offset={8} />
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"Fragrance Spotlight"}</RichText>
 
-      <div>
-        <img
-          className="flex-column__banner full-bleed"
-          src={heroImg}
-          alt="Fragrances hero"
-        />
-      </div>
+      <FullBleedImage src={heroImg} alt="Fragrances hero" />
 
-      <RichText>{"Welcome to Our Store"}</RichText>
+      <RichText>{"More to Explore"}</RichText>
 
       <CategoryGrid cards={gridTop} />
     </div>

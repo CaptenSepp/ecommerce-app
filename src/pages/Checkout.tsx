@@ -1,27 +1,28 @@
 import { useSelector } from 'react-redux'
-import { RootState, useAppDispatch } from '../store/store'
-import { clearCart } from '../features/cart/cartSlice'
+import { RootState, useAppDispatch } from '@/app/store'
+import { clearCart } from '@/features/cart/cartSlice'
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 
+// renders the checkout form (component) and order summary (UI) using cart state (store)
 const Checkout = () => {
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const items = useSelector((s: RootState) => s.cart.items)
-  const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0)
-  const shipping = items.length ? 4.99 : 0
-  const total = subtotal + shipping
+  const dispatch = useAppDispatch() // prepare to send actions (dispatch)
+  const navigate = useNavigate() // programmatic navigation after submit (route)
+  const items = useSelector((s: RootState) => s.cart.items) // read cart items from the store (selector)
+  const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0) // compute subtotal from items (derived state)
+  const shipping = items.length ? 4.99 : 0 // simple shipping rule (business logic)
+  const total = subtotal + shipping // final total shown to user (calculated)
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [address, setAddress] = useState('')
+  const [name, setName] = useState('') // controlled input for full name (state)
+  const [email, setEmail] = useState('') // controlled input for email (state)
+  const [address, setAddress] = useState('') // controlled input for address (state)
 
   const placeOrder = (e: React.FormEvent) => {
-    e.preventDefault()
-    // naive validation
+    e.preventDefault() // stop the default page reload (event)
+    // naive validation -> simple required-field checks (basic validation)
     if (!name || !email || !address) return
-    dispatch(clearCart())
-    navigate('/order-confirmation', { replace: true })
+    dispatch(clearCart()) // empty the cart after placing order (dispatch action)
+    navigate('/order-confirmation', { replace: true }) // go to confirmation page (route)
   }
 
   return (
