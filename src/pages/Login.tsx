@@ -1,11 +1,13 @@
 import { useState } from "react";
 
+// renders a basic login form (component) using controlled inputs (state)
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(""); // track email text (state)
+  const [password, setPassword] = useState(""); // track password text (state)
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // prevent full page reload (event default)
+    // here we would send login request (issuing to auth endpoint) and handle response (payload)
   };
 
   return (
@@ -14,6 +16,7 @@ const LoginPage = () => {
         <div className="flex justify-center mx-auto">
         </div>
 
+        {/* form wrapper binds submit to handler (event) */}
         <form className="mt-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm">Email</label>
@@ -22,7 +25,7 @@ const LoginPage = () => {
               className="input-field"
               id="email"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)} // update local state from input (controlled)
               required
             />
           </div>
@@ -37,7 +40,7 @@ const LoginPage = () => {
               className="input-field"
               id="password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)} // update local state from input (controlled)
               required
             />
           </div>

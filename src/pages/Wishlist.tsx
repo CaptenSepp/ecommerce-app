@@ -1,12 +1,12 @@
-// src/pages/Wishlist.tsx
+// src/pages/Wishlist.tsx — renders the wishlist page (view) using items from the store (state)
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '@/app/store'
 import { clearWishlist } from '@/features/wishlist/wishlistSlice'
 import WishlistItemsList from '@/features/wishlist/components/WishlistItemsList'
 
 const WishlistPage = () => {
-  const dispatch = useDispatch()
-  const wishlist = useSelector((state: RootState) => state.wishlist.items)
+  const dispatch = useDispatch() // to send actions like clear (dispatch)
+  const wishlist = useSelector((state: RootState) => state.wishlist.items) // read wishlist items (selector)
 
   return (
     <div className="bg-white py-6 sm:py-8 lg:py-12">

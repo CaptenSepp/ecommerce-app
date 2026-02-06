@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 
+// shows a confirmation message after a successful checkout (post-order screen) with navigation links (routes)
+
 const OrderConfirmation = () => {
   return (
     <div className="mx-auto max-w-md p-6 text-center">

@@ -8,8 +8,10 @@ import { useCategories, useProducts } from "@/features/products/hooks";
 import { toggleWishlist } from "@/features/wishlist/wishlistSlice";
 import { useToast } from "@/components/ui/Toast";
 
+// product listing page with filters and sorting (view) syncing with URL (query params)
 const ProductsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  // read initial values from URL: category (slug), search text, sort option, sale flag (query params)
   const categoryQueryParam = searchParams.get("cat") || "";
   const initialQuery = searchParams.get("q") || "";
   const initialSort = searchParams.get("sort") || "relevance";
@@ -17,18 +19,19 @@ const ProductsPage = () => {
     const v = (searchParams.get("sale") || "").toLowerCase();
     return v === "1" || v === "true";
   })();
+  // local UI state mirrors URL parameters (controlled state)
   const [selectedCategory, setSelectedCategory] = useState(categoryQueryParam);
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [sortBy, setSortBy] = useState(initialSort);
   const dispatch = useDispatch();
   const { notify } = useToast();
 
-  // Fetch products and categories
+  // fetch products and categories (data hooks -> endpoint/payload)
   const { data: products = [], isLoading: isProductsLoading } = useProducts();
   const { data: categories = [], isLoading: isCategoriesLoading } = useCategories();
   if (isProductsLoading || isCategoriesLoading) return <p>Loading...</p>;
 
-  // Fallback categories if API returns none
+  // fallback categories when the API returns none (resiliency)
   const FALLBACK_CATEGORIES = [
     { slug: "beauty", name: "Beauty" },
     { slug: "fragrances", name: "Fragrances" },
@@ -37,18 +40,18 @@ const ProductsPage = () => {
   ];
   const availableCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
 
-  // Keep local state in sync with query param
+  // keep selected category in sync with URL (single source of truth)
   useEffect(() => {
     setSelectedCategory(categoryQueryParam);
   }, [categoryQueryParam]);
 
-  // Keep local search/sort in sync with URL params
+  // keep search text and sort in sync with URL (query params)
   useEffect(() => {
     setSearchQuery(initialQuery);
     setSortBy(initialSort);
   }, [initialQuery, initialSort]);
 
-  // Filter and sort products
+  // compute filtered and sorted products (memoized) from current filters (category/search/sale/sort)
   const filteredProducts = useMemo(() => {
     let list = selectedCategory
       ? products.filter((p) => p.category === selectedCategory)
@@ -62,7 +65,7 @@ const ProductsPage = () => {
       );
     }
 
-    // If 'sale' is active, narrow to cheapest 20% of current list
+    // if 'sale' is active, narrow to the cheapest ~20% of current list (sale mode)
     if (saleMode && list.length > 0) {
       const sortedByPrice = [...list].sort((a, b) => a.price - b.price);
       const take = Math.max(1, Math.ceil(sortedByPrice.length * 0.2));
@@ -84,7 +87,7 @@ const ProductsPage = () => {
         sorted.sort((a, b) => a.title.localeCompare(b.title));
         break;
       default:
-        // relevance (leave as-is)
+        // relevance (preserve original order)
         break;
     }
     return sorted;
@@ -92,10 +95,10 @@ const ProductsPage = () => {
 
   return (
     <div className="px-4 py-8 flex gap-8">
-      {/* Sidebar Filter */}
+      {/* sidebar filter controls (UI) */}
       <aside className="w-64 shrink-0 space-y-4">
         <h2 className="font-semibold">Filter & Sort</h2>
-        {/* Search */}
+        {/* search input (text query) */}
         <div className="space-y-2">
           <label className="text-sm font-medium">Search</label>
           <input
@@ -108,7 +111,7 @@ const ProductsPage = () => {
               if (q) next.q = q;
               if (sortBy && sortBy !== 'relevance') next.sort = sortBy;
               if (saleMode) next.sale = '1';
-              setSearchParams(next);
+              setSearchParams(next); // reflect changes in the URL (query params)
             }}
             placeholder="Search products..."
             className="input-field"
@@ -128,7 +131,7 @@ const ProductsPage = () => {
                   if (searchQuery) next.q = searchQuery;
                   if (sortBy && sortBy !== 'relevance') next.sort = sortBy;
                   if (saleMode) next.sale = '1';
-                  setSearchParams(next);
+                  setSearchParams(next); // update URL when selecting All (query)
               }}
             />
             All
@@ -148,14 +151,14 @@ const ProductsPage = () => {
                   if (searchQuery) next.q = searchQuery;
                   if (sortBy && sortBy !== 'relevance') next.sort = sortBy;
                   if (saleMode) next.sale = '1';
-                  setSearchParams(next);
+                  setSearchParams(next); // put selected category (slug) into the URL (query)
               }}
               />
             {cat.name}
           </label>
           ))}
         </form>
-        {/* Sort */}
+        {/* sort dropdown (ordering) */}
         <div className="space-y-2">
           <label className="text-sm font-medium">Sort by</label>
           <select
@@ -169,7 +172,7 @@ const ProductsPage = () => {
               if (searchQuery) next.q = searchQuery;
               if (val && val !== 'relevance') next.sort = val;
               if (saleMode) next.sale = '1';
-              setSearchParams(next);
+              setSearchParams(next); // persist sort choice into the URL (query)
             }}
             aria-label="Sort products"
           >
@@ -182,7 +185,7 @@ const ProductsPage = () => {
         </div>
       </aside>
 
-      {/* Product Grid */}
+      {/* product grid (cards) */}
       <section className="flex-1 grid__cards">
         {filteredProducts.length === 0 && (
           <div className="text-muted">No products match your filters.</div>
@@ -195,7 +198,7 @@ const ProductsPage = () => {
             style={{ backgroundImage: `url(${product.thumbnail})` }}
             aria-label={`View ${product.title}`}
           >
-            {/* Overlay for readability */}
+            {/* overlay for text readability (UI overlay) */}
             <span className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
             <div className="relative flex flex-col justify-end">
@@ -203,7 +206,7 @@ const ProductsPage = () => {
               <p className="text-sm mb-2">{product.brand}</p>
               <p className="text-brand-orange font-bold mb-4">${product.price}</p>
 
-              {/* Buttons: prevent navigation */}
+              {/* action buttons without leaving the grid (prevent navigation) */}
               <div className="flex gap-2">
                 <button
                   onClick={(e) => {

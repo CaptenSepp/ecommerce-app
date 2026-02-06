@@ -1,3 +1,4 @@
+// grid of category cards (UI) linking to sections (routes)
 import { Link } from "react-router-dom";
 
 interface CategoryCardProps {
@@ -14,6 +15,7 @@ interface Props {
 const CategoryGridCard = ({ img, label, href }: CategoryCardProps) => {
   return (
     <div className="relative group h-64 sm:h-80 overflow-hidden rounded-lg">
+      {/* card image (lazy) for better performance (loading/decoding) */}
       <img
         src={img}
         alt={label}
@@ -21,6 +23,7 @@ const CategoryGridCard = ({ img, label, href }: CategoryCardProps) => {
         loading="lazy"
         decoding="async"
       />
+      {/* soft overlay to keep text/buttons readable (UI overlay) */}
       <div className="absolute inset-0 bg-black/10" />
       <Link
         to={href}
@@ -32,6 +35,7 @@ const CategoryGridCard = ({ img, label, href }: CategoryCardProps) => {
   );
 };
 
+// lays out cards in a two-column grid (layout)
 const CategoryGrid = ({ cards }: Props) => (
   <section
     className="grid__cards grid-cols-2"

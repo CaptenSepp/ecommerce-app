@@ -19,7 +19,7 @@ type ProductScrollHandle = {
 };
 
 const Scrollbar: React.FC<ScrollbarProps> = ({ offset = 0, title }) => {
-  const rowRef = React.useRef<ProductScrollHandle | null>(null);
+  const rowRef = React.useRef<ProductScrollHandle | null>(null); // holds methods to scroll left/right (ref)
 
   return (
     <div className="flex-column__grid">
@@ -34,6 +34,7 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ offset = 0, title }) => {
         </button>
       </div>
 
+      {/* render the scrolling row starting at an offset (offset) */}
       <ProductScroll ref={rowRef} offset={offset} />
     </div>
   );
@@ -41,12 +42,13 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ offset = 0, title }) => {
 
 export default Scrollbar;
 
+// inner component exposes imperative methods via ref (imperative handle)
 const ProductScroll = React.forwardRef<ProductScrollHandle, ProductScrollProps>(
   ({ limit = 8, offset = 0 }, ref) => {
-    const { data: products = [] } = useProducts();
-    const visibleProducts = products.slice(offset, offset + limit);
+    const { data: products = [] } = useProducts(); // fetch products (data hook)
+    const visibleProducts = products.slice(offset, offset + limit); // choose window of products (slice)
 
-    const listRef = React.useRef<HTMLDivElement | null>(null);
+    const listRef = React.useRef<HTMLDivElement | null>(null); // reference to the scrollable container (ref)
 
     const scrollByAmount = (dx: number) => {
       const el = listRef.current;
@@ -80,4 +82,3 @@ const ProductScroll = React.forwardRef<ProductScrollHandle, ProductScrollProps>(
     );
   }
 );
-
