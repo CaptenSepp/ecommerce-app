@@ -25,6 +25,7 @@ dist-ssr
 
 # build/output
 dist/
+docs/
 build/
 .out/
 .next/
