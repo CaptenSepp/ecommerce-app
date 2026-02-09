@@ -1,6 +1,6 @@
 // src/features/products/services.ts
 
-export interface Product {
+export interface Product { // product data from DummyJSON
   id: number;
   title: string;
   description: string;
@@ -14,31 +14,28 @@ export interface Product {
   images: string[];
 }
 
-export interface Category {
+export interface Category { // category model used for filters
   slug: string;
   name: string;
 }
 
-// fetches all products to show in the catalog (issuing GET to products endpoint)
-export async function getProducts(): Promise<Product[]> {
-  const res = await fetch("https://dummyjson.com/products"); // send a GET request (issuing) to the products URL (endpoint)
-  const json = await res.json(); // read the server answer as JSON (payload)
-  return json.products as Product[]; // return only the array of items from the response (unwrap payload)
+export async function getProducts(): Promise<Product[]> { // fetch all products for catalog
+  const res = await fetch("https://dummyjson.com/products"); // GET products endpoint
+  const json = await res.json(); // parse JSON response body
+  return json.products as Product[]; // API returns products array
 }
 
-// fetches one product by its number (identifier) from the API (endpoint)
-export async function getProductById(id: number): Promise<Product> {
-  const res = await fetch(`https://dummyjson.com/products/${id}`); // request a single product using its id (identifier)
-  if (!res.ok) throw new Error("Product not found"); // if the server says not found, turn it into an error (propagate)
-  return (await res.json()) as Product; // give back the product data (parsed payload)
+export async function getProductById(id: number): Promise<Product> { // fetch one product by id
+  const res = await fetch(`https://dummyjson.com/products/${id}`); // request a single product by id
+  if (!res.ok) throw new Error("Product not found"); // normalize not-found into error
+  return (await res.json()) as Product; // response is the product object
 }
 
-// fetches raw category names (slugs) from DummyJSON and formats them to human-friendly names (category)
-export async function getCategories(): Promise<Category[]> {
-  const res = await fetch("https://dummyjson.com/products/categories"); // call the categories URL (endpoint)
-  if (!res.ok) throw new Error("Failed to fetch categories"); // stop with an error if the request fails (error state)
-  const list: string[] = await res.json(); // read the array of category keys (slugs) from the response (payload)
-  return list.map((slug) => ({
+export async function getCategories(): Promise<Category[]> { // fetch category slugs and format labels
+  const res = await fetch("https://dummyjson.com/products/categories"); // categories endpoint
+  if (!res.ok) throw new Error("Failed to fetch categories"); // surface failure explicitly
+  const list: string[] = await res.json(); // list is an array of strings
+  return list.map((slug) => ({ // map slugs to display labels
     slug,
     name: slug
       .split("-")

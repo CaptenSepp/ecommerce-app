@@ -19,7 +19,7 @@ type ProductScrollHandle = {
 };
 
 const Scrollbar: React.FC<ScrollbarProps> = ({ offset = 0, title }) => {
-  const rowRef = React.useRef<ProductScrollHandle | null>(null); // holds methods to scroll left/right (ref)
+  const rowRef = React.useRef<ProductScrollHandle | null>(null); // holds methods to scroll left/right
 
   return (
     <div className="flex-column__grid">
@@ -34,35 +34,33 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ offset = 0, title }) => {
         </button>
       </div>
 
-      {/* render the scrolling row starting at an offset (offset) */}
-      <ProductScroll ref={rowRef} offset={offset} />
+      <ProductScroll ref={rowRef} offset={offset} /> {/* scrolling row starting at offset */}
     </div>
   );
 };
 
 export default Scrollbar;
 
-// inner component exposes imperative methods via ref (imperative handle)
-const ProductScroll = React.forwardRef<ProductScrollHandle, ProductScrollProps>(
+const ProductScroll = React.forwardRef<ProductScrollHandle, ProductScrollProps>( // inner component with imperative handle
   ({ limit = 8, offset = 0 }, ref) => {
-    const { data: products = [] } = useProducts(); // fetch products (data hook)
-    const visibleProducts = products.slice(offset, offset + limit); // choose window of products (slice)
+    const { data: products = [] } = useProducts(); // fetch products
+    const visibleProducts = products.slice(offset, offset + limit); // choose window of products
 
-    const listRef = React.useRef<HTMLDivElement | null>(null); // reference to the scrollable container (ref)
+    const listRef = React.useRef<HTMLDivElement | null>(null); // reference to scrollable container
 
     const scrollByAmount = (dx: number) => {
       const el = listRef.current;
       if (!el) return;
-      el.scrollBy({ left: dx, behavior: "smooth" });
+      el.scrollBy({ left: dx, behavior: "smooth" }); // smooth horizontal scroll
     };
 
     React.useImperativeHandle(ref, () => ({
-      scrollLeft: () => scrollByAmount(-320),
-      scrollRight: () => scrollByAmount(320),
+      scrollLeft: () => scrollByAmount(-320), // step left
+      scrollRight: () => scrollByAmount(320), // step right
     }));
 
     return (
-      <div ref={listRef} className="scroll-row__card flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar">
+      <div ref={listRef} className="scroll-row__card flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"> {/* scrollable row */}
         {visibleProducts.map((product: Product) => (
           <Link
             to={`/products/${product.id}`}

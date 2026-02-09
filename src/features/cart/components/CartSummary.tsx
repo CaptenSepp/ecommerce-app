@@ -3,11 +3,11 @@ import { RootState } from '../../../app/store'
 import { useNavigate } from 'react-router-dom'
 
 const CartSummary = () => {
-  const items = useSelector((state: RootState) => state.cart.items);
-  const navigate = useNavigate();
-  const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0);
-  const shipping = items.length ? 4.99 : 0;
-  const total = subtotal + shipping;
+  const items = useSelector((state: RootState) => state.cart.items); // read cart items
+  const navigate = useNavigate(); // programmatic navigation
+  const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0); // compute subtotal
+  const shipping = items.length ? 4.99 : 0; // simple shipping rule
+  const total = subtotal + shipping; // compute total
 
   return (
     <div className="flex flex-col items-end gap-4">
@@ -38,8 +38,8 @@ const CartSummary = () => {
 
       <button
         className="btn btn-primary md:text-base px-8 py-3"
-        onClick={() => navigate('/checkout')}
-        disabled={items.length === 0}
+        onClick={() => navigate('/checkout')} // go to checkout
+        disabled={items.length === 0} // disable when cart empty
       >
         Check out
       </button>

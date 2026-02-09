@@ -8,56 +8,47 @@ import { useCategories, useProducts } from "@/features/products/hooks";
 import { toggleWishlist } from "@/features/wishlist/wishlistSlice";
 import { useToast } from "@/components/ui/Toast";
 
-// product listing page with filters and sorting (view) syncing with URL (query params)
-const ProductsPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  // read initial values from URL: category (slug), search text, sort option, sale flag (query params)
-  const categoryQueryParam = searchParams.get("cat") || "";
-  const initialQuery = searchParams.get("q") || "";
-  const initialSort = searchParams.get("sort") || "relevance";
-  const saleMode = (() => {
+const ProductsPage = () => { // product listing page with URL-synced filters
+  const [searchParams, setSearchParams] = useSearchParams(); // URL query params are the source of truth
+  const categoryQueryParam = searchParams.get("cat") || ""; // URL: category (slug)
+  const initialQuery = searchParams.get("q") || ""; // URL: search text
+  const initialSort = searchParams.get("sort") || "relevance"; // URL: sort option
+  const saleMode = (() => { // interpret sale flag in a lenient way
     const v = (searchParams.get("sale") || "").toLowerCase();
     return v === "1" || v === "true";
   })();
-  // local UI state mirrors URL parameters (controlled state)
-  const [selectedCategory, setSelectedCategory] = useState(categoryQueryParam);
-  const [searchQuery, setSearchQuery] = useState(initialQuery);
-  const [sortBy, setSortBy] = useState(initialSort);
-  const dispatch = useDispatch();
-  const { notify } = useToast();
+  const [selectedCategory, setSelectedCategory] = useState(categoryQueryParam); // local UI state mirrors URL
+  const [searchQuery, setSearchQuery] = useState(initialQuery); // local UI state mirrors URL
+  const [sortBy, setSortBy] = useState(initialSort); // local UI state mirrors URL
+  const dispatch = useDispatch(); // dispatch for cart and wishlist actions
+  const { notify } = useToast(); // toast helper for user feedback
 
-  // fetch products and categories (data hooks -> endpoint/payload)
-  const { data: products = [], isLoading: isProductsLoading } = useProducts();
-  const { data: categories = [], isLoading: isCategoriesLoading } = useCategories();
-  if (isProductsLoading || isCategoriesLoading) return <p>Loading...</p>;
+  const { data: products = [], isLoading: isProductsLoading } = useProducts(); // fetch products for grid
+  const { data: categories = [], isLoading: isCategoriesLoading } = useCategories(); // fetch categories for filters
 
-  // fallback categories when the API returns none (resiliency)
-  const FALLBACK_CATEGORIES = [
+  const FALLBACK_CATEGORIES = [ // fallback categories when API returns none
     { slug: "beauty", name: "Beauty" },
     { slug: "fragrances", name: "Fragrances" },
     { slug: "furniture", name: "Furniture" },
     { slug: "groceries", name: "Groceries" },
   ];
-  const availableCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
+  const availableCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES; // prefer API categories
 
-  // keep selected category in sync with URL (single source of truth)
-  useEffect(() => {
+  useEffect(() => { // sync category from URL to local state
     setSelectedCategory(categoryQueryParam);
   }, [categoryQueryParam]);
 
-  // keep search text and sort in sync with URL (query params)
-  useEffect(() => {
+  useEffect(() => { // sync query and sort from URL to local state
     setSearchQuery(initialQuery);
     setSortBy(initialSort);
   }, [initialQuery, initialSort]);
 
-  // compute filtered and sorted products (memoized) from current filters (category/search/sale/sort)
-  const filteredProducts = useMemo(() => {
-    let list = selectedCategory
+  const filteredProducts = useMemo(() => { // compute filtered/sorted products
+    let list = selectedCategory // start with category filter
       ? products.filter((p) => p.category === selectedCategory)
       : products;
 
-    const q = searchQuery.trim().toLowerCase();
+    const q = searchQuery.trim().toLowerCase(); // apply free-text search
     if (q) {
       list = list.filter((p) =>
         (p.title ?? '').toLowerCase().includes(q) ||
@@ -65,8 +56,7 @@ const ProductsPage = () => {
       );
     }
 
-    // if 'sale' is active, narrow to the cheapest ~20% of current list (sale mode)
-    if (saleMode && list.length > 0) {
+    if (saleMode && list.length > 0) { // sale mode: narrow to cheapest ~20%
       const sortedByPrice = [...list].sort((a, b) => a.price - b.price);
       const take = Math.max(1, Math.ceil(sortedByPrice.length * 0.2));
       list = sortedByPrice.slice(0, take);
@@ -75,35 +65,37 @@ const ProductsPage = () => {
     const sorted = [...list];
     switch (sortBy) {
       case 'price-asc':
-        sorted.sort((a, b) => a.price - b.price);
+        sorted.sort((a, b) => a.price - b.price); // lowest price first
         break;
       case 'price-desc':
-        sorted.sort((a, b) => b.price - a.price);
+        sorted.sort((a, b) => b.price - a.price); // highest price first
         break;
       case 'rating-desc':
-        sorted.sort((a, b) => b.rating - a.rating);
+        sorted.sort((a, b) => b.rating - a.rating); // highest rating first
         break;
       case 'title-asc':
-        sorted.sort((a, b) => a.title.localeCompare(b.title));
+        sorted.sort((a, b) => a.title.localeCompare(b.title)); // alphabetical by title
         break;
       default:
-        // relevance (preserve original order)
-        break;
+        break; // relevance (preserve original order)
     }
     return sorted;
   }, [products, selectedCategory, searchQuery, sortBy, saleMode]);
 
+  if (isProductsLoading || isCategoriesLoading) {
+    return <p>Loading...</p>; // simple loading state for both queries
+  }
+
   return (
     <div className="px-4 py-8 flex gap-8">
-      {/* sidebar filter controls (UI) */}
-      <aside className="w-64 shrink-0 space-y-4">
+      <aside className="w-64 shrink-0 space-y-4"> {/* sidebar filter controls (UI) */}
         <h2 className="font-semibold">Filter & Sort</h2>
         {/* search input (text query) */}
         <div className="space-y-2">
           <label className="text-sm font-medium">Search</label>
           <input
             value={searchQuery}
-            onChange={(e) => {
+            onChange={(e) => { // update search and URL params together
               const q = e.target.value;
               setSearchQuery(q);
               const next: Record<string, string> = {};
@@ -119,13 +111,14 @@ const ProductsPage = () => {
           />
         </div>
         <form className="space-y-2 text-sm">
+          {/* category radio list */}
           <label className="flex items-center gap-2">
             <input
               type="radio"
               name="cat"
               value=""
               checked={selectedCategory === ""}
-              onChange={() => {
+              onChange={() => { // selecting "All" clears category filter
                   setSelectedCategory("");
                   const next: Record<string, string> = {};
                   if (searchQuery) next.q = searchQuery;
@@ -137,14 +130,14 @@ const ProductsPage = () => {
             All
           </label>
 
-          {availableCategories.map((cat) => (
+          {availableCategories.map((cat) => ( // category option from API or fallback list
             <label key={cat.slug} className="flex items-center gap-2">
               <input
                 type="radio"
                 name="cat"
               value={cat.slug}
               checked={selectedCategory === cat.slug}
-                onChange={() => {
+                onChange={() => { // selecting a category updates URL params
                   setSelectedCategory(cat.slug);
                   const next: Record<string, string> = {};
                   if (cat.slug) next.cat = cat.slug;
@@ -164,7 +157,7 @@ const ProductsPage = () => {
           <select
             className="input-field"
             value={sortBy}
-            onChange={(e) => {
+            onChange={(e) => { // update sort and URL params
               const val = e.target.value;
               setSortBy(val);
               const next: Record<string, string> = {};
@@ -185,9 +178,8 @@ const ProductsPage = () => {
         </div>
       </aside>
 
-      {/* product grid (cards) */}
-      <section className="flex-1 grid__cards">
-        {filteredProducts.length === 0 && (
+      <section className="flex-1 grid__cards"> {/* product grid (cards) */}
+        {filteredProducts.length === 0 && ( // empty-state for filters with no matches
           <div className="text-muted">No products match your filters.</div>
         )}
         {filteredProducts.map((product: Product) => (
@@ -209,7 +201,7 @@ const ProductsPage = () => {
               {/* action buttons without leaving the grid (prevent navigation) */}
               <div className="flex gap-2">
                 <button
-                  onClick={(e) => {
+                  onClick={(e) => { // prevent navigation and update cart
                     e.preventDefault();
                     e.stopPropagation();
                     dispatch(addToCart(product));
@@ -221,7 +213,7 @@ const ProductsPage = () => {
                 </button>
 
                 <button
-                  onClick={(e) => {
+                  onClick={(e) => { // prevent navigation and toggle wishlist
                     e.preventDefault();
                     e.stopPropagation();
                     dispatch(toggleWishlist(product));

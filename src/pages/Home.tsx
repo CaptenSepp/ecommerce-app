@@ -1,27 +1,22 @@
-// src/pages/Home.tsx — composes the marketing homepage (route/view) using reusable components (UI)
 import { Banner, CategoryGrid, RichText, Scrollbar, FullBleedImage } from "@/pages/Home/components";
 import { gridMiddle, gridTop } from "@/features/products/data/categories";
 import heroImg from "@/assets/images/fragrances-hero.jpg";
 
-const Home = () => {
+const Home = () => { // marketing home composed of sections
   return (
     <div className="flex-column">
-      {/* hero banner at the top (component) */}
+      {/* hero banner at the top */}
       <Banner />
 
-      {/* section heading (typography component) */}
-      <RichText>{"Fresh Picks for You"}</RichText>
+      <RichText>{"Fresh Picks for You"}</RichText> {/* section heading */}
 
-      {/* grid of category cards (UI grid) */}
-      <CategoryGrid cards={gridTop} />
+      <CategoryGrid cards={gridTop} /> {/* grid of category cards */}
 
       <RichText>{"Shop by Category"}</RichText>
 
-      {/* full-bleed image strip (layout) */}
-      <FullBleedImage src={heroImg} alt="Fragrances hero" />
+      <FullBleedImage src={heroImg} alt="Fragrances hero" /> {/* full-bleed image strip */}
 
-      {/* horizontal product scroller with start offset 0 (offset) */}
-      <Scrollbar offset={0} />
+      <Scrollbar offset={0} /> {/* horizontal product scroller */}
 
       <RichText>{"Trending Now"}</RichText>
 
@@ -29,8 +24,7 @@ const Home = () => {
 
       <RichText>{"Top Rated Deals"}</RichText>
 
-      {/* horizontal product scroller starting further in the list (offset) */}
-      <Scrollbar offset={8} />
+      <Scrollbar offset={8} /> {/* horizontal product scroller (offset) */}
 
       <RichText>{"Fragrance Spotlight"}</RichText>
 

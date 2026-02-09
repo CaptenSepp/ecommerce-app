@@ -1,22 +1,14 @@
-// hero banner component for the homepage (UI) with background image (asset)
-import heroImg from "@/assets/images/fragrances-hero.jpg";
+import heroImg from "@/assets/images/fragrances-hero.jpg"; // hero background image
 
-const Banner = () => {
+const Banner = () => { // hero banner section
   return (
     <div className="">
       <section className="relative w-screen full-bleed">
-        {/* main hero image spans full width (fits width, keeps aspect) (layout) */}
-        <img
-          src={heroImg}
-          alt="Fragrances hero"
-          className="block w-full h-auto"
-        />
+        <img src={heroImg} alt="Fragrances hero" className="block w-full h-auto" /> {/* full-width hero image */}
 
-        {/* subtle dark overlay to improve text contrast (UI overlay) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/10" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/10" aria-hidden="true" /> {/* contrast overlay */}
 
-        {/* content overlay stays left-anchored with a responsive offset (layout) */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0"> {/* content overlay */}
           <div className="absolute left-[clamp(1rem,3vw,4rem)] top-[clamp(2rem,8vw,10rem)]">
             <div className="max-w-prose">
               <h1>

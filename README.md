@@ -1,34 +1,52 @@
-# ecommerce-app
-E-commerce web application built with React, TypeScript, Tailwind CSS, and state/(Redux Toolkit, Context API). custom hooks, design patterns, Framer Motion , and routing with React Router.
+# E-commerce App (React + TypeScript)
 
-# 🛒 E-commerce Web App (React + TypeScript)
+An e-commerce SPA built with Vite + React + TypeScript.
+It includes a product catalog (fetched from DummyJSON), product details, cart + wishlist (Redux, persisted to localStorage), and a simple checkout flow.
 
-This is a full-featured e-commerce web application built with **Vite**, **React**, and **TypeScript**, using best practices and scalable design patterns like **Redux Toolkit**, **React Query**, **Framer Motion**, **React Hook Form**, and **Tailwind CSS**.
+## Features
 
----
+- Product catalog with search, category filtering, sorting, and a "sale" mode (via URL query params).
+- Product details page with add-to-cart and wishlist actions.
+- Cart with quantity adjustments, subtotal/shipping/total summary, and checkout.
+- Wishlist with remove and add-to-cart.
+- Toast notifications for key actions.
 
-## 🔧 Tech Stack
+## Tech Stack (Actual)
 
-- ⚛️ React 18 + TypeScript
-- 🧱 Redux Toolkit & Context API
-- 📡 React Query (TanStack Query)
-- 🎨 Tailwind CSS + CSS animations
-- 🎭 Framer Motion
-- 🌐 React Router v6
-- 🧪 React Hook Form
-- 🛠 Vite + ESM-based tooling
+- React 19 + TypeScript
+- React Router (data router) with nested layout routes
+- Redux Toolkit + React Redux (cart + wishlist, persisted to localStorage)
+- TanStack React Query (server-state fetching + caching)
+- Tailwind CSS v4 + custom tokens/classes in `src/index.css` and `src/App.css`
+- Vite
 
----
+## Data Source
 
-## 🚀 Getting Started
+- Products and categories are fetched from `https://dummyjson.com`.
+
+## Routes (Main Screens)
+
+- `/` Home (marketing sections + product scroll rows)
+- `/products` Product catalog (filters in URL query params: `cat`, `q`, `sort`, `sale`)
+- `/products/:productId` Product details
+- `/cart` Cart
+- `/checkout` Checkout form
+- `/order-confirmation` Confirmation screen
+- `/wishlist` Wishlist
+- `/about` About
+- `/login` Login (UI only)
+
+## Getting Started
 
 ```bash
-# Clone the repo
-git clone https://github.com/YOUR_USERNAME/ecommerce-app.git
-cd ecommerce-app
-
-# Install dependencies
 npm install
-
-# Run locally
 npm run dev
+```
+
+Other scripts:
+
+```bash
+npm run build
+npm run preview
+npm run lint
+```

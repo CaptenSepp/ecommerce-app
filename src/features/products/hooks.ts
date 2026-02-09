@@ -1,8 +1,6 @@
-// src/features/products/productsHooks.ts
-import { useQuery } from '@tanstack/react-query'
+﻿import { useQuery } from '@tanstack/react-query'
 import { getCategories, getProductById, getProducts, Product, Category } from './services'
 
-// list
 export function useProducts() {
   return useQuery<Product[], Error>({
     queryKey: ['products'],
@@ -14,7 +12,6 @@ export function useProducts() {
   })
 }
 
-// single
 export function useProductById(id: number) {
   return useQuery<Product, Error>({
     queryKey: ['product', id],
@@ -36,3 +33,4 @@ export const useCategories = () => {
     placeholderData: []
   })
 }
+

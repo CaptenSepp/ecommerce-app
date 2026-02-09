@@ -1,9 +1,3 @@
-// Public API for wishlist
-// Actions
-export { toggleWishlist, clearWishlist } from './wishlistSlice'
-
-
-export { default as wishlistReducer } from './wishlistSlice'
-
-// UI components
-export { default as WishlistItemsList } from './components/WishlistItemsList'
+export { toggleWishlist, clearWishlist } from './wishlistSlice' // actions
+export { default as wishlistReducer } from './wishlistSlice' // reducer
+export { default as WishlistItemsList } from './components/WishlistItemsList' // UI component

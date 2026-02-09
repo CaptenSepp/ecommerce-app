@@ -1,13 +1,11 @@
 import { useState } from "react";
 
-// renders a basic login form (component) using controlled inputs (state)
-const LoginPage = () => {
-  const [email, setEmail] = useState(""); // track email text (state)
-  const [password, setPassword] = useState(""); // track password text (state)
+const LoginPage = () => { // basic login form with controlled inputs
+  const [email, setEmail] = useState(""); // track email text
+  const [password, setPassword] = useState(""); // track password text
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // prevent full page reload (event default)
-    // here we would send login request (issuing to auth endpoint) and handle response (payload)
+  const handleSubmit = (e: React.FormEvent) => { // submit handler placeholder, auth request would go here
+    e.preventDefault(); // prevent full page reload
   };
 
   return (
@@ -16,8 +14,7 @@ const LoginPage = () => {
         <div className="flex justify-center mx-auto">
         </div>
 
-        {/* form wrapper binds submit to handler (event) */}
-        <form className="mt-6" onSubmit={handleSubmit}>
+        <form className="mt-6" onSubmit={handleSubmit}> {/* form wrapper binds submit to handler */}
           <div>
             <label htmlFor="email" className="block text-sm">Email</label>
             <input
@@ -25,7 +22,7 @@ const LoginPage = () => {
               className="input-field"
               id="email"
               value={email}
-              onChange={e => setEmail(e.target.value)} // update local state from input (controlled)
+              onChange={e => setEmail(e.target.value)} // update local state from input
               required
             />
           </div>
@@ -40,7 +37,7 @@ const LoginPage = () => {
               className="input-field"
               id="password"
               value={password}
-              onChange={e => setPassword(e.target.value)} // update local state from input (controlled)
+              onChange={e => setPassword(e.target.value)} // update local state from input
               required
             />
           </div>

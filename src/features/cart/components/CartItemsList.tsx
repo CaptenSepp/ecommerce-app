@@ -3,10 +3,10 @@ import { RootState, useAppDispatch } from '@/app/store'
 import { addToCart, removeFromCart, updateQuantity } from '@/features/cart/cartSlice'
 
 const CartItemsList = () => {
-  const dispatch = useAppDispatch();
-  const items = useSelector((state: RootState) => state.cart.items);
+  const dispatch = useAppDispatch(); // dispatch actions
+  const items = useSelector((state: RootState) => state.cart.items); // cart items
 
-  if (!items.length) {
+  if (!items.length) { // empty state
     return (
       <div className="empty-state">Your cart is empty.</div>
     );
@@ -14,12 +14,12 @@ const CartItemsList = () => {
 
   return (
     <div className="mb-6 flex flex-col gap-4 sm:mb-8 md:gap-6">
-      {items.map((item) => (
+      {items.map((item) => ( // render cart items
         <div key={item.id} className="line-item">
           <div className="media-thumb">
             <img
               src={item.thumbnail}
-              loading="lazy"
+              loading="lazy" // lazy-load thumbnail
               alt={item.title}
               className="media-thumb__img"
             />
@@ -46,9 +46,9 @@ const CartItemsList = () => {
                 onClick={() => {
                   const q = item.quantity - 1;
                   if (q <= 0) {
-                    dispatch(removeFromCart(item.id));
+                    dispatch(removeFromCart(item.id)); // remove item when quantity hits zero
                   } else {
-                    dispatch(updateQuantity({ id: item.id, quantity: q }));
+                    dispatch(updateQuantity({ id: item.id, quantity: q })); // decrease quantity
                   }
                 }}
                 aria-label={`Decrease quantity of ${item.title}`}
@@ -58,7 +58,7 @@ const CartItemsList = () => {
               <span className="min-w-8 text-center">{item.quantity}</span>
               <button
                 className="btn btn-primary btn-sm"
-                onClick={() => dispatch(addToCart(item))}
+                onClick={() => dispatch(addToCart(item))} // increase quantity
                 aria-label={`Increase quantity of ${item.title}`}
               >
                 +
@@ -71,7 +71,7 @@ const CartItemsList = () => {
               </span>
               <button
                 className="btn btn-danger btn-sm"
-                onClick={() => dispatch(removeFromCart(item.id))}
+                onClick={() => dispatch(removeFromCart(item.id))} // remove item
               >
                 Remove
               </button>

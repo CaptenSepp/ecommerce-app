@@ -1,6 +1,5 @@
-// barrel file exporting homepage components (module exports)
-export { default as Banner } from './Banner';
-export { default as CategoryGrid } from './CategoryGrid';
-export { default as RichText } from './RichText';
-export { default as Scrollbar } from './Scrollbar';
-export { default as FullBleedImage } from './FullBleedImage';
+export { default as Banner } from './Banner'; // hero banner
+export { default as CategoryGrid } from './CategoryGrid'; // category cards grid
+export { default as RichText } from './RichText'; // centered text heading
+export { default as Scrollbar } from './Scrollbar'; // product scroller
+export { default as FullBleedImage } from './FullBleedImage'; // full-bleed image

@@ -1,10 +1,4 @@
-// Public API for cart 
-// Actions
-export { addToCart, removeFromCart, updateQuantity, clearCart } from './cartSlice'
-
-// Reducer
-export { default as cartReducer } from './cartSlice'
-
-// UI components
-export { default as CartItemsList } from './components/CartItemsList'
-export { default as CartSummary } from './components/CartSummary'
+export { addToCart, removeFromCart, updateQuantity, clearCart } from './cartSlice' // actions
+export { default as cartReducer } from './cartSlice' // reducer
+export { default as CartItemsList } from './components/CartItemsList' // UI component
+export { default as CartSummary } from './components/CartSummary' // UI component

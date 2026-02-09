@@ -18,20 +18,19 @@ const Logo = () => {
   );
 };
 
-const getNavLinkClassName = (isActive: boolean) => `nav-link${isActive ? " nav-link-active" : ""}`;
+const getNavLinkClassName = (isActive: boolean) => `nav-link${isActive ? " nav-link-active" : ""}`; // active link class helper
 
-// Shared icon-button style used by header icons
-const getIconLinkClassName = (isActive: boolean) =>
+const getIconLinkClassName = (isActive: boolean) => // shared icon-button style for header icons
   `p-2 rounded-md transition cursor-pointer ${
     isActive ? "bg-brand-orange text-white" : "text-brand-orange hover:bg-gray-100"
   }`;
 
 const NavbarCategories = () => {
-  const [q, setQ] = useState("");
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [q, setQ] = useState(""); // search input state
+  const navigate = useNavigate(); // programmatic navigation
+  const location = useLocation(); // read current path and query
 
-  const submitSearch = (e: React.FormEvent) => {
+  const submitSearch = (e: React.FormEvent) => { // submit search into URL params
     e.preventDefault();
     const query = q.trim();
     const params = new URLSearchParams();
@@ -39,11 +38,10 @@ const NavbarCategories = () => {
     navigate(`/products${params.toString() ? `?${params.toString()}` : ""}`);
   };
 
-  // Active states based on search params for Products vs Sale
-  const isOnProducts = location.pathname === "/products";
-  const searchParams = new URLSearchParams(location.search);
-  const isSaleActive = isOnProducts && searchParams.get("sale") === "1";
-  const isProductsActive = isOnProducts && !isSaleActive;
+  const isOnProducts = location.pathname === "/products"; // active states based on URL
+  const searchParams = new URLSearchParams(location.search); // parse query params
+  const isSaleActive = isOnProducts && searchParams.get("sale") === "1"; // sale tab active
+  const isProductsActive = isOnProducts && !isSaleActive; // products tab active
 
   return (
     <div className="flex items-center gap-4 flex-wrap flex-1">
@@ -120,11 +118,11 @@ const NavbarCategories = () => {
 };
 
 const LoginDrawer = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false); // open/close state
   return (
     <>
       <button
-        onClick={() => setIsDrawerOpen(true)}
+        onClick={() => setIsDrawerOpen(true)} // open drawer
         className={getIconLinkClassName(isDrawerOpen)}
         aria-pressed={isDrawerOpen}
         aria-haspopup="dialog"
@@ -133,7 +131,7 @@ const LoginDrawer = () => {
         <FiLogIn size={20} />
       </button>
 
-      {isDrawerOpen && (
+      {isDrawerOpen && ( // backdrop only when open
         <div
           className="fixed inset-0 bg-black/40 backdrop-blur-xs z-40"
           onClick={() => setIsDrawerOpen(false)}
@@ -149,7 +147,7 @@ const LoginDrawer = () => {
         }`}
       >
         <button
-          onClick={() => setIsDrawerOpen(false)}
+          onClick={() => setIsDrawerOpen(false)} // close drawer
           className="absolute top-4 right-4 text-2xl"
           aria-label="Close"
         >
@@ -173,8 +171,8 @@ const LoginDrawer = () => {
 };
 
 const NavbarIcons = () => {
-  const cartCount = useSelector((s: RootState) => s.cart.items.reduce((sum, it: any) => sum + (it.quantity ?? 0), 0));
-  const wishCount = useSelector((s: RootState) => s.wishlist.items.length);
+  const cartCount = useSelector((s: RootState) => s.cart.items.reduce((sum, it) => sum + (it.quantity ?? 0), 0)); // total cart quantity
+  const wishCount = useSelector((s: RootState) => s.wishlist.items.length); // wishlist count
 
   return (
     <div className="flex items-center gap-3">
@@ -208,7 +206,7 @@ const NavbarIcons = () => {
 const Header = () => {
   return (
     <div className="border-b border-black">
-      <header className="header">
+      <header className="header"> {/* main header bar */}
         <div className="header__items">
           <Logo />
           <NavbarCategories />

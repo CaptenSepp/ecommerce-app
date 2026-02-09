@@ -1,5 +1,4 @@
-﻿// src/pages/ProductDetails.tsx
-import { Link, useParams } from 'react-router-dom'
+﻿import { Link, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useProductById } from '@/features/products/hooks'
 import { addToCart } from '@/features/cart/cartSlice'
@@ -7,18 +6,15 @@ import { toggleWishlist } from '@/features/wishlist/wishlistSlice'
 import { useToast } from '@/components/ui/Toast'
 
 const ProductDetails = () => {
-  // prepare helpers and read id from URL (dispatch, toast, route param / identifier)
-  const dispatch = useDispatch()
-  const { notify } = useToast()
-  const { productId } = useParams<{ productId: string }>()
-  const productIdNumber = Number(productId)
-  // fetch the product by its numeric id (data hook -> endpoint/payload)
-  const { data: product, isLoading, error } = useProductById(productIdNumber)
+  const dispatch = useDispatch() // dispatch for cart/wishlist actions
+  const { notify } = useToast() // toast helper
+  const { productId } = useParams<{ productId: string }>() // read id from URL
+  const productIdNumber = Number(productId) // coerce to number for API hook
+  const { data: product, isLoading, error } = useProductById(productIdNumber) // fetch product by id
 
-  // handle loading, error and missing data states (guards)
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
-  if (!product) return <div>Not found</div>
+  if (isLoading) return <div>Loading...</div> // loading state
+  if (error) return <div>Error: {error.message}</div> // error state
+  if (!product) return <div>Not found</div> // missing data state
 
   return (
     <div className="px-4 py-6">
@@ -38,17 +34,15 @@ const ProductDetails = () => {
           <p className="mb-4">{product.description}</p>
           <p className="text-brand-orange font-bold text-xl mb-4">${product.price}</p>
           <div className="flex gap-3">
-            {/* add to cart then show a success toast (dispatch + feedback) */}
             <button
               className="btn btn-primary"
-              onClick={() => { dispatch(addToCart(product)); notify('Added to cart', 'success'); }}
+              onClick={() => { dispatch(addToCart(product)); notify('Added to cart', 'success'); }} // add to cart + toast
             >
               Add to Cart
             </button>
-            {/* toggle wishlist and inform the user (dispatch + toast) */}
             <button
               className="btn btn-secondary"
-              onClick={() => { dispatch(toggleWishlist(product)); notify('Wishlist updated', 'info'); }}
+              onClick={() => { dispatch(toggleWishlist(product)); notify('Wishlist updated', 'info'); }} // toggle wishlist + toast
             >
               Wishlist
             </button>
@@ -60,3 +54,4 @@ const ProductDetails = () => {
 }
 
 export default ProductDetails
+

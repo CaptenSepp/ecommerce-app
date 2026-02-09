@@ -15,50 +15,50 @@ import Wishlist from "@/pages/Wishlist";
 import Checkout from "@/pages/Checkout";
 import OrderConfirmation from "@/pages/OrderConfirmation";
 
-const router = createBrowserRouter(
+const router = createBrowserRouter( // central route tree for the SPA
   createRoutesFromElements(
     <Route
       path="/"
-      element={<Layout />}
+      element={<Layout />} // shared layout shell for all pages
     >
       <Route
         index
-        element={<Home />}
+        element={<Home />} // home page
       />
       <Route
-        path="products"
+        path="products" // product listing
         element={<ProductsPage />}
       />
       <Route
-        path="products/:productId"
+        path="products/:productId" // product details by id
         element={<ProductDetails />}
       />
       <Route
-        path="cart"
+        path="cart" // cart page
         element={<Cart />}
       />
       <Route
-        path="checkout"
+        path="checkout" // checkout page
         element={<Checkout />}
       />
       <Route
-        path="order-confirmation"
+        path="order-confirmation" // post-order confirmation
         element={<OrderConfirmation />}
       />
       <Route
-        path="wishlist"
+        path="wishlist" // wishlist page
         element={<Wishlist />}
       />
       <Route
-        path="about"
+        path="about" // about page
         element={<About />}
       />
       <Route
-        path="*"
+        path="*" // catch-all 404
         element={<NotFoundPage />}
       />
       <Route
-        path="login"
+        path="login" // login page (UI only)
         element={<LoginPage />}
       />
 
@@ -66,4 +66,4 @@ const router = createBrowserRouter(
   )
 );
 
-export default router;
+export default router; // RouterProvider consumes this instance

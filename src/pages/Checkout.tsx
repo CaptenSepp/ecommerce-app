@@ -4,25 +4,23 @@ import { clearCart } from '@/features/cart/cartSlice'
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 
-// renders the checkout form (component) and order summary (UI) using cart state (store)
-const Checkout = () => {
-  const dispatch = useAppDispatch() // prepare to send actions (dispatch)
-  const navigate = useNavigate() // programmatic navigation after submit (route)
-  const items = useSelector((s: RootState) => s.cart.items) // read cart items from the store (selector)
-  const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0) // compute subtotal from items (derived state)
-  const shipping = items.length ? 4.99 : 0 // simple shipping rule (business logic)
-  const total = subtotal + shipping // final total shown to user (calculated)
+const Checkout = () => { // checkout form + order summary
+  const dispatch = useAppDispatch() // dispatch actions
+  const navigate = useNavigate() // programmatic navigation after submit
+  const items = useSelector((s: RootState) => s.cart.items) // read cart items
+  const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0) // compute subtotal
+  const shipping = items.length ? 4.99 : 0 // simple shipping rule
+  const total = subtotal + shipping // final total
 
-  const [name, setName] = useState('') // controlled input for full name (state)
-  const [email, setEmail] = useState('') // controlled input for email (state)
-  const [address, setAddress] = useState('') // controlled input for address (state)
+  const [name, setName] = useState('') // controlled input for full name
+  const [email, setEmail] = useState('') // controlled input for email
+  const [address, setAddress] = useState('') // controlled input for address
 
-  const placeOrder = (e: React.FormEvent) => {
-    e.preventDefault() // stop the default page reload (event)
-    // naive validation -> simple required-field checks (basic validation)
-    if (!name || !email || !address) return
-    dispatch(clearCart()) // empty the cart after placing order (dispatch action)
-    navigate('/order-confirmation', { replace: true }) // go to confirmation page (route)
+  const placeOrder = (e: React.FormEvent) => { // submit handler
+    e.preventDefault() // stop the default page reload
+    if (!name || !email || !address) return // simple required-field check
+    dispatch(clearCart()) // empty the cart after placing order
+    navigate('/order-confirmation', { replace: true }) // go to confirmation page
   }
 
   return (
@@ -34,7 +32,7 @@ const Checkout = () => {
       <h1 className="text-2xl font-semibold mb-6">Checkout</h1>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <form onSubmit={placeOrder} className="space-y-4">
+        <form onSubmit={placeOrder} className="space-y-4"> {/* checkout form */}
           <div>
             <label className="block text-sm mb-1">Full name</label>
             <input className="input-field" value={name} onChange={e => setName(e.target.value)} required />
@@ -50,10 +48,10 @@ const Checkout = () => {
           <button type="submit" className="btn btn-primary">Place Order</button>
         </form>
 
-        <aside className="rounded-lg p-4" style={{ background: 'var(--surface)' }}>
+        <aside className="rounded-lg p-4" style={{ background: 'var(--surface)' }}> {/* order summary */}
           <h2 className="text-lg font-semibold mb-3">Order Summary</h2>
           <ul className="space-y-2 mb-4">
-            {items.map(it => (
+            {items.map(it => ( // render line items
               <li key={it.id} className="flex justify-between text-sm">
                 <span className="truncate">{it.title} × {it.quantity}</span>
                 <span>${(it.price * it.quantity).toFixed(2)}</span>
