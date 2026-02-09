@@ -1,7 +1,7 @@
 import { Heart, ShoppingCart } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
+import { useAppDispatch } from "@/app/store";
 import { addToCart } from "@/features/cart/cartSlice";
 import { Product } from "@/features/products/services";
 import { useCategories, useProducts } from "@/features/products/hooks";
@@ -20,7 +20,7 @@ const ProductsPage = () => { // product listing page with URL-synced filters
   const [selectedCategory, setSelectedCategory] = useState(categoryQueryParam); // local UI state mirrors URL
   const [searchQuery, setSearchQuery] = useState(initialQuery); // local UI state mirrors URL
   const [sortBy, setSortBy] = useState(initialSort); // local UI state mirrors URL
-  const dispatch = useDispatch(); // dispatch for cart and wishlist actions
+  const dispatch = useAppDispatch(); // typed dispatch for cart and wishlist actions
   const { notify } = useToast(); // toast helper for user feedback
 
   const { data: products = [], isLoading: isProductsLoading } = useProducts(); // fetch products for grid

@@ -1,3 +1,5 @@
+import { z } from 'zod' // runtime validation for API payloads
+
 // src/features/products/services.ts
 
 export interface Product { // product data from DummyJSON
@@ -19,22 +21,43 @@ export interface Category { // category model used for filters
   name: string;
 }
 
+const productSchema = z.object({ // runtime schema for Product
+  id: z.number(),
+  title: z.string(),
+  description: z.string(),
+  price: z.number(),
+  discountPercentage: z.number(),
+  rating: z.number(),
+  stock: z.number(),
+  brand: z.string(),
+  category: z.string(),
+  thumbnail: z.string(),
+  images: z.array(z.string()),
+})
+
+const productsResponseSchema = z.object({ // runtime schema for products endpoint
+  products: z.array(productSchema),
+})
+
+const categoriesResponseSchema = z.array(z.string()) // categories endpoint returns slug list
+
 export async function getProducts(): Promise<Product[]> { // fetch all products for catalog
   const res = await fetch("https://dummyjson.com/products"); // GET products endpoint
+  if (!res.ok) throw new Error("Failed to fetch products"); // surface request failures
   const json = await res.json(); // parse JSON response body
-  return json.products as Product[]; // API returns products array
+  return productsResponseSchema.parse(json).products; // validate and return products array
 }
 
 export async function getProductById(id: number): Promise<Product> { // fetch one product by id
   const res = await fetch(`https://dummyjson.com/products/${id}`); // request a single product by id
   if (!res.ok) throw new Error("Product not found"); // normalize not-found into error
-  return (await res.json()) as Product; // response is the product object
+  return productSchema.parse(await res.json()); // validate and return product object
 }
 
 export async function getCategories(): Promise<Category[]> { // fetch category slugs and format labels
   const res = await fetch("https://dummyjson.com/products/categories"); // categories endpoint
   if (!res.ok) throw new Error("Failed to fetch categories"); // surface failure explicitly
-  const list: string[] = await res.json(); // list is an array of strings
+  const list = categoriesResponseSchema.parse(await res.json()); // validate slug list
   return list.map((slug) => ({ // map slugs to display labels
     slug,
     name: slug

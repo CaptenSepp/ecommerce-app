@@ -1,12 +1,12 @@
 ﻿import { Link, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from '@/app/store'
 import { useProductById } from '@/features/products/hooks'
 import { addToCart } from '@/features/cart/cartSlice'
 import { toggleWishlist } from '@/features/wishlist/wishlistSlice'
 import { useToast } from '@/components/ui/Toast'
 
 const ProductDetails = () => {
-  const dispatch = useDispatch() // dispatch for cart/wishlist actions
+  const dispatch = useAppDispatch() // typed dispatch for cart/wishlist actions
   const { notify } = useToast() // toast helper
   const { productId } = useParams<{ productId: string }>() // read id from URL
   const productIdNumber = Number(productId) // coerce to number for API hook
