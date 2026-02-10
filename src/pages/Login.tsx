@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+
+const focusRingClass = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"; // visible keyboard focus
 
 type LoginFormValues = { // form model for validation
   email: string;
@@ -27,13 +29,19 @@ const LoginPage = () => { // basic login form with controlled inputs
   const [password, setPassword] = useState(""); // track password text
   const [errors, setErrors] = useState<LoginFormErrors>({}); // current validation errors
   const [touched, setTouched] = useState<Partial<Record<keyof LoginFormValues, boolean>>>({}); // tracks interacted fields
+  const emailInputRef = useRef<HTMLInputElement | null>(null); // focus target for invalid email
+  const passwordInputRef = useRef<HTMLInputElement | null>(null); // focus target for invalid password
 
   const handleSubmit = (e: React.FormEvent) => { // submit handler placeholder, auth request would go here
     e.preventDefault(); // prevent full page reload
     const nextErrors = validateLoginForm({ email, password }); // validate on submit
     setErrors(nextErrors);
     setTouched({ email: true, password: true }); // show all field errors after submit
-    if (Object.keys(nextErrors).length > 0) return; // block submit when invalid
+    if (Object.keys(nextErrors).length > 0) { // focus first invalid field for keyboard users
+      if (nextErrors.email) emailInputRef.current?.focus();
+      else if (nextErrors.password) passwordInputRef.current?.focus();
+      return; // block submit when invalid
+    }
   };
 
   return (
@@ -47,7 +55,8 @@ const LoginPage = () => { // basic login form with controlled inputs
             <label htmlFor="email" className="block text-sm">Email</label>
             <input
               type="email"
-              className={`input-field ${touched.email && errors.email ? "border-red-500" : ""}`}
+              ref={emailInputRef}
+              className={`input-field ${focusRingClass} ${touched.email && errors.email ? "border-red-500" : ""}`}
               id="email"
               value={email}
               onChange={e => { // update + revalidate after user touched field
@@ -60,8 +69,9 @@ const LoginPage = () => { // basic login form with controlled inputs
                 setErrors(validateLoginForm({ email, password }));
               }}
               aria-invalid={Boolean(touched.email && errors.email)}
+              aria-describedby={touched.email && errors.email ? "login-email-error" : undefined}
             />
-            {touched.email && errors.email ? <p className="mt-1 text-sm text-red-600">{errors.email}</p> : null}
+            {touched.email && errors.email ? <p id="login-email-error" className="mt-1 text-sm text-red-600" role="alert">{errors.email}</p> : null}
           </div>
 
           <div className="mt-4">
@@ -71,7 +81,8 @@ const LoginPage = () => { // basic login form with controlled inputs
             </div>
             <input
               type="password"
-              className={`input-field ${touched.password && errors.password ? "border-red-500" : ""}`}
+              ref={passwordInputRef}
+              className={`input-field ${focusRingClass} ${touched.password && errors.password ? "border-red-500" : ""}`}
               id="password"
               value={password}
               onChange={e => { // update + revalidate after user touched field
@@ -84,12 +95,13 @@ const LoginPage = () => { // basic login form with controlled inputs
                 setErrors(validateLoginForm({ email, password }));
               }}
               aria-invalid={Boolean(touched.password && errors.password)}
+              aria-describedby={touched.password && errors.password ? "login-password-error" : undefined}
             />
-            {touched.password && errors.password ? <p className="mt-1 text-sm text-red-600">{errors.password}</p> : null}
+            {touched.password && errors.password ? <p id="login-password-error" className="mt-1 text-sm text-red-600" role="alert">{errors.password}</p> : null}
           </div>
 
           <div className="mt-6">
-            <button type="submit" className="submit-button">Sign In</button>
+            <button type="submit" className={`submit-button ${focusRingClass}`}>Sign In</button>
           </div>
         </form>
 

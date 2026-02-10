@@ -2,7 +2,9 @@ import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/app/store'
 import { clearCart } from '@/features/cart/cartSlice'
 import { useNavigate, Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+
+const focusRingClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2' // visible keyboard focus
 
 type CheckoutFormValues = { // form model for validation
   name: string
@@ -45,13 +47,21 @@ const Checkout = () => { // checkout form + order summary
   const [address, setAddress] = useState('') // controlled input for address
   const [errors, setErrors] = useState<CheckoutFormErrors>({}) // current validation errors
   const [touched, setTouched] = useState<Partial<Record<keyof CheckoutFormValues, boolean>>>({}) // tracks interacted fields
+  const nameInputRef = useRef<HTMLInputElement | null>(null) // focus target for invalid name
+  const emailInputRef = useRef<HTMLInputElement | null>(null) // focus target for invalid email
+  const addressInputRef = useRef<HTMLTextAreaElement | null>(null) // focus target for invalid address
 
   const placeOrder = (e: React.FormEvent) => { // submit handler
     e.preventDefault() // stop the default page reload
     const nextErrors = validateCheckoutForm({ name, email, address }, items.length > 0) // validate all fields on submit
     setErrors(nextErrors)
     setTouched({ name: true, email: true, address: true }) // show all field errors after first submit
-    if (Object.keys(nextErrors).length > 0) return // block submit when validation fails
+    if (Object.keys(nextErrors).length > 0) { // move keyboard focus to first invalid field
+      if (nextErrors.name) nameInputRef.current?.focus()
+      else if (nextErrors.email) emailInputRef.current?.focus()
+      else if (nextErrors.address) addressInputRef.current?.focus()
+      return // block submit when validation fails
+    }
     dispatch(clearCart()) // empty the cart after placing order
     navigate('/order-confirmation', { replace: true }) // go to confirmation page
   }
@@ -66,11 +76,13 @@ const Checkout = () => { // checkout form + order summary
 
       <div className="grid gap-6 md:grid-cols-2">
         <form onSubmit={placeOrder} className="space-y-4" noValidate> {/* checkout form with custom validation */}
-          {errors.form ? <p className="text-sm text-red-600">{errors.form}</p> : null}
+          {errors.form ? <p className="text-sm text-red-600" role="alert">{errors.form}</p> : null}
           <div>
-            <label className="block text-sm mb-1">Full name</label>
+            <label htmlFor="checkout-name" className="block text-sm mb-1">Full name</label>
             <input
-              className={`input-field ${touched.name && errors.name ? 'border-red-500' : ''}`}
+              id="checkout-name"
+              ref={nameInputRef}
+              className={`input-field ${focusRingClass} ${touched.name && errors.name ? 'border-red-500' : ''}`}
               value={name}
               onChange={e => { // update + revalidate after user touched the field
                 const next = e.target.value
@@ -82,14 +94,17 @@ const Checkout = () => { // checkout form + order summary
                 setErrors(validateCheckoutForm({ name, email, address }, items.length > 0))
               }}
               aria-invalid={Boolean(touched.name && errors.name)}
+              aria-describedby={touched.name && errors.name ? 'checkout-name-error' : undefined}
             />
-            {touched.name && errors.name ? <p className="mt-1 text-sm text-red-600">{errors.name}</p> : null}
+            {touched.name && errors.name ? <p id="checkout-name-error" className="mt-1 text-sm text-red-600" role="alert">{errors.name}</p> : null}
           </div>
           <div>
-            <label className="block text-sm mb-1">Email</label>
+            <label htmlFor="checkout-email" className="block text-sm mb-1">Email</label>
             <input
+              id="checkout-email"
+              ref={emailInputRef}
               type="email"
-              className={`input-field ${touched.email && errors.email ? 'border-red-500' : ''}`}
+              className={`input-field ${focusRingClass} ${touched.email && errors.email ? 'border-red-500' : ''}`}
               value={email}
               onChange={e => { // update + revalidate after user touched the field
                 const next = e.target.value
@@ -101,13 +116,16 @@ const Checkout = () => { // checkout form + order summary
                 setErrors(validateCheckoutForm({ name, email, address }, items.length > 0))
               }}
               aria-invalid={Boolean(touched.email && errors.email)}
+              aria-describedby={touched.email && errors.email ? 'checkout-email-error' : undefined}
             />
-            {touched.email && errors.email ? <p className="mt-1 text-sm text-red-600">{errors.email}</p> : null}
+            {touched.email && errors.email ? <p id="checkout-email-error" className="mt-1 text-sm text-red-600" role="alert">{errors.email}</p> : null}
           </div>
           <div>
-            <label className="block text-sm mb-1">Address</label>
+            <label htmlFor="checkout-address" className="block text-sm mb-1">Address</label>
             <textarea
-              className={`input-field ${touched.address && errors.address ? 'border-red-500' : ''}`}
+              id="checkout-address"
+              ref={addressInputRef}
+              className={`input-field ${focusRingClass} ${touched.address && errors.address ? 'border-red-500' : ''}`}
               value={address}
               onChange={e => { // update + revalidate after user touched the field
                 const next = e.target.value
@@ -119,11 +137,12 @@ const Checkout = () => { // checkout form + order summary
                 setErrors(validateCheckoutForm({ name, email, address }, items.length > 0))
               }}
               aria-invalid={Boolean(touched.address && errors.address)}
+              aria-describedby={touched.address && errors.address ? 'checkout-address-error' : undefined}
               rows={3}
             />
-            {touched.address && errors.address ? <p className="mt-1 text-sm text-red-600">{errors.address}</p> : null}
+            {touched.address && errors.address ? <p id="checkout-address-error" className="mt-1 text-sm text-red-600" role="alert">{errors.address}</p> : null}
           </div>
-          <button type="submit" className="btn btn-primary">Place Order</button>
+          <button type="submit" className={`btn btn-primary ${focusRingClass}`}>Place Order</button>
         </form>
 
         <aside className="rounded-lg p-4" style={{ background: 'var(--surface)' }}> {/* order summary */}

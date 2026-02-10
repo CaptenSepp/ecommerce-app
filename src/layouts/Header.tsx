@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Heart, Info, ShoppingCart } from "lucide-react";
@@ -24,6 +24,7 @@ const getIconLinkClassName = (isActive: boolean) => // shared icon-button style 
   `p-2 rounded-md transition cursor-pointer ${
     isActive ? "bg-brand-orange text-white" : "text-brand-orange hover:bg-gray-100"
   }`;
+const focusRingClass = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"; // visible keyboard focus
 
 const NavbarCategories = () => {
   const [q, setQ] = useState(""); // search input state
@@ -44,56 +45,56 @@ const NavbarCategories = () => {
   const isProductsActive = isOnProducts && !isSaleActive; // products tab active
 
   return (
-    <div className="flex items-center gap-4 flex-wrap flex-1">
+    <nav className="flex items-center gap-4 flex-wrap flex-1" aria-label="Primary navigation"> {/* nav landmark for keyboard/screen readers */}
       <div className="flex items-center gap-2">
         {/* Products with hover panel */}
         <div className="relative group pt-2">
-          <Link to="/products" className={getNavLinkClassName(isProductsActive)}>
+          <Link to="/products" className={`${getNavLinkClassName(isProductsActive)} ${focusRingClass}`}>
             Products
           </Link>
-          <div className="absolute left-0 top-full z-50 w-[min(90vw,640px)] rounded-lg border border-[color:var(--border-color)] bg-white shadow-lg p-4 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity">
+          <div className="absolute left-0 top-full z-50 w-[min(90vw,640px)] rounded-lg border border-[color:var(--border-color)] bg-white shadow-lg p-4 invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity"> {/* open on keyboard focus too */}
             <div className="mb-2 text-sm text-[color:var(--text-muted)]">Shop by category</div>
             <div className="grid grid-cols-2 gap-3">
               {categoryCards.slice(0, 4).map((c) => (
-                <Link key={c.id} to={c.href} className="flex items-center gap-3 rounded-md p-2 hover:bg-gray-100">
+                <Link key={c.id} to={c.href} className={`flex items-center gap-3 rounded-md p-2 hover:bg-gray-100 ${focusRingClass}`}>
                   <img src={c.img} alt="" className="h-10 w-10 rounded object-cover" loading="lazy" />
                   <span className="font-medium">{c.label}</span>
                 </Link>
               ))}
             </div>
             <div className="mt-3">
-              <Link to="/products" className="text-sm text-brand-orange hover:underline">View all products →</Link>
+              <Link to="/products" className={`text-sm text-brand-orange hover:underline ${focusRingClass}`}>View all products →</Link>
             </div>
           </div>
         </div>
 
         {/* About Us with hover panel */}
         <div className="relative group pt-2">
-          <NavLink to="/about" className={({ isActive }) => getNavLinkClassName(isActive)}>
+          <NavLink to="/about" className={({ isActive }) => `${getNavLinkClassName(isActive)} ${focusRingClass}`}>
             About Us
           </NavLink>
-          <div className="absolute left-0 top-full z-50 w-80 rounded-lg border border-[color:var(--border-color)] bg-white shadow-lg p-4 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity">
+          <div className="absolute left-0 top-full z-50 w-80 rounded-lg border border-[color:var(--border-color)] bg-white shadow-lg p-4 invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity"> {/* open on keyboard focus too */}
             <p className="text-sm text-[color:var(--text-muted)]">
               Learn about our mission, quality standards, and team.
             </p>
             <div className="mt-3 flex gap-3">
-              <Link to="/about" className="btn btn-primary btn-sm">Our Story</Link>
-              <Link to="/login" className="btn btn-secondary btn-sm">Join</Link>
+              <Link to="/about" className={`btn btn-primary btn-sm ${focusRingClass}`}>Our Story</Link>
+              <Link to="/login" className={`btn btn-secondary btn-sm ${focusRingClass}`}>Join</Link>
             </div>
           </div>
         </div>
 
         {/* Sale with hover panel */}
         <div className="relative group pt-2">
-          <Link to="/products?sale=1&sort=price-asc" className={getNavLinkClassName(isSaleActive)}>
+          <Link to="/products?sale=1&sort=price-asc" className={`${getNavLinkClassName(isSaleActive)} ${focusRingClass}`}>
             Sale
           </Link>
-          <div className="absolute left-0 top-full z-50 w-[min(90vw,520px)] rounded-lg border border-[color:var(--border-color)] bg-white shadow-lg p-4 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity">
+          <div className="absolute left-0 top-full z-50 w-[min(90vw,520px)] rounded-lg border border-[color:var(--border-color)] bg-white shadow-lg p-4 invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity"> {/* open on keyboard focus too */}
             <div className="mb-2 text-sm text-[color:var(--text-muted)]">Deals you might like</div>
             <div className="grid grid-cols-2 gap-3">
-              <Link to="/products?sale=1&sort=price-asc" className="rounded-md p-2 hover:bg-gray-100 font-medium">All Deals</Link>
+              <Link to="/products?sale=1&sort=price-asc" className={`rounded-md p-2 hover:bg-gray-100 font-medium ${focusRingClass}`}>All Deals</Link>
               {categoryCards.slice(0, 3).map((c) => (
-                <Link key={c.id} to={`${c.href}&sale=1&sort=price-asc`} className="rounded-md p-2 hover:bg-gray-100">
+                <Link key={c.id} to={`${c.href}&sale=1&sort=price-asc`} className={`rounded-md p-2 hover:bg-gray-100 ${focusRingClass}`}>
                   {c.label} Deals
                 </Link>
               ))}
@@ -103,30 +104,49 @@ const NavbarCategories = () => {
       </div>
 
       <form onSubmit={submitSearch} className="flex items-center gap-2 ml-auto">
+        <label htmlFor="header-product-search" className="sr-only">Search products</label> {/* explicit label for screen readers */}
         <input
-          className="input-field"
+          id="header-product-search"
+          className={`input-field ${focusRingClass}`}
           placeholder="Search products"
-          aria-label="Search products"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           style={{ width: 220 }}
         />
-        <button type="submit" className="btn btn-secondary btn-sm">Search</button>
+        <button type="submit" className={`btn btn-secondary btn-sm ${focusRingClass}`}>Search</button>
       </form>
-    </div>
+    </nav>
   );
 };
 
 const LoginDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false); // open/close state
+  const openButtonRef = useRef<HTMLButtonElement | null>(null); // return focus to opener on close
+
+  useEffect(() => { // close drawer with Escape key
+    if (!isDrawerOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsDrawerOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isDrawerOpen]);
+
+  useEffect(() => { // restore keyboard focus after closing drawer
+    if (!isDrawerOpen) openButtonRef.current?.focus();
+  }, [isDrawerOpen]);
+
   return (
     <>
       <button
+        type="button"
+        ref={openButtonRef}
         onClick={() => setIsDrawerOpen(true)} // open drawer
-        className={getIconLinkClassName(isDrawerOpen)}
+        className={`${getIconLinkClassName(isDrawerOpen)} ${focusRingClass}`}
         aria-pressed={isDrawerOpen}
         aria-haspopup="dialog"
         aria-controls="login-drawer"
+        aria-label="Open login drawer"
       >
         <FiLogIn size={20} />
       </button>
@@ -147,9 +167,10 @@ const LoginDrawer = () => {
         }`}
       >
         <button
+          type="button"
           onClick={() => setIsDrawerOpen(false)} // close drawer
-          className="absolute top-4 right-4 text-2xl"
-          aria-label="Close"
+          className={`absolute top-4 right-4 text-2xl ${focusRingClass}`}
+          aria-label="Close login drawer"
         >
           ×
         </button>
@@ -158,7 +179,7 @@ const LoginDrawer = () => {
           <div>
             <NavLink
               to="/login"
-              className="btn btn-primary btn-sm"
+              className={`btn btn-primary btn-sm ${focusRingClass}`}
               onClick={() => setIsDrawerOpen(false)}
             >
               Open Login Page
@@ -176,7 +197,7 @@ const NavbarIcons = () => {
 
   return (
     <div className="flex items-center gap-3">
-      <NavLink to="/cart" className={({ isActive }) => getIconLinkClassName(isActive)}>
+      <NavLink to="/cart" aria-label="Open cart" className={({ isActive }) => `${getIconLinkClassName(isActive)} ${focusRingClass}`}>
         <span className="relative inline-flex">
           <ShoppingCart size={20} />
           {cartCount > 0 && (
@@ -185,7 +206,7 @@ const NavbarIcons = () => {
         </span>
       </NavLink>
 
-      <NavLink to="/wishlist" className={({ isActive }) => getIconLinkClassName(isActive)}>
+      <NavLink to="/wishlist" aria-label="Open wishlist" className={({ isActive }) => `${getIconLinkClassName(isActive)} ${focusRingClass}`}>
         <span className="relative inline-flex">
           <Heart size={20} />
           {wishCount > 0 && (
@@ -194,7 +215,7 @@ const NavbarIcons = () => {
         </span>
       </NavLink>
 
-      <NavLink to="/about" className={({ isActive }) => getIconLinkClassName(isActive)}>
+      <NavLink to="/about" aria-label="Open about page" className={({ isActive }) => `${getIconLinkClassName(isActive)} ${focusRingClass}`}>
         <Info size={20} />
       </NavLink>
 

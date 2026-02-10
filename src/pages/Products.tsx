@@ -8,6 +8,8 @@ import { useCategories, useProducts } from "@/features/products/hooks";
 import { toggleWishlist } from "@/features/wishlist/wishlistSlice";
 import { useToast } from "@/components/ui/toastContext";
 
+const focusRingClass = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"; // visible keyboard focus
+
 const ProductsPage = () => { // product listing page with URL-synced filters
   const [searchParams, setSearchParams] = useSearchParams(); // URL query params are the source of truth
   const categoryQueryParam = searchParams.get("cat") || ""; // URL: category (slug)
@@ -93,7 +95,7 @@ const ProductsPage = () => { // product listing page with URL-synced filters
   }, [products, selectedCategory, searchQuery, sortBy, saleMode]);
 
   if (isProductsLoading || isCategoriesLoading) {
-    return <p>Loading...</p>; // simple loading state for both queries
+    return <p role="status" aria-live="polite">Loading...</p>; // announce loading state
   }
   if (productsError || categoriesError) {
     return (
@@ -103,7 +105,7 @@ const ProductsPage = () => { // product listing page with URL-synced filters
           Error: {productsError?.message || categoriesError?.message || "Failed to load data"}
         </p>
         <button
-          className="btn btn-primary btn-sm"
+          className={`btn btn-primary btn-sm ${focusRingClass}`}
           onClick={() => { // retry only failed queries (or both as fallback)
             const retries: Promise<unknown>[] = [];
             if (productsError) retries.push(refetchProducts());
@@ -120,12 +122,13 @@ const ProductsPage = () => { // product listing page with URL-synced filters
 
   return (
     <div className="px-4 py-8 flex gap-8">
-      <aside className="w-64 shrink-0 space-y-4"> {/* sidebar filter controls (UI) */}
+      <aside className="w-64 shrink-0 space-y-4" aria-label="Product filters"> {/* sidebar filter controls (UI) */}
         <h2 className="font-semibold">Filter & Sort</h2>
         {/* search input (text query) */}
         <div className="space-y-2">
-          <label className="text-sm font-medium">Search</label>
+          <label htmlFor="products-search" className="text-sm font-medium">Search</label>
           <input
+            id="products-search"
             value={searchQuery}
             onChange={(e) => { // update search and URL params together
               const q = e.target.value;
@@ -138,56 +141,61 @@ const ProductsPage = () => { // product listing page with URL-synced filters
               setSearchParams(next); // reflect changes in the URL (query params)
             }}
             placeholder="Search products..."
-            className="input-field"
-            aria-label="Search products"
+            className={`input-field ${focusRingClass}`}
           />
         </div>
         <form className="space-y-2 text-sm">
           {/* category radio list */}
-          <label className="flex items-center gap-2">
-            <input
-              type="radio"
-              name="cat"
-              value=""
-              checked={selectedCategory === ""}
-              onChange={() => { // selecting "All" clears category filter
+          <fieldset>
+            <legend className="mb-2 text-sm font-medium">Category</legend> {/* explicit group label */}
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="cat"
+                value=""
+                checked={selectedCategory === ""}
+                className={focusRingClass}
+                onChange={() => { // selecting "All" clears the category query
                   setSelectedCategory("");
                   const next: Record<string, string> = {};
                   if (searchQuery) next.q = searchQuery;
                   if (sortBy && sortBy !== 'relevance') next.sort = sortBy;
                   if (saleMode) next.sale = '1';
-                  setSearchParams(next); // update URL when selecting All (query)
-              }}
-            />
-            All
-          </label>
-
-          {availableCategories.map((cat) => ( // category option from API or fallback list
-            <label key={cat.slug} className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="cat"
-              value={cat.slug}
-              checked={selectedCategory === cat.slug}
-                onChange={() => { // selecting a category updates URL params
-                  setSelectedCategory(cat.slug);
-                  const next: Record<string, string> = {};
-                  if (cat.slug) next.cat = cat.slug;
-                  if (searchQuery) next.q = searchQuery;
-                  if (sortBy && sortBy !== 'relevance') next.sort = sortBy;
-                  if (saleMode) next.sale = '1';
-                  setSearchParams(next); // put selected category (slug) into the URL (query)
+                  setSearchParams(next); // selecting "All" clears category filter
               }}
               />
-            {cat.name}
-          </label>
-          ))}
+              All
+            </label>
+
+            {availableCategories.map((cat) => ( // category option from API or fallback list
+              <label key={cat.slug} className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="cat"
+                  value={cat.slug}
+                  checked={selectedCategory === cat.slug}
+                  className={focusRingClass}
+                  onChange={() => { // selecting a category updates URL params
+                    setSelectedCategory(cat.slug);
+                    const next: Record<string, string> = {};
+                    if (cat.slug) next.cat = cat.slug;
+                    if (searchQuery) next.q = searchQuery;
+                    if (sortBy && sortBy !== 'relevance') next.sort = sortBy;
+                    if (saleMode) next.sale = '1';
+                    setSearchParams(next); // put selected category (slug) into the URL (query)
+                }}
+                />
+              {cat.name}
+            </label>
+            ))}
+          </fieldset>
         </form>
         {/* sort dropdown (ordering) */}
         <div className="space-y-2">
-          <label className="text-sm font-medium">Sort by</label>
+          <label htmlFor="products-sort" className="text-sm font-medium">Sort by</label>
           <select
-            className="input-field"
+            id="products-sort"
+            className={`input-field ${focusRingClass}`}
             value={sortBy}
             onChange={(e) => { // update sort and URL params
               const val = e.target.value;
@@ -199,7 +207,6 @@ const ProductsPage = () => { // product listing page with URL-synced filters
               if (saleMode) next.sale = '1';
               setSearchParams(next); // persist sort choice into the URL (query)
             }}
-            aria-label="Sort products"
           >
             <option value="relevance">Relevance</option>
             <option value="price-asc">Price: Low to High</option>
@@ -210,7 +217,7 @@ const ProductsPage = () => { // product listing page with URL-synced filters
         </div>
       </aside>
 
-      <section className="flex-1 grid__cards"> {/* product grid (cards) */}
+      <section className="flex-1 grid__cards" aria-label="Product results"> {/* product grid (cards) */}
         {filteredProducts.length === 0 && ( // empty-state for filters with no matches
           <div className="text-muted">No products match your filters.</div>
         )}
@@ -239,7 +246,8 @@ const ProductsPage = () => { // product listing page with URL-synced filters
                     dispatch(addToCart(product));
                     notify('Added to cart', 'success');
                   }}
-                  className="btn btn-primary btn-sm"
+                  type="button"
+                  className={`btn btn-primary btn-sm ${focusRingClass}`}
                 >
                   <ShoppingCart size={14} /> Add
                 </button>
@@ -251,7 +259,8 @@ const ProductsPage = () => { // product listing page with URL-synced filters
                     dispatch(toggleWishlist(product));
                     notify('Wishlist updated', 'info');
                   }}
-                  className="btn btn-secondary btn-sm"
+                  type="button"
+                  className={`btn btn-secondary btn-sm ${focusRingClass}`}
                 >
                   <Heart size={14} /> Wish
                 </button>
