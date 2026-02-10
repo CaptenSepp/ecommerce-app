@@ -1,23 +1,5 @@
-import React, { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react' // toast component and context helpers
-type ToastKind = 'success' | 'info' | 'error' // supported toast types
-
-type Toast = { // toast item shape
-  id: string
-  message: string
-  kind: ToastKind
-}
-
-type ToastContextValue = { // context contract
-  notify: (message: string, kind?: ToastKind) => void
-}
-
-const ToastContext = createContext<ToastContextValue | null>(null) // React context for toast actions
-
-export const useToast = () => {
-  const ctx = useContext(ToastContext) // hook enforces provider usage
-  if (!ctx) throw new Error('useToast must be used within ToastProvider')
-  return ctx
-}
+import React, { useCallback, useMemo, useRef, useState } from 'react'
+import { Toast, ToastContext, ToastKind } from './toastContext'
 
 export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [toasts, setToasts] = useState<Toast[]>([]) // active toast list

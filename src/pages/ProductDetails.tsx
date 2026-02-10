@@ -3,7 +3,7 @@ import { useAppDispatch } from '@/app/store'
 import { useProductById } from '@/features/products/hooks'
 import { addToCart } from '@/features/cart/cartSlice'
 import { toggleWishlist } from '@/features/wishlist/wishlistSlice'
-import { useToast } from '@/components/ui/Toast'
+import { useToast } from '@/components/ui/toastContext'
 
 const ProductDetails = () => {
   const dispatch = useAppDispatch() // typed dispatch for cart/wishlist actions

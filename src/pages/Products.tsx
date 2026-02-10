@@ -6,7 +6,7 @@ import { addToCart } from "@/features/cart/cartSlice";
 import { Product } from "@/features/products/services";
 import { useCategories, useProducts } from "@/features/products/hooks";
 import { toggleWishlist } from "@/features/wishlist/wishlistSlice";
-import { useToast } from "@/components/ui/Toast";
+import { useToast } from "@/components/ui/toastContext";
 
 const ProductsPage = () => { // product listing page with URL-synced filters
   const [searchParams, setSearchParams] = useSearchParams(); // URL query params are the source of truth
