@@ -43,7 +43,7 @@ export default Scrollbar;
 
 const ProductScroll = React.forwardRef<ProductScrollHandle, ProductScrollProps>( // inner component with imperative handle
   ({ limit = 8, offset = 0 }, ref) => {
-    const { data: products = [] } = useProducts(); // fetch products
+    const { data: products = [], isLoading, error, refetch } = useProducts(); // fetch products incl. loading/error/retry
     const visibleProducts = products.slice(offset, offset + limit); // choose window of products
 
     const listRef = React.useRef<HTMLDivElement | null>(null); // reference to scrollable container
@@ -58,6 +58,18 @@ const ProductScroll = React.forwardRef<ProductScrollHandle, ProductScrollProps>(
       scrollLeft: () => scrollByAmount(-320), // step left
       scrollRight: () => scrollByAmount(320), // step right
     }));
+
+    if (isLoading) return <div>Loading...</div>; // loading state for scroller data
+    if (error) {
+      return (
+        <div className="space-y-2">
+          <p className="text-red-600">Error: {error.message}</p> {/* API error state */}
+          <button className="btn btn-primary btn-sm" onClick={() => { void refetch(); }}> {/* retry scroller request */}
+            Retry
+          </button>
+        </div>
+      );
+    }
 
     return (
       <div ref={listRef} className="scroll-row__card flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"> {/* scrollable row */}

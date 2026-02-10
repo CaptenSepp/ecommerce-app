@@ -23,8 +23,18 @@ const ProductsPage = () => { // product listing page with URL-synced filters
   const dispatch = useAppDispatch(); // typed dispatch for cart and wishlist actions
   const { notify } = useToast(); // toast helper for user feedback
 
-  const { data: products = [], isLoading: isProductsLoading } = useProducts(); // fetch products for grid
-  const { data: categories = [], isLoading: isCategoriesLoading } = useCategories(); // fetch categories for filters
+  const { // products query incl. error + retry
+    data: products = [],
+    isLoading: isProductsLoading,
+    error: productsError,
+    refetch: refetchProducts,
+  } = useProducts();
+  const { // categories query incl. error + retry
+    data: categories = [],
+    isLoading: isCategoriesLoading,
+    error: categoriesError,
+    refetch: refetchCategories,
+  } = useCategories();
 
   const FALLBACK_CATEGORIES = [ // fallback categories when API returns none
     { slug: "beauty", name: "Beauty" },
@@ -84,6 +94,28 @@ const ProductsPage = () => { // product listing page with URL-synced filters
 
   if (isProductsLoading || isCategoriesLoading) {
     return <p>Loading...</p>; // simple loading state for both queries
+  }
+  if (productsError || categoriesError) {
+    return (
+      <div className="px-4 py-8 space-y-3">
+        <p className="text-red-600">
+          {/* show the relevant API error in one place */}
+          Error: {productsError?.message || categoriesError?.message || "Failed to load data"}
+        </p>
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => { // retry only failed queries (or both as fallback)
+            const retries: Promise<unknown>[] = [];
+            if (productsError) retries.push(refetchProducts());
+            if (categoriesError) retries.push(refetchCategories());
+            if (retries.length === 0) retries.push(refetchProducts(), refetchCategories());
+            void Promise.all(retries);
+          }}
+        >
+          Retry
+        </button>
+      </div>
+    );
   }
 
   return (

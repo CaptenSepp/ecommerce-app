@@ -10,10 +10,19 @@ const ProductDetails = () => {
   const { notify } = useToast() // toast helper
   const { productId } = useParams<{ productId: string }>() // read id from URL
   const productIdNumber = Number(productId) // coerce to number for API hook
-  const { data: product, isLoading, error } = useProductById(productIdNumber) // fetch product by id
+  const { data: product, isLoading, error, refetch } = useProductById(productIdNumber) // fetch product by id incl. retry
 
   if (isLoading) return <div>Loading...</div> // loading state
-  if (error) return <div>Error: {error.message}</div> // error state
+  if (error) {
+    return (
+      <div className="px-4 py-6 space-y-3">
+        <div>Error: {error.message}</div> {/* API error state */}
+        <button className="btn btn-primary btn-sm" onClick={() => { void refetch() }}> {/* retry same request */}
+          Retry
+        </button>
+      </div>
+    )
+  }
   if (!product) return <div>Not found</div> // missing data state
 
   return (
