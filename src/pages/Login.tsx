@@ -1,11 +1,39 @@
 import { useState } from "react";
 
+type LoginFormValues = { // form model for validation
+  email: string;
+  password: string;
+};
+
+type LoginFormErrors = Partial<Record<keyof LoginFormValues, string>>; // field-level errors
+
+const validateLoginForm = (values: LoginFormValues): LoginFormErrors => { // central validation layer
+  const errors: LoginFormErrors = {};
+  const email = values.email.trim(); // ignore outer spaces
+  const password = values.password; // keep raw password
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // simple practical email check
+
+  if (!email) errors.email = "Email is required.";
+  else if (!emailRegex.test(email)) errors.email = "Enter a valid email address.";
+
+  if (!password.trim()) errors.password = "Password is required."; // edge case: only spaces
+  else if (password.length < 8) errors.password = "Password must be at least 8 characters.";
+
+  return errors;
+};
+
 const LoginPage = () => { // basic login form with controlled inputs
   const [email, setEmail] = useState(""); // track email text
   const [password, setPassword] = useState(""); // track password text
+  const [errors, setErrors] = useState<LoginFormErrors>({}); // current validation errors
+  const [touched, setTouched] = useState<Partial<Record<keyof LoginFormValues, boolean>>>({}); // tracks interacted fields
 
   const handleSubmit = (e: React.FormEvent) => { // submit handler placeholder, auth request would go here
     e.preventDefault(); // prevent full page reload
+    const nextErrors = validateLoginForm({ email, password }); // validate on submit
+    setErrors(nextErrors);
+    setTouched({ email: true, password: true }); // show all field errors after submit
+    if (Object.keys(nextErrors).length > 0) return; // block submit when invalid
   };
 
   return (
@@ -14,17 +42,26 @@ const LoginPage = () => { // basic login form with controlled inputs
         <div className="flex justify-center mx-auto">
         </div>
 
-        <form className="mt-6" onSubmit={handleSubmit}> {/* form wrapper binds submit to handler */}
+        <form className="mt-6" onSubmit={handleSubmit} noValidate> {/* form wrapper with custom validation */}
           <div>
             <label htmlFor="email" className="block text-sm">Email</label>
             <input
               type="email"
-              className="input-field"
+              className={`input-field ${touched.email && errors.email ? "border-red-500" : ""}`}
               id="email"
               value={email}
-              onChange={e => setEmail(e.target.value)} // update local state from input
-              required
+              onChange={e => { // update + revalidate after user touched field
+                const next = e.target.value;
+                setEmail(next);
+                if (touched.email) setErrors(validateLoginForm({ email: next, password }));
+              }}
+              onBlur={() => { // mark touched and validate
+                setTouched(prev => ({ ...prev, email: true }));
+                setErrors(validateLoginForm({ email, password }));
+              }}
+              aria-invalid={Boolean(touched.email && errors.email)}
             />
+            {touched.email && errors.email ? <p className="mt-1 text-sm text-red-600">{errors.email}</p> : null}
           </div>
 
           <div className="mt-4">
@@ -34,12 +71,21 @@ const LoginPage = () => { // basic login form with controlled inputs
             </div>
             <input
               type="password"
-              className="input-field"
+              className={`input-field ${touched.password && errors.password ? "border-red-500" : ""}`}
               id="password"
               value={password}
-              onChange={e => setPassword(e.target.value)} // update local state from input
-              required
+              onChange={e => { // update + revalidate after user touched field
+                const next = e.target.value;
+                setPassword(next);
+                if (touched.password) setErrors(validateLoginForm({ email, password: next }));
+              }}
+              onBlur={() => { // mark touched and validate
+                setTouched(prev => ({ ...prev, password: true }));
+                setErrors(validateLoginForm({ email, password }));
+              }}
+              aria-invalid={Boolean(touched.password && errors.password)}
             />
+            {touched.password && errors.password ? <p className="mt-1 text-sm text-red-600">{errors.password}</p> : null}
           </div>
 
           <div className="mt-6">

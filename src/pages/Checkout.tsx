@@ -4,6 +4,34 @@ import { clearCart } from '@/features/cart/cartSlice'
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 
+type CheckoutFormValues = { // form model for validation
+  name: string
+  email: string
+  address: string
+}
+
+type CheckoutFormErrors = Partial<Record<keyof CheckoutFormValues | 'form', string>> // field + form errors
+
+const validateCheckoutForm = (values: CheckoutFormValues, hasItems: boolean): CheckoutFormErrors => { // central validation layer
+  const errors: CheckoutFormErrors = {}
+  const name = values.name.trim() // ignore outer spaces
+  const email = values.email.trim() // ignore outer spaces
+  const address = values.address.trim() // ignore outer spaces
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // simple practical email check
+
+  if (!hasItems) errors.form = 'Your cart is empty.' // edge case: checkout without items
+  if (!name) errors.name = 'Full name is required.'
+  else if (name.length < 2) errors.name = 'Full name must be at least 2 characters.'
+
+  if (!email) errors.email = 'Email is required.'
+  else if (!emailRegex.test(email)) errors.email = 'Enter a valid email address.'
+
+  if (!address) errors.address = 'Address is required.'
+  else if (address.length < 8) errors.address = 'Address must be at least 8 characters.'
+
+  return errors
+}
+
 const Checkout = () => { // checkout form + order summary
   const dispatch = useAppDispatch() // dispatch actions
   const navigate = useNavigate() // programmatic navigation after submit
@@ -15,10 +43,15 @@ const Checkout = () => { // checkout form + order summary
   const [name, setName] = useState('') // controlled input for full name
   const [email, setEmail] = useState('') // controlled input for email
   const [address, setAddress] = useState('') // controlled input for address
+  const [errors, setErrors] = useState<CheckoutFormErrors>({}) // current validation errors
+  const [touched, setTouched] = useState<Partial<Record<keyof CheckoutFormValues, boolean>>>({}) // tracks interacted fields
 
   const placeOrder = (e: React.FormEvent) => { // submit handler
     e.preventDefault() // stop the default page reload
-    if (!name || !email || !address) return // simple required-field check
+    const nextErrors = validateCheckoutForm({ name, email, address }, items.length > 0) // validate all fields on submit
+    setErrors(nextErrors)
+    setTouched({ name: true, email: true, address: true }) // show all field errors after first submit
+    if (Object.keys(nextErrors).length > 0) return // block submit when validation fails
     dispatch(clearCart()) // empty the cart after placing order
     navigate('/order-confirmation', { replace: true }) // go to confirmation page
   }
@@ -32,18 +65,63 @@ const Checkout = () => { // checkout form + order summary
       <h1 className="text-2xl font-semibold mb-6">Checkout</h1>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <form onSubmit={placeOrder} className="space-y-4"> {/* checkout form */}
+        <form onSubmit={placeOrder} className="space-y-4" noValidate> {/* checkout form with custom validation */}
+          {errors.form ? <p className="text-sm text-red-600">{errors.form}</p> : null}
           <div>
             <label className="block text-sm mb-1">Full name</label>
-            <input className="input-field" value={name} onChange={e => setName(e.target.value)} required />
+            <input
+              className={`input-field ${touched.name && errors.name ? 'border-red-500' : ''}`}
+              value={name}
+              onChange={e => { // update + revalidate after user touched the field
+                const next = e.target.value
+                setName(next)
+                if (touched.name) setErrors(validateCheckoutForm({ name: next, email, address }, items.length > 0))
+              }}
+              onBlur={() => { // mark field as touched and validate
+                setTouched(prev => ({ ...prev, name: true }))
+                setErrors(validateCheckoutForm({ name, email, address }, items.length > 0))
+              }}
+              aria-invalid={Boolean(touched.name && errors.name)}
+            />
+            {touched.name && errors.name ? <p className="mt-1 text-sm text-red-600">{errors.name}</p> : null}
           </div>
           <div>
             <label className="block text-sm mb-1">Email</label>
-            <input type="email" className="input-field" value={email} onChange={e => setEmail(e.target.value)} required />
+            <input
+              type="email"
+              className={`input-field ${touched.email && errors.email ? 'border-red-500' : ''}`}
+              value={email}
+              onChange={e => { // update + revalidate after user touched the field
+                const next = e.target.value
+                setEmail(next)
+                if (touched.email) setErrors(validateCheckoutForm({ name, email: next, address }, items.length > 0))
+              }}
+              onBlur={() => { // mark field as touched and validate
+                setTouched(prev => ({ ...prev, email: true }))
+                setErrors(validateCheckoutForm({ name, email, address }, items.length > 0))
+              }}
+              aria-invalid={Boolean(touched.email && errors.email)}
+            />
+            {touched.email && errors.email ? <p className="mt-1 text-sm text-red-600">{errors.email}</p> : null}
           </div>
           <div>
             <label className="block text-sm mb-1">Address</label>
-            <textarea className="input-field" value={address} onChange={e => setAddress(e.target.value)} required rows={3} />
+            <textarea
+              className={`input-field ${touched.address && errors.address ? 'border-red-500' : ''}`}
+              value={address}
+              onChange={e => { // update + revalidate after user touched the field
+                const next = e.target.value
+                setAddress(next)
+                if (touched.address) setErrors(validateCheckoutForm({ name, email, address: next }, items.length > 0))
+              }}
+              onBlur={() => { // mark field as touched and validate
+                setTouched(prev => ({ ...prev, address: true }))
+                setErrors(validateCheckoutForm({ name, email, address }, items.length > 0))
+              }}
+              aria-invalid={Boolean(touched.address && errors.address)}
+              rows={3}
+            />
+            {touched.address && errors.address ? <p className="mt-1 text-sm text-red-600">{errors.address}</p> : null}
           </div>
           <button type="submit" className="btn btn-primary">Place Order</button>
         </form>

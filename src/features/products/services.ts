@@ -44,21 +44,21 @@ const categoriesResponseSchema = z.array(z.string()) // categories endpoint retu
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'https://dummyjson.com' // configurable base URL
 const endpoint = (path: string) => `${API_BASE}${path}`
 
-export async function getProducts(): Promise<Product[]> { // fetch all products for catalog
-  const res = await fetch(endpoint("/products")); // GET products endpoint
+export async function getProducts(signal?: AbortSignal): Promise<Product[]> { // fetch all products for catalog (abortable)
+  const res = await fetch(endpoint("/products"), { signal }); // GET products endpoint with optional abort signal
   if (!res.ok) throw new Error("Failed to fetch products"); // surface request failures
   const json = await res.json(); // parse JSON response body
   return productsResponseSchema.parse(json).products; // validate and return products array
 }
 
-export async function getProductById(id: number): Promise<Product> { // fetch one product by id
-  const res = await fetch(endpoint(`/products/${id}`)); // request a single product by id
+export async function getProductById(id: number, signal?: AbortSignal): Promise<Product> { // fetch one product by id (abortable)
+  const res = await fetch(endpoint(`/products/${id}`), { signal }); // request a single product by id with optional abort signal
   if (!res.ok) throw new Error("Product not found"); // normalize not-found into error
   return productSchema.parse(await res.json()); // validate and return product object
 }
 
-export async function getCategories(): Promise<Category[]> { // fetch category slugs and format labels
-  const res = await fetch(endpoint("/products/categories")); // categories endpoint
+export async function getCategories(signal?: AbortSignal): Promise<Category[]> { // fetch category slugs and format labels (abortable)
+  const res = await fetch(endpoint("/products/categories"), { signal }); // categories endpoint with optional abort signal
   if (!res.ok) throw new Error("Failed to fetch categories"); // surface failure explicitly
   const list = categoriesResponseSchema.parse(await res.json()); // validate slug list
   return list.map((slug) => ({ // map slugs to display labels
