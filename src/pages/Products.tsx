@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "@/app/store";
 import { addToCart } from "@/features/cart/cartSlice";
-import { Product } from "@/features/products/services";
+import { getLastProductsValidationWarnings, Product } from "@/features/products/services";
 import { useCategories, useProducts } from "@/features/products/hooks";
 import { toggleWishlist } from "@/features/wishlist/wishlistSlice";
 import { useToast } from "@/components/ui/toastContext";
@@ -93,11 +93,15 @@ const ProductsPage = () => { // product listing page with URL-synced filters
     }
     return sorted;
   }, [products, selectedCategory, searchQuery, sortBy, saleMode]);
+  const productValidationWarnings = getLastProductsValidationWarnings(); // non-blocking API validation details
+  const hasUsableProducts = products.length > 0; // keep UI alive when stale data exists
+  const hasUsableCategories = categories.length > 0 || FALLBACK_CATEGORIES.length > 0; // categories always have fallback
+  const hasBlockingLoadFailure = (productsError || categoriesError) && !hasUsableProducts && !hasUsableCategories; // only block when nothing renderable exists
 
   if (isProductsLoading || isCategoriesLoading) {
     return <p role="status" aria-live="polite">Loading...</p>; // announce loading state
   }
-  if (productsError || categoriesError) {
+  if (hasBlockingLoadFailure) {
     return (
       <div className="px-4 py-8 space-y-3">
         <p className="text-red-600">
@@ -268,6 +272,29 @@ const ProductsPage = () => { // product listing page with URL-synced filters
             </div>
           </Link>
         ))}
+        {(productsError || categoriesError) && !hasBlockingLoadFailure && (
+          <details className="mt-3 rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-900">
+            <summary className="cursor-pointer font-medium">
+              Data refresh had errors, showing available products.
+            </summary>
+            <ul className="mt-2 list-disc pl-5">
+              {productsError ? <li>{productsError.message}</li> : null}
+              {categoriesError ? <li>{categoriesError.message}</li> : null}
+            </ul>
+          </details>
+        )}
+        {productValidationWarnings.length > 0 && (
+          <details className="mt-3 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
+            <summary className="cursor-pointer font-medium">
+              Product data had {productValidationWarnings.length} validation warning(s), app continues with fallbacks.
+            </summary>
+            <ul className="mt-2 list-disc pl-5">
+              {productValidationWarnings.map((warning, idx) => (
+                <li key={`${idx}-${warning}`}>{warning}</li>
+              ))}
+            </ul>
+          </details>
+        )}
       </section>
     </div>
   );
