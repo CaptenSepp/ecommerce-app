@@ -16,7 +16,7 @@
   :root {
     /* Core brand palette: Orange + Black/White */
     --brand-white: #ffffff;
-    --brand-black: #111111;
+    --brand-black: #2a2a2a;
     --brand-orange: #ff7d1a;        /* primary */
     --brand-orange-hover: #e96d11;  /* darker hover */
     --brand-navy: #111111;          /* retire blue → deep black */
@@ -66,7 +66,7 @@
   body {
     font-family: "Poynter", "New York", serif;
     color: var(--brand-black);
-    background: var(--brand-white);
+    background: var(--brand-gray-100);
     overflow-x: hidden;
   }
 
@@ -151,7 +151,7 @@
   
   /* Navigation */
   .nav-link {
-    @apply px-3 py-2 rounded-md font-medium text-[color:var(--brand-black)];
+    @apply px-3 py-2 rounded-md font-medium text-white; /* light nav text on dark header */
   }
   .nav-link:hover {
     @apply bg-gray-100;

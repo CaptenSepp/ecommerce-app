@@ -4,17 +4,22 @@
  ********************/
 #root {
   @apply w-full mx-auto;
+  background: var(--brand-gray-100); /* ensure visible global background */
 } /* UPDATE: Tailwind statt raw */
 
 .layout {
   @apply flex flex-col gap-y-0 px-4 min-h-screen; /* sticky footer layout */
+  background: var(--brand-gray-200); /* global page background */
 }
 
 /****************
  * Header Block *
  ****************/
 .header {
-  @apply flex p-3 bg-[color:var(--brand-white)];
+  @apply flex p-3 bg-[color:var(--brand-black)]; /* dark header background */
+  width: 100vw; /* full-bleed header */
+  margin-left: calc(50% - 50vw); /* cancel layout padding */
+  margin-right: calc(50% - 50vw); /* cancel layout padding */
 }
 .header__items {
   @apply flex items-center justify-between w-full;
