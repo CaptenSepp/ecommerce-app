@@ -238,7 +238,9 @@ const ProductsPage = () => { // product listing page with URL-synced filters
 
             <div className="relative flex flex-col justify-end">
               <h3 className="font-semibold">{product.title}</h3>
-              <p className="text-sm mb-2">{product.brand}</p>
+              {product.brand.trim().length > 0 && product.brand !== "Unknown brand" && ( // hide missing brand on cards
+                <p className="text-sm mb-2">{product.brand}</p>
+              )}
               <p className="text-brand-orange font-bold mb-4">${product.price}</p>
 
               {/* action buttons without leaving the grid (prevent navigation) */}

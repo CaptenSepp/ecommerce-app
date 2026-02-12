@@ -14,6 +14,7 @@ import ProductsPage from "@/pages/Products";
 import Wishlist from "@/pages/Wishlist";
 import Checkout from "@/pages/Checkout";
 import OrderConfirmation from "@/pages/OrderConfirmation";
+import Retailers from "@/pages/Retailers";
 
 const router = createBrowserRouter( // central route tree for the SPA
   createRoutesFromElements(
@@ -52,6 +53,10 @@ const router = createBrowserRouter( // central route tree for the SPA
       <Route
         path="about" // about page
         element={<About />}
+      />
+      <Route
+        path="retailers" // retailers map page
+        element={<Retailers />}
       />
       <Route
         path="*" // catch-all 404
