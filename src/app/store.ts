@@ -4,8 +4,11 @@ import { useDispatch } from 'react-redux'
 import cartReducer from '@/features/cart/cartSlice'
 import wishlistReducer from '@/features/wishlist/wishlistSlice'
 import type { Product } from '@/features/products/services'
+import { initDemoIfNeeded } from '@/app/demo' // seed demo data before loading state
 
 // Safe localStorage helpers
+initDemoIfNeeded() // ensure demo data is available for preloaded state
+
 function loadState<T>(key: string): T | undefined {
   try {
     const raw = localStorage.getItem(key) // read persisted JSON for key

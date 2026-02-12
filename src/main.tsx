@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { getQueryClient } from '@/app/queryClient';
+import { initDemoIfNeeded } from '@/app/demo'; // demo data seeding
 
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
@@ -10,6 +11,7 @@ import '@/index.css';
 import { store } from '@/app/store';
 import { ToastProvider } from '@/components/ui/Toast';
 
+initDemoIfNeeded(); // seed demo cart + wishlist before app mounts
 
 ReactDOM.createRoot(document.getElementById('root')!).render( // mount app to #root
   <React.StrictMode>
