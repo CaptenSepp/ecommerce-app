@@ -226,7 +226,7 @@ const NavbarIcons = () => {
 
 const Header = () => {
   return (
-    <div className="border-b border-black">
+    <div>
       <header className="header"> {/* main header bar */}
         <div className="header__items">
           <Logo />

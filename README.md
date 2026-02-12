@@ -50,3 +50,9 @@ npm run build
 npm run preview
 npm run lint
 ```
+
+## Live Demo – 30 Seconds
+
+- Production URL: https://YOUR-VERCEL-APP.vercel.app
+- Demo mode URL: https://YOUR-VERCEL-APP.vercel.app?demo=1
+- Direct checkout URL: https://YOUR-VERCEL-APP.vercel.app/checkout?demo=1

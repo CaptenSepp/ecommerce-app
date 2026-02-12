@@ -2,7 +2,7 @@
 import { NavLink } from "react-router-dom";
 import Header from "@/layouts/Header";
 import Main from "@/layouts/Main";
-import heroImg from "@/assets/images/fragrances-hero.jpg"; // footer background image
+// footer uses solid background color (no image)
 
 const Layout: React.FC = () => ( // app shell with header, main, footer
   <div className="layout">
@@ -20,9 +20,8 @@ const Footer: React.FC = () => ( // inlined footer layout
   <footer className="footer">
     <section
       className="relative w-full min-h-80 py-10"
-      style={{ backgroundImage: `url(${heroImg})`, backgroundSize: "cover", backgroundPosition: "center" }} // hero background
+      style={{ backgroundColor: "var(--brand-black)" }} // solid footer background
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" aria-hidden="true" /> {/* overlay for contrast */}
 
       {/* Subscribe form (top-left) */}
       <div className="absolute top-6 left-[clamp(1rem,3vw,4rem)] right-4 sm:right-auto">
