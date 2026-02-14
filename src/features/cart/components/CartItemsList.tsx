@@ -66,7 +66,7 @@ const CartItemsList = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="block font-bold text-brand-black md:text-lg">
+              <span className="block u-font-bold text-brand-black u-text-lg-md">
                 ${(item.price * item.quantity).toFixed(2)}
               </span>
               <button

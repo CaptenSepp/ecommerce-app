@@ -3,7 +3,7 @@ import React from "react";
 const Retailers: React.FC = () => ( // simple retailers page
   <div className="flex flex-col gap-6 px-4 py-10"> {/* base page spacing */}
     <div className="flex flex-col gap-2"> {/* heading block */}
-      <h1 className="text-2xl font-bold">Retailers</h1> {/* page title */}
+      <h1 className="u-text-2xl u-font-bold">Retailers</h1> {/* page title */}
       <p className="text-[color:var(--text-muted)]">
         Find nearby retailers on the map below.
       </p>

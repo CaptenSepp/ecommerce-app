@@ -72,13 +72,13 @@ const Checkout = () => { // checkout form + order summary
         <Link to="/cart" className="text-brand-orange hover:underline">Back to cart</Link>
       </div>
 
-      <h1 className="text-2xl font-semibold mb-6">Checkout</h1>
+      <h1 className="u-text-2xl u-font-semibold mb-6">Checkout</h1>
 
       <div className="grid gap-6 md:grid-cols-2">
         <form onSubmit={placeOrder} className="space-y-4" noValidate> {/* checkout form with custom validation */}
-          {errors.form ? <p className="text-sm text-red-600" role="alert">{errors.form}</p> : null}
+          {errors.form ? <p className="u-text-sm u-text-danger" role="alert">{errors.form}</p> : null}
           <div>
-            <label htmlFor="checkout-name" className="block text-sm mb-1">Full name</label>
+            <label htmlFor="checkout-name" className="block u-text-sm mb-1">Full name</label>
             <input
               id="checkout-name"
               ref={nameInputRef}
@@ -96,10 +96,10 @@ const Checkout = () => { // checkout form + order summary
               aria-invalid={Boolean(touched.name && errors.name)}
               aria-describedby={touched.name && errors.name ? 'checkout-name-error' : undefined}
             />
-            {touched.name && errors.name ? <p id="checkout-name-error" className="mt-1 text-sm text-red-600" role="alert">{errors.name}</p> : null}
+            {touched.name && errors.name ? <p id="checkout-name-error" className="mt-1 u-text-sm u-text-danger" role="alert">{errors.name}</p> : null}
           </div>
           <div>
-            <label htmlFor="checkout-email" className="block text-sm mb-1">Email</label>
+            <label htmlFor="checkout-email" className="block u-text-sm mb-1">Email</label>
             <input
               id="checkout-email"
               ref={emailInputRef}
@@ -118,10 +118,10 @@ const Checkout = () => { // checkout form + order summary
               aria-invalid={Boolean(touched.email && errors.email)}
               aria-describedby={touched.email && errors.email ? 'checkout-email-error' : undefined}
             />
-            {touched.email && errors.email ? <p id="checkout-email-error" className="mt-1 text-sm text-red-600" role="alert">{errors.email}</p> : null}
+            {touched.email && errors.email ? <p id="checkout-email-error" className="mt-1 u-text-sm u-text-danger" role="alert">{errors.email}</p> : null}
           </div>
           <div>
-            <label htmlFor="checkout-address" className="block text-sm mb-1">Address</label>
+            <label htmlFor="checkout-address" className="block u-text-sm mb-1">Address</label>
             <textarea
               id="checkout-address"
               ref={addressInputRef}
@@ -140,16 +140,16 @@ const Checkout = () => { // checkout form + order summary
               aria-describedby={touched.address && errors.address ? 'checkout-address-error' : undefined}
               rows={3}
             />
-            {touched.address && errors.address ? <p id="checkout-address-error" className="mt-1 text-sm text-red-600" role="alert">{errors.address}</p> : null}
+            {touched.address && errors.address ? <p id="checkout-address-error" className="mt-1 u-text-sm u-text-danger" role="alert">{errors.address}</p> : null}
           </div>
           <button type="submit" className={`btn btn-primary ${focusRingClass}`}>Place Order</button>
         </form>
 
         <aside className="rounded-lg p-4" style={{ background: 'var(--surface)' }}> {/* order summary */}
-          <h2 className="text-lg font-semibold mb-3">Order Summary</h2>
+          <h2 className="u-text-lg u-font-semibold mb-3">Order Summary</h2>
           <ul className="space-y-2 mb-4">
             {items.map(it => ( // render line items
-              <li key={it.id} className="flex justify-between text-sm">
+              <li key={it.id} className="flex justify-between u-text-sm">
                 <span className="truncate">{it.title} × {it.quantity}</span>
                 <span>${(it.price * it.quantity).toFixed(2)}</span>
               </li>
@@ -159,7 +159,7 @@ const Checkout = () => { // checkout form + order summary
             <div className="flex justify-between"><span>Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
             <div className="flex justify-between"><span>Shipping</span><span>${shipping.toFixed(2)}</span></div>
           </div>
-          <div className="mt-3 border-t pt-3 flex justify-between font-bold">
+          <div className="mt-3 border-t pt-3 flex justify-between u-font-bold">
             <span>Total</span><span>${total.toFixed(2)} USD</span>
           </div>
         </aside>

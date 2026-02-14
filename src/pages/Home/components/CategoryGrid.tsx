@@ -13,7 +13,7 @@ interface Props {
 
 const CategoryGridCard = ({ img, label, href }: CategoryCardProps) => { // single category card
   return (
-    <div className="relative group h-64 sm:h-80 overflow-hidden rounded-lg">
+    <div className="relative group h-96 sm:h-[30rem] overflow-hidden rounded-lg"> {/* bigger cards (1.5x) */}
       <img
         src={img}
         alt={label}
@@ -21,7 +21,7 @@ const CategoryGridCard = ({ img, label, href }: CategoryCardProps) => { // singl
         loading="lazy" // lazy-load for performance
         decoding="async" // async decode for smoother paint
       />
-      <div className="absolute inset-0 bg-black/10" /> {/* soft overlay for readability */}
+      <div className="category-card__overlay" /> {/* soft overlay for readability */}
       <Link
         to={href}
         className="absolute left-1/2 bottom-4 -translate-x-1/2 btn btn-primary btn-sm "

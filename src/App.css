@@ -10,19 +10,26 @@
 .layout {
   @apply flex flex-col gap-y-0 px-4 min-h-screen; /* sticky footer layout */
   background: var(--brand-gray-200); /* global page background */
+  padding-top: var(--header-h); /* offset fixed header */
 }
 
 /****************
  * Header Block *
  ****************/
 .header {
-  @apply flex p-3 bg-[color:var(--brand-black)]; /* dark header background */
-  width: 100vw; /* full-bleed header */
-  margin-left: calc(50% - 50vw); /* cancel layout padding */
-  margin-right: calc(50% - 50vw); /* cancel layout padding */
+  @apply flex bg-[color:var(--brand-black)]; /* dark header background */
+  width: 100%; /* match viewport without scrollbar */
+  margin-left: 0; /* no full-bleed hack on fixed header */
+  margin-right: 0; /* no full-bleed hack on fixed header */
+  position: fixed; /* always visible on scroll */
+  top: 0; /* stick to top edge */
+  left: 0; /* align to viewport left */
+  right: 0; /* align to viewport right */
+  height: var(--header-h); /* fixed header height */
+  z-index: 60; /* stay above page content */
 }
 .header__items {
-  @apply flex items-center justify-between w-full;
+  @apply flex items-center justify-between w-full h-full px-3; /* full height + inner padding */
 }
 .header__logo_img {
   @apply h-12;
@@ -47,14 +54,10 @@
   @apply w-full;
 }
 
-.grid__cards {
-  @apply grid gap-4 grid-cols-[repeat(auto-fit,minmax(300px,1fr))];
-}
-
 .richtext-topic {
   font-size: var(--fs-3xl);
   font-weight: bold;
-  font-family: Georgia, Times, "Times New Roman", serif;
+  font-family: inherit; /* use global font stack */
 }
 
 /* Scroll-Row */
@@ -71,25 +74,7 @@
 .btn-lg {
   @apply px-7 py-3 text-[length:var(--fs-lg)];
 }
-.btn-sm {
-  @apply px-3 py-1 text-[length:var(--fs-sm)];
-}
 
-/*********************
- * Products Cards *
- *********************/
-
-.card {
-  @apply rounded-lg hover:shadow-sm transition p-4;
-  background: var(--surface);
-}
-
-.card--product{
-  @apply max-h-700 max-w-80
-}
-.card--product:hover {
-  @apply -translate-y-[3px];
-} /* transform via util */
 .card--product_img {
   @apply min-h-[180px] object-cover rounded-lg;
 }

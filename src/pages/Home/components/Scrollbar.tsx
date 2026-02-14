@@ -1,5 +1,6 @@
 ﻿import React from "react";
 import { Link } from "react-router-dom";
+import { Star } from "lucide-react"; // rating icon
 import { useProducts } from "@/features/products/hooks";
 import { Product } from "@/features/products/services";
 
@@ -23,15 +24,16 @@ const Scrollbar: React.FC<ScrollbarProps> = ({ offset = 0, title }) => {
 
   return (
     <div className="flex-column__grid">
-      {title ? <h2 className="text-3xl">{title}</h2> : null}
-
-      <div className="mb-3 flex gap-2">
-        <button type="button" className="btn btn-secondary" aria-label="Scroll left" onClick={() => rowRef.current?.scrollLeft()}>
-          ◀
-        </button>
-        <button type="button" className="btn btn-secondary" aria-label="Scroll right" onClick={() => rowRef.current?.scrollRight()}>
-          ▶
-        </button>
+      <div className="mb-3 flex items-center justify-between"> {/* title + buttons row */}
+        <div className="best-row__title">{title}</div> {/* left title */}
+        <div className="flex gap-2"> {/* scroll buttons */}
+          <button type="button" className="scroll-btn" aria-label="Scroll left" onClick={() => rowRef.current?.scrollLeft()}>
+            <span className="scroll-btn__icon scroll-btn__icon--left" aria-hidden="true" />
+          </button>
+          <button type="button" className="scroll-btn" aria-label="Scroll right" onClick={() => rowRef.current?.scrollRight()}>
+            <span className="scroll-btn__icon scroll-btn__icon--right" aria-hidden="true" />
+          </button>
+        </div>
       </div>
 
       <ProductScroll ref={rowRef} offset={offset} /> {/* scrolling row starting at offset */}
@@ -63,7 +65,7 @@ const ProductScroll = React.forwardRef<ProductScrollHandle, ProductScrollProps>(
     if (error) {
       return (
         <div className="space-y-2">
-          <p className="text-red-600">Error: {error.message}</p> {/* API error state */}
+          <p className="u-text-danger">Error: {error.message}</p> {/* API error state */}
           <button className="btn btn-primary btn-sm" onClick={() => { void refetch(); }}> {/* retry scroller request */}
             Retry
           </button>
@@ -77,14 +79,18 @@ const ProductScroll = React.forwardRef<ProductScrollHandle, ProductScrollProps>(
           <Link
             to={`/products/${product.id}`}
             key={product.id}
-            className="relative shrink-0 rounded-lg overflow-hidden min-w-[250px] min-h-[180px] bg-cover bg-center snap-start"
+            className="best-row__card card card--product" // match best sellers look
             style={{ backgroundImage: `url(${product.thumbnail})` }}
             aria-label={`View ${product.title}`}
           >
-            <span className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" aria-hidden="true" />
-            <div className="relative p-3 text-white">
-              <p className="font-semibold line-clamp-2">{product.title}</p>
-              <p className="text-brand-orange font-bold">${product.price}</p>
+            <span className="best-row__overlay" aria-hidden="true" />
+            <div className="best-row__content">
+              <div className="best-row__name line-clamp-2">{product.title}</div>
+              <div className="best-row__rating">
+                <Star size={14} className="best-row__star" aria-hidden="true" />
+                <span className="best-row__rating-text">{product.rating.toFixed(1)}</span>
+              </div>
+              <div className="best-row__price u-font-bold">${product.price}</div>
             </div>
           </Link>
         ))}

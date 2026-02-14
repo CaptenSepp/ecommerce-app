@@ -26,18 +26,18 @@ const CartSummary = () => {
 
         <div className="mt-4 border-t pt-4">
           <div className="flex items-start justify-between gap-4 text-brand-black">
-            <span className="text-lg font-bold">Total</span>
+            <span className="u-text-lg u-font-bold">Total</span>
 
             <span className="flex flex-col items-end">
-              <span className="text-lg font-bold">${total.toFixed(2)} USD</span>
-              <span className="text-sm text-muted">including VAT</span>
+              <span className="u-text-lg u-font-bold">${total.toFixed(2)} USD</span>
+              <span className="u-text-sm text-muted">including VAT</span>
             </span>
           </div>
         </div>
       </div>
 
       <button
-        className="btn btn-primary md:text-base px-8 py-3"
+        className="btn btn-primary u-text-base-md px-8 py-3"
         onClick={() => navigate('/checkout')} // go to checkout
         disabled={items.length === 0} // disable when cart empty
       >

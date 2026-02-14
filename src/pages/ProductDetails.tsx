@@ -38,10 +38,10 @@ const ProductDetails = () => {
           <img className="w-full h-auto rounded-lg" src={product.thumbnail} alt={product.title} />
         </div>
         <div>
-          <h1 className="text-2xl font-semibold mb-2">{product.title}</h1>
+          <h1 className="u-text-2xl u-font-semibold mb-2">{product.title}</h1>
           <p className="text-[color:var(--text-muted)] mb-4">{product.brand} • Rating: {product.rating}</p>
           <p className="mb-4">{product.description}</p>
-          <p className="text-brand-orange font-bold text-xl mb-4">${product.price}</p>
+          <p className="text-brand-orange u-font-bold u-text-xl mb-4">${product.price}</p>
           <div className="flex gap-3">
             <button
               className="btn btn-primary"

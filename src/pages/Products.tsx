@@ -104,7 +104,7 @@ const ProductsPage = () => { // product listing page with URL-synced filters
   if (hasBlockingLoadFailure) {
     return (
       <div className="px-4 py-8 space-y-3">
-        <p className="text-red-600">
+        <p className="u-text-danger">
           {/* show the relevant API error in one place */}
           Error: {productsError?.message || categoriesError?.message || "Failed to load data"}
         </p>
@@ -127,10 +127,10 @@ const ProductsPage = () => { // product listing page with URL-synced filters
   return (
     <div className="px-4 py-8 flex gap-8">
       <aside className="w-64 shrink-0 space-y-4" aria-label="Product filters"> {/* sidebar filter controls (UI) */}
-        <h2 className="font-semibold">Filter & Sort</h2>
+        <h2 className="u-font-semibold">Filter & Sort</h2>
         {/* search input (text query) */}
         <div className="space-y-2">
-          <label htmlFor="products-search" className="text-sm font-medium">Search</label>
+          <label htmlFor="products-search" className="u-text-sm u-font-medium">Search</label>
           <input
             id="products-search"
             value={searchQuery}
@@ -148,10 +148,10 @@ const ProductsPage = () => { // product listing page with URL-synced filters
             className={`input-field ${focusRingClass}`}
           />
         </div>
-        <form className="space-y-2 text-sm">
+        <form className="space-y-2 u-text-sm">
           {/* category radio list */}
           <fieldset>
-            <legend className="mb-2 text-sm font-medium">Category</legend> {/* explicit group label */}
+            <legend className="mb-2 u-text-sm u-font-medium">Category</legend> {/* explicit group label */}
             <label className="flex items-center gap-2">
               <input
                 type="radio"
@@ -196,7 +196,7 @@ const ProductsPage = () => { // product listing page with URL-synced filters
         </form>
         {/* sort dropdown (ordering) */}
         <div className="space-y-2">
-          <label htmlFor="products-sort" className="text-sm font-medium">Sort by</label>
+          <label htmlFor="products-sort" className="u-text-sm u-font-medium">Sort by</label>
           <select
             id="products-sort"
             className={`input-field ${focusRingClass}`}
@@ -236,15 +236,15 @@ const ProductsPage = () => { // product listing page with URL-synced filters
             {/* overlay for text readability (UI overlay) */}
             <span className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
-            <div className="relative flex flex-col justify-end">
-              <h3 className="font-semibold">{product.title}</h3>
+            <div className="relative flex h-full flex-col"> {/* allow bottom-aligned actions */}
+              <h3 className="u-font-semibold">{product.title}</h3>
               {product.brand.trim().length > 0 && product.brand !== "Unknown brand" && ( // hide missing brand on cards
-                <p className="text-sm mb-2">{product.brand}</p>
+                <p className="u-text-sm mb-2">{product.brand}</p>
               )}
-              <p className="text-brand-orange font-bold mb-4">${product.price}</p>
+              <p className="text-brand-orange u-font-bold">${product.price}</p>
 
               {/* action buttons without leaving the grid (prevent navigation) */}
-              <div className="flex gap-2">
+              <div className="mt-auto flex gap-2"> {/* keep actions at bottom */}
                 <button
                   onClick={(e) => { // prevent navigation and update cart
                     e.preventDefault();
@@ -253,7 +253,7 @@ const ProductsPage = () => { // product listing page with URL-synced filters
                     notify('Added to cart', 'success');
                   }}
                   type="button"
-                  className={`btn btn-primary btn-sm ${focusRingClass}`}
+                  className={`btn btn-primary btn-sm btn-square ${focusRingClass}`} // square-ish button
                 >
                   <ShoppingCart size={14} /> Add
                 </button>
@@ -266,7 +266,7 @@ const ProductsPage = () => { // product listing page with URL-synced filters
                     notify('Wishlist updated', 'info');
                   }}
                   type="button"
-                  className={`btn btn-secondary btn-sm ${focusRingClass}`}
+                  className={`btn btn-secondary btn-sm btn-square ${focusRingClass}`} // square-ish button
                 >
                   <Heart size={14} /> Wish
                 </button>
@@ -274,29 +274,6 @@ const ProductsPage = () => { // product listing page with URL-synced filters
             </div>
           </Link>
         ))}
-        {(productsError || categoriesError) && !hasBlockingLoadFailure && (
-          <details className="mt-3 rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-900">
-            <summary className="cursor-pointer font-medium">
-              Data refresh had errors, showing available products.
-            </summary>
-            <ul className="mt-2 list-disc pl-5">
-              {productsError ? <li>{productsError.message}</li> : null}
-              {categoriesError ? <li>{categoriesError.message}</li> : null}
-            </ul>
-          </details>
-        )}
-        {productValidationWarnings.length > 0 && (
-          <details className="mt-3 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-            <summary className="cursor-pointer font-medium">
-              Product data had {productValidationWarnings.length} validation warning(s), app continues with fallbacks.
-            </summary>
-            <ul className="mt-2 list-disc pl-5">
-              {productValidationWarnings.map((warning, idx) => (
-                <li key={`${idx}-${warning}`}>{warning}</li>
-              ))}
-            </ul>
-          </details>
-        )}
       </section>
     </div>
   );

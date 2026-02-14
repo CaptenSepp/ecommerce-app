@@ -52,7 +52,7 @@ const LoginPage = () => { // basic login form with controlled inputs
 
         <form className="mt-6" onSubmit={handleSubmit} noValidate> {/* form wrapper with custom validation */}
           <div>
-            <label htmlFor="email" className="block text-sm">Email</label>
+            <label htmlFor="email" className="block u-text-sm">Email</label>
             <input
               type="email"
               ref={emailInputRef}
@@ -71,13 +71,13 @@ const LoginPage = () => { // basic login form with controlled inputs
               aria-invalid={Boolean(touched.email && errors.email)}
               aria-describedby={touched.email && errors.email ? "login-email-error" : undefined}
             />
-            {touched.email && errors.email ? <p id="login-email-error" className="mt-1 text-sm text-red-600" role="alert">{errors.email}</p> : null}
+            {touched.email && errors.email ? <p id="login-email-error" className="mt-1 u-text-sm u-text-danger" role="alert">{errors.email}</p> : null}
           </div>
 
           <div className="mt-4">
             <div className="flex items-center justify-between">
-              <label htmlFor="password" className="block text-sm">Password</label>
-              <a href="#" className="text-xs text-gray-600 hover:underline">Forget Password?</a>
+              <label htmlFor="password" className="block u-text-sm">Password</label>
+              <a href="#" className="u-text-xs u-text-gray-600 hover:underline">Forget Password?</a>
             </div>
             <input
               type="password"
@@ -97,7 +97,7 @@ const LoginPage = () => { // basic login form with controlled inputs
               aria-invalid={Boolean(touched.password && errors.password)}
               aria-describedby={touched.password && errors.password ? "login-password-error" : undefined}
             />
-            {touched.password && errors.password ? <p id="login-password-error" className="mt-1 text-sm text-red-600" role="alert">{errors.password}</p> : null}
+            {touched.password && errors.password ? <p id="login-password-error" className="mt-1 u-text-sm u-text-danger" role="alert">{errors.password}</p> : null}
           </div>
 
           <div className="mt-6">
@@ -107,7 +107,7 @@ const LoginPage = () => { // basic login form with controlled inputs
 
         <div className="flex items-center justify-between mt-4">
           <span className="w-1/5 border-b lg:w-1/5"></span>
-          <a href="#" className="text-xs text-center text-gray-500 uppercase hover:underline">
+          <a href="#" className="u-text-xs text-center u-text-gray-500 uppercase hover:underline">
             or login with Social Media
           </a>
           <span className="w-1/5 border-b lg:w-1/5"></span>
@@ -123,9 +123,9 @@ const LoginPage = () => { // basic login form with controlled inputs
           </a>
         </div>
 
-        <p className="mt-8 text-xs font-light text-center text-gray-400">
+        <p className="mt-8 u-text-xs u-font-light text-center u-text-gray-400">
           Don't have an account?
-          <a href="#" className="font-medium text-gray-700 hover:underline"> Create One</a>
+          <a href="#" className="u-font-medium u-text-gray-700 hover:underline"> Create One</a>
         </p>
       </div>
     </main>
