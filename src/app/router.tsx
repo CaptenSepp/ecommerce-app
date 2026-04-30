@@ -15,12 +15,15 @@ import Wishlist from "@/pages/Wishlist";
 import Checkout from "@/pages/Checkout";
 import OrderConfirmation from "@/pages/OrderConfirmation";
 import Retailers from "@/pages/Retailers";
+import ErrorPage from "@/pages/ErrorPage";
+import OrdersPage from "@/pages/Orders";
 
 const router = createBrowserRouter( // central route tree for the SPA
   createRoutesFromElements(
     <Route
       path="/"
       element={<Layout />} // shared layout shell for all pages
+      errorElement={<ErrorPage />} // router-level error fallback
     >
       <Route
         index
@@ -41,6 +44,10 @@ const router = createBrowserRouter( // central route tree for the SPA
       <Route
         path="checkout" // checkout page
         element={<Checkout />}
+      />
+      <Route
+        path="orders" // orders page (protected)
+        element={<OrdersPage />}
       />
       <Route
         path="order-confirmation" // post-order confirmation

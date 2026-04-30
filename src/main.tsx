@@ -10,6 +10,7 @@ import '@/App.css';
 import '@/index.css';
 import { store } from '@/app/store';
 import { ToastProvider } from '@/components/ui/Toast';
+import ErrorBoundary from '@/components/ui/ErrorBoundary'; // crash fallback UI
 
 initDemoIfNeeded(); // seed demo cart + wishlist before app mounts
 
@@ -18,7 +19,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render( // mount app to #r
     <Provider store={store}> {/* redux provider */}
       <QueryClientProvider client={getQueryClient()}> {/* react-query provider */}
         <ToastProvider> {/* toast context */}
-          <App /> {/* route tree */}
+          <ErrorBoundary> {/* global crash protection */}
+            <App /> {/* route tree */}
+          </ErrorBoundary>
         </ToastProvider>
       </QueryClientProvider>
     </Provider>
