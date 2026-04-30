@@ -1,4 +1,4 @@
-import heroImg from "@/assets/images/fragrances-hero.jpg"; // placeholder image
+import philosophyImg from "@/assets/images/Banner-philosophy.png"; // philosophy image
 
 const BrandStoryMini = () => ( // condensed story section
   <section className="brand-mini"> {/* section wrapper */}
@@ -12,7 +12,7 @@ const BrandStoryMini = () => ( // condensed story section
       <a className="brand-mini__link" href="/about">Learn more →</a> {/* about link */}
     </div>
     <div className="brand-mini__media"> {/* image column */}
-      <img src={heroImg} alt="Lifestyle" className="brand-mini__image" /> {/* image */}
+      <img src={philosophyImg} alt="Our Philosophy" className="brand-mini__image" /> {/* image */}
       <div className="brand-mini__overlay" aria-hidden="true" /> {/* soft overlay */}
     </div>
   </section>

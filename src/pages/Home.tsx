@@ -1,6 +1,7 @@
 import { Banner, CategoryGrid, RichText, Scrollbar, FullBleedImage, TrustBar, FeaturedCollectionGrid, BestSellersRow, BrandStoryMini, SocialProofSection } from "@/pages/Home/components";
 import { gridMiddle, gridTop } from "@/features/products/data/categories";
-import heroImg from "@/assets/images/fragrances-hero.jpg";
+import middleBannerImg from "@/assets/images/Banner-middle.png";
+import newsletterBannerImg from "@/assets/images/Banner-newsletter.png";
 
 const Home = () => { // marketing home composed of sections
   return (
@@ -20,7 +21,7 @@ const Home = () => { // marketing home composed of sections
       {/* existing sections */}
       <RichText>{"Fresh Picks for You"}</RichText> {/* section heading */}
 
-      <FullBleedImage src={heroImg} alt="Fragrances hero" /> {/* full-bleed image strip */}
+      <FullBleedImage src={middleBannerImg} alt="Middle banner" /> {/* full-bleed image strip */}
 
       <Scrollbar offset={0} title="Best picks for you" /> {/* horizontal product scroller */}
 
@@ -48,8 +49,8 @@ const Home = () => { // marketing home composed of sections
         <div className="flex w-full flex-col gap-0 px-4 md:flex-row"> {/* split layout */}
           <div className="md:w-1/2"> {/* left image */}
             <img
-              src={heroImg} // contact image
-              alt="Fragrance hero"
+              src={newsletterBannerImg} // contact image
+              alt="Newsletter banner"
               className="h-full w-full rounded-lg object-cover" // fill space
               loading="lazy" // keep page light
             />

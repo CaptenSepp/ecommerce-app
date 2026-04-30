@@ -59,8 +59,17 @@
     --overlay-white-08: rgba(255, 255, 255, 0.08);
     --overlay-white-10: rgba(255, 255, 255, 0.10);
     --overlay-white-16: rgba(255, 255, 255, 0.16);
+    --overlay-white-22: rgba(255, 255, 255, 0.22);
+    --overlay-white-28: rgba(255, 255, 255, 0.28);
     --overlay-dark-35: rgba(17, 17, 17, 0.35);
     --overlay-dark-15: rgba(17, 17, 17, 0.15);
+    --glass-orange: rgba(232, 96, 6, 0.34);
+    --glass-orange-hover: rgba(220, 86, 0, 0.42);
+    --glass-white: rgba(255, 255, 255, 0.34);
+    --glass-white-hover: rgba(255, 255, 255, 0.46);
+    --glass-dark: rgba(42, 42, 42, 0.38);
+    --glass-dark-hover: rgba(0, 0, 0, 0.48);
+    --glass-blur: 18px;
 
     /* Spacing scale (4px -> 40px) */
     --space-1: 0.4rem;
@@ -173,8 +182,11 @@
     min-height: var(--control-h); /* consistent button height */
     padding: 0 1.6rem; /* 16px horizontal padding */
     border-radius: var(--r-md); /* unified square-ish radius */
-    box-shadow: var(--shadow-sm); /* subtle default shadow */
-    transition: transform 150ms ease, box-shadow 150ms ease; /* premium motion */
+    border: 1px solid rgba(255, 255, 255, 0.34); /* brighter glass edge */
+    box-shadow: 0 10px 24px rgba(17, 17, 17, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.24); /* matte depth */
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.35); /* shared glass effect */
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.35); /* Safari support */
+    transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, border-color 150ms ease; /* premium motion */
   }
 
   .btn-sm {
@@ -183,20 +195,23 @@
   }
 
   .btn-primary {
-    @apply bg-[color:var(--brand-orange)] text-white;
+    background: var(--glass-orange); /* orange glass base */
+    color: var(--brand-white); /* keep white label */
+    border-color: rgba(255, 228, 204, 0.42); /* warm glass edge */
   }
   .btn-primary:hover {
-    background: var(--brand-orange-hover);
+    background: var(--glass-orange-hover); /* stronger orange glass */
   }
 
   .btn-secondary {
-    color: var(--brand-gray-600); /* muted text */
-    background: var(--brand-gray-200); /* light gray */
-    transition: background 0.2s ease, color 0.2s ease; /* smooth */
+    color: var(--brand-black); /* darker text for readability */
+    background: var(--glass-white); /* white glass base */
+    border-color: rgba(255, 255, 255, 0.48); /* crisp edge */
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; /* smooth */
   }
   .btn-secondary:hover {
-    background: var(--brand-black); /* dark hover */
-    color: var(--brand-white); /* white text */
+    background: var(--glass-white-hover); /* brighter glass hover */
+    color: var(--brand-black); /* keep readable */
   }
 
   .btn-icon {
@@ -217,10 +232,12 @@
   }
 
   .btn-danger {
-    @apply bg-red-600 text-white;
+    background: rgba(225, 29, 72, 0.76); /* red glass base */
+    color: var(--brand-white); /* keep white text */
+    border-color: rgba(255, 212, 221, 0.38); /* soft edge */
   }
   .btn-danger:hover {
-    @apply bg-red-800;
+    background: rgba(159, 18, 57, 0.82); /* deeper red glass */
   }
 
   .btn:hover {
@@ -252,16 +269,19 @@
     width: 4.8rem; /* circular button */
     height: 4.8rem; /* circular button */
     border-radius: 9999px; /* round shape */
-    background: var(--brand-black); /* dark base */
+    background: var(--glass-dark); /* dark glass base */
     color: var(--brand-white); /* white text */
     font-weight: var(--fw-semibold); /* readable label */
-    box-shadow: var(--shadow-md); /* floating depth */
+    border: 1px solid rgba(255, 255, 255, 0.24); /* glass edge */
+    box-shadow: 0 12px 28px rgba(17, 17, 17, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.18); /* floating depth */
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.2); /* glass effect */
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2); /* Safari support */
     display: inline-flex; /* center icon */
     align-items: center; /* center icon */
     justify-content: center; /* center icon */
   }
   .assistant-fab__btn:hover {
-    background: var(--brand-black-true); /* stronger hover */
+    background: var(--glass-dark-hover); /* stronger hover */
   }
   .assistant-panel {
     width: 26rem; /* small panel */
@@ -348,7 +368,7 @@
   }
   .featured-grid__cards {
     display: grid; /* card grid */
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* responsive */
+    grid-template-columns: 1fr; /* stack on small screens */
     gap: 1.6rem; /* spacing */
   }
   .featured-card {
@@ -357,15 +377,20 @@
     overflow: hidden; /* clip overlay */
     min-height: 26rem; /* taller card */
   }
+  .featured-card--inactive {
+    opacity: 0.92; /* soften card slightly */
+    filter: saturate(0.82) contrast(0.96); /* polished muted look */
+  }
   .featured-card__image {
     width: 100%; /* full width */
     height: 100%; /* fill card */
     object-fit: cover; /* crop */
+    transform: scale(1.01); /* tiny zoom for premium feel */
   }
   .featured-card__overlay {
     position: absolute; /* overlay */
     inset: 0; /* full */
-    background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.35)); /* gradient */
+    background: linear-gradient(180deg, rgba(24,24,24,0.10), rgba(24,24,24,0.48)); /* muted gradient */
   }
   .featured-card__content {
     position: absolute; /* place content */
@@ -377,9 +402,37 @@
     gap: 0.8rem; /* spacing */
     color: var(--brand-white); /* light text */
   }
+  .featured-card__status {
+    display: inline-flex; /* compact badge */
+    align-items: center; /* center text */
+    width: fit-content; /* keep badge compact */
+    padding: 0.6rem 1rem; /* badge spacing */
+    border: 1px solid rgba(255,255,255,0.24); /* subtle glass edge */
+    border-radius: var(--r-pill); /* soft badge */
+    background: rgba(255,255,255,0.12); /* frosted look */
+    backdrop-filter: blur(8px); /* premium glass effect */
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+    font-size: var(--fs-md); /* compact label */
+    letter-spacing: 0.08rem; /* slightly spaced */
+  }
   .featured-card__title {
     font-size: var(--fs-xl); /* card title */
     font-weight: var(--fw-bold); /* bold */
+  }
+  .featured-card__btn {
+    justify-content: center; /* keep label centered */
+    color: rgba(255,255,255,0.88); /* soft text */
+    background: rgba(255,255,255,0.12); /* glass base */
+    border: 1px solid rgba(255,255,255,0.24); /* outline */
+    box-shadow: none; /* remove active CTA feel */
+    cursor: not-allowed; /* clear inactive state */
+    backdrop-filter: blur(8px); /* match badge look */
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+  }
+  .featured-card__btn:hover {
+    transform: none; /* no hover lift */
+    box-shadow: none; /* no action feedback */
+    background: rgba(255,255,255,0.12); /* stay muted */
   }
   .best-row {
     margin: 2.4rem 0; /* spacing */
@@ -408,15 +461,18 @@
     width: 3.6rem; /* round button */
     height: 3.6rem; /* round button */
     border-radius: 9999px; /* full circle */
-    border: 1px solid var(--border-color); /* subtle border */
-    background: var(--brand-white); /* white base */
+    border: 1px solid rgba(255, 255, 255, 0.40); /* subtle border */
+    background: var(--glass-white); /* white glass base */
     color: var(--brand-black); /* dark arrow */
+    box-shadow: 0 10px 18px rgba(17, 17, 17, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.22); /* soft depth */
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.18); /* glass effect */
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.18); /* Safari support */
     display: inline-flex; /* center arrow */
     align-items: center; /* center arrow */
     justify-content: center; /* center arrow */
   }
   .scroll-btn:hover {
-    background: var(--brand-gray-100); /* light hover */
+    background: var(--glass-white-hover); /* light hover */
   }
   .scroll-btn__icon {
     width: 0; /* triangle using borders */
@@ -575,6 +631,9 @@
   }
 
   @media (min-width: 768px) {
+    .featured-grid__cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 cards in one row */
+    }
     .brand-mini {
       grid-template-columns: 1.1fr 1fr; /* two columns */
     }

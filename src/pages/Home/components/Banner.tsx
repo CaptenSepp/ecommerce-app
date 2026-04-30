@@ -1,10 +1,10 @@
-import heroImg from "@/assets/images/fragrances-hero.jpg"; // hero background image
+import topBannerImg from "@/assets/images/Banner-top.png"; // top banner image
 
 const Banner = () => { // hero banner section
   return (
     <div className=""> {/* keep wrapper for layout consistency */}
       <section className="relative w-screen full-bleed overflow-hidden"> {/* frame matches image size */}
-        <img src={heroImg} alt="Fragrances hero" className="block w-full h-auto" /> {/* full-width hero image */}
+        <img src={topBannerImg} alt="Top banner" className="block w-full h-auto" /> {/* full-width hero image */}
 
         <div className="banner__overlay" aria-hidden="true" /> {/* contrast overlay */}
 
