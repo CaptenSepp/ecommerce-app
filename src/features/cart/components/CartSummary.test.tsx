@@ -3,7 +3,7 @@ import { render, screen, within } from '@testing-library/react' // RTL helpers
 import userEvent from '@testing-library/user-event' // user interactions
 import { Provider } from 'react-redux' // redux provider
 import { configureStore } from '@reduxjs/toolkit' // test store setup
-import cartReducer from '@/features/cart/cartSlice' // cart slice reducer
+import cartReducer, { updateQuantity } from '@/features/cart/cartSlice' // cart slice reducer
 import CartSummary from '@/features/cart/components/CartSummary' // component under test
 import type { Product } from '@/features/products/services' // product type
 
@@ -38,11 +38,14 @@ const renderWithStore = (items: Array<Product & { quantity: number }>) => { // r
     reducer: { cart: cartReducer }, // only cart slice needed
     preloadedState: { cart: { items } }, // preload cart state
   })
-  return render(
+  return {
+    store,
+    ...render(
     <Provider store={store}>
       <CartSummary />
     </Provider>
-  )
+    ),
+  }
 }
 
 beforeEach(() => {
@@ -75,5 +78,14 @@ describe('CartSummary navigation', () => {
     renderWithStore([buildItem()]) // ensure button is enabled
     await user.click(screen.getByRole('button', { name: /check out/i })) // click checkout
     expect(navigateMock).toHaveBeenCalledWith('/checkout') // route to checkout
+  })
+})
+
+describe('CartSummary state updates', () => {
+  it('updates totals when cart quantity changes', () => {
+    const { store } = renderWithStore([buildItem({ price: 10, quantity: 1 })]) // initial item
+    expect(screen.getByText('$10.00 USD')).toBeInTheDocument() // total with shipping
+    store.dispatch(updateQuantity({ id: 1, quantity: 3 })) // increase quantity in store
+    expect(screen.getByText('$34.99 USD')).toBeInTheDocument() // total reflects new quantity
   })
 })

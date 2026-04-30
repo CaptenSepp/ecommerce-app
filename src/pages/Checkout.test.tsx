@@ -1,11 +1,12 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest' // test helpers
-import { render, screen } from '@testing-library/react' // RTL helpers
+import { render, screen, waitFor } from '@testing-library/react' // RTL helpers
 import userEvent from '@testing-library/user-event' // user interactions
 import { Provider } from 'react-redux' // redux provider
 import { configureStore } from '@reduxjs/toolkit' // test store setup
 import { MemoryRouter } from 'react-router-dom' // router context for Link
 import Checkout from '@/pages/Checkout' // component under test
 import cartReducer from '@/features/cart/cartSlice' // cart slice reducer
+import { createOrder } from '@/features/orders/services' // order service
 import type { Product } from '@/features/products/services' // product type
 
 const navigateMock = vi.fn() // capture navigation calls
@@ -17,6 +18,10 @@ vi.mock('react-router-dom', async () => { // mock useNavigate only
     useNavigate: () => navigateMock, // swap useNavigate
   }
 })
+
+vi.mock('@/features/orders/services', () => ({ // mock order creation
+  createOrder: vi.fn(), // mock createOrder
+}))
 
 const buildItem = (overrides?: Partial<Product> & { quantity?: number }) => ({ // helper for cart items
   id: 202,
@@ -53,6 +58,7 @@ const renderWithStore = (items: Array<Product & { quantity: number }>) => { // r
 
 beforeEach(() => {
   navigateMock.mockClear() // reset navigation spy
+  vi.mocked(createOrder).mockReset() // reset createOrder mock
 })
 
 describe('Checkout validation', () => {
@@ -71,12 +77,27 @@ describe('Checkout validation', () => {
 describe('Checkout success path', () => {
   it('clears cart and navigates to confirmation on submit', async () => {
     const user = userEvent.setup() // user event setup
+    const createOrderMock = vi.mocked(createOrder) // typed mock helper
+    createOrderMock.mockResolvedValueOnce({
+      id: 'order_123',
+      createdAt: new Date().toISOString(),
+      customer: { name: 'Ada Lovelace', email: 'ada@example.com', address: '123 Long Street' },
+      items: [{ id: 202, title: 'Checkout Item', price: 20, quantity: 1 }],
+      totals: { subtotal: 20, shipping: 4.99, total: 24.99 },
+    }) // mock order response
     const { store } = renderWithStore([buildItem()]) // cart has items
     await user.type(screen.getByLabelText('Full name'), 'Ada Lovelace') // fill name
     await user.type(screen.getByLabelText('Email'), 'ada@example.com') // fill email
     await user.type(screen.getByLabelText('Address'), '123 Long Street') // fill address
     await user.click(screen.getByRole('button', { name: /place order/i })) // submit form
-    expect(store.getState().cart.items).toHaveLength(0) // cart cleared
-    expect(navigateMock).toHaveBeenCalledWith('/order-confirmation', { replace: true }) // navigation
+    await waitFor(() => {
+      expect(store.getState().cart.items).toHaveLength(0) // cart cleared
+      expect(navigateMock).toHaveBeenCalledWith('/order-confirmation?orderId=order_123', { // navigation
+        replace: true,
+        state: {
+          order: expect.objectContaining({ id: 'order_123' }), // order in navigation state
+        },
+      })
+    })
   })
 })
