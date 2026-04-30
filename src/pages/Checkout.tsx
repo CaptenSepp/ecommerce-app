@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/app/store'
 import { clearCart } from '@/features/cart/cartSlice'
+import { createOrder } from '@/features/orders/services'
 import { useNavigate, Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
 
@@ -51,7 +52,7 @@ const Checkout = () => { // checkout form + order summary
   const emailInputRef = useRef<HTMLInputElement | null>(null) // focus target for invalid email
   const addressInputRef = useRef<HTMLTextAreaElement | null>(null) // focus target for invalid address
 
-  const placeOrder = (e: React.FormEvent) => { // submit handler
+  const placeOrder = async (e: React.FormEvent) => { // submit handler
     e.preventDefault() // stop the default page reload
     const nextErrors = validateCheckoutForm({ name, email, address }, items.length > 0) // validate all fields on submit
     setErrors(nextErrors)
@@ -62,8 +63,12 @@ const Checkout = () => { // checkout form + order summary
       else if (nextErrors.address) addressInputRef.current?.focus()
       return // block submit when validation fails
     }
+    const order = await createOrder(items, { name, email, address }) // create order record
     dispatch(clearCart()) // empty the cart after placing order
-    navigate('/order-confirmation', { replace: true }) // go to confirmation page
+    navigate(`/order-confirmation?orderId=${order.id}`, { // go to confirmation page
+      replace: true,
+      state: { order },
+    })
   }
 
   return (

@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import cartReducer from '@/features/cart/cartSlice'
 import wishlistReducer from '@/features/wishlist/wishlistSlice'
+import authReducer, { type AuthUser } from '@/features/auth/authSlice'
 import type { Product } from '@/features/products/services'
 import { initDemoIfNeeded } from '@/app/demo' // seed demo data before loading state
 
@@ -29,22 +30,26 @@ function saveState(key: string, value: unknown) {
 // Shapes stored in localStorage
 type PreloadedCart = { items: (Product & { quantity: number })[] }
 type PreloadedWishlist = { items: Product[] }
+type PreloadedAuth = { user: AuthUser | null }
 
 // Load persisted slices (if any)
 const preloadedCart = loadState<PreloadedCart>('cart') // load persisted cart if present
 const preloadedWishlist = loadState<PreloadedWishlist>('wishlist') // load persisted wishlist if present
+const preloadedAuth = loadState<PreloadedAuth>('auth') // demo-only auth fallback (localStorage)
 // Always pass a complete preloaded state
 const preloadedState: { cart: PreloadedCart; wishlist: PreloadedWishlist } = {
   cart: preloadedCart ?? { items: [] }, // default to empty cart
   wishlist: preloadedWishlist ?? { items: [] } // default to empty wishlist
 }
+const resolvedAuth: PreloadedAuth = preloadedAuth ?? { user: null } // default auth state
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
-    wishlist: wishlistReducer
+    wishlist: wishlistReducer,
+    auth: authReducer
   },
-  preloadedState
+  preloadedState: { ...preloadedState, auth: resolvedAuth }
 })
 
 // Persist selected slices
