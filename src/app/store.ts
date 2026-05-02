@@ -5,10 +5,6 @@ import cartReducer from '@/features/cart/cartSlice'
 import wishlistReducer from '@/features/wishlist/wishlistSlice'
 import authReducer, { type AuthUser } from '@/features/auth/authSlice'
 import type { Product } from '@/features/products/services'
-import { initDemoIfNeeded } from '@/app/demo' // seed demo data before loading state
-
-// Safe localStorage helpers
-initDemoIfNeeded() // ensure demo data is available for preloaded state
 
 function loadState<T>(key: string): T | undefined {
   try {
@@ -35,7 +31,7 @@ type PreloadedAuth = { user: AuthUser | null }
 // Load persisted slices (if any)
 const preloadedCart = loadState<PreloadedCart>('cart') // load persisted cart if present
 const preloadedWishlist = loadState<PreloadedWishlist>('wishlist') // load persisted wishlist if present
-const preloadedAuth = loadState<PreloadedAuth>('auth') // demo-only auth fallback (localStorage)
+const preloadedAuth = loadState<PreloadedAuth>('auth') // load persisted auth if present
 // Always pass a complete preloaded state
 const preloadedState: { cart: PreloadedCart; wishlist: PreloadedWishlist } = {
   cart: preloadedCart ?? { items: [] }, // default to empty cart
