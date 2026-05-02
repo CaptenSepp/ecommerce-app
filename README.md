@@ -1,58 +1,75 @@
-# E-commerce App (React + TypeScript)
+# E-Commerce App
 
-An e-commerce SPA built with Vite + React + TypeScript.
-It includes a product catalog (fetched from DummyJSON), product details, cart + wishlist (Redux, persisted to localStorage), and a simple checkout flow.
+This project is a React storefront built with Vite and TypeScript. It includes product browsing, product details, cart and wishlist state, checkout, and order history.
 
-## Features
+## What The App Does
 
-- Product catalog with search, category filtering, sorting, and a "sale" mode (via URL query params).
-- Product details page with add-to-cart and wishlist actions.
-- Cart with quantity adjustments, subtotal/shipping/total summary, and checkout.
-- Wishlist with remove and add-to-cart.
-- Toast notifications for key actions.
+- Shows a home page with featured shopping sections.
+- Fetches products and categories from DummyJSON.
+- Lets users browse, search, filter, and sort products.
+- Lets users view product details and add items to cart or wishlist.
+- Lets users complete checkout and create an order.
+- Lets users view order history by email through the local Express server.
 
-## Tech Stack (Actual)
+## User Flow
 
-- React 19 + TypeScript
-- React Router (data router) with nested layout routes
-- Redux Toolkit + React Redux (cart + wishlist, persisted to localStorage)
-- TanStack React Query (server-state fetching + caching)
-- Tailwind CSS v4 + custom tokens/classes in `src/index.css` and `src/App.css`
+`browse products -> cart -> checkout -> order history`
+
+## Stack
+
+- React 19
+- TypeScript
 - Vite
+- React Router
+- Redux Toolkit
+- React Redux
+- TanStack React Query
+- Tailwind CSS v4
+- Express
 
-## Data Source
+## Main Routes
 
-- Products and categories are fetched from `https://dummyjson.com`.
-
-## Routes (Main Screens)
-
-- `/` Home (marketing sections + product scroll rows)
-- `/products` Product catalog (filters in URL query params: `cat`, `q`, `sort`, `sale`)
+- `/` Home
+- `/products` Product catalog
 - `/products/:productId` Product details
 - `/cart` Cart
-- `/checkout` Checkout form
-- `/order-confirmation` Confirmation screen
+- `/checkout` Checkout
+- `/order-confirmation` Order confirmation
+- `/orders` Order history
 - `/wishlist` Wishlist
 - `/about` About
-- `/login` Login (UI only)
+- `/login` Login
+- `/retailers` Retailers
 
-## Getting Started
+## Data
+
+- Product catalog data comes from `https://dummyjson.com`.
+- Orders are created and read from the local Express server in `server/`.
+- Cart and wishlist are stored in browser `localStorage`.
+
+## Run The Project
+
+Frontend:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Other scripts:
+Backend:
 
 ```bash
-npm run build
-npm run preview
-npm run lint
+cd server
+npm install
+npm run dev
 ```
 
-## Live Demo – 30 Seconds
+## Test Commands
 
-- Production URL: https://YOUR-VERCEL-APP.vercel.app
-- Demo mode URL: https://YOUR-VERCEL-APP.vercel.app?demo=1
-- Direct checkout URL: https://YOUR-VERCEL-APP.vercel.app/checkout?demo=1
+```bash
+npm run test
+npm run test:e2e
+npm run lint
+npm run typecheck
+npm run build
+```

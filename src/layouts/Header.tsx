@@ -4,16 +4,16 @@ import { useSelector } from "react-redux";
 import { Heart, Info, MapPin, Search, ShoppingCart } from "lucide-react";
 import { FiLogIn } from "react-icons/fi";
 import LoginPage from "@/pages/Login";
-import logoUrl from "@/assets/logos/logo.svg";
+import logoUrl from "@/assets/logos/app-logo.png";
 import { RootState } from "@/app/store";
 import { categoryCards } from "@/features/products/data/categories";
 import { useProducts } from "@/features/products/hooks";
 
 const Logo = () => {
   return (
-    <div className="flex items-center justify-center p-4">
-      <NavLink to="/" end className="hover:opacity-60 transition-opacity duration-200">
-        <img src={logoUrl} alt="Home" className="h-12" />
+    <div className="flex shrink-0 items-center justify-center px-1 py-2 sm:p-4">
+      <NavLink to="/" end className="block shrink-0 hover:opacity-60 transition-opacity duration-200">
+        <img src={logoUrl} alt="E-Commerce App home" className="block h-10 w-auto shrink-0 sm:h-12" />
       </NavLink>
     </div>
   );
@@ -36,8 +36,8 @@ const NavbarCategories = () => {
   const isProductsActive = isOnProducts && !isSaleActive; // products tab active
 
   return (
-    <nav className="flex items-center gap-4 flex-wrap flex-1 h-full" aria-label="Primary navigation"> {/* nav landmark for keyboard/screen readers */}
-      <div className="flex items-center gap-2 h-full">
+    <nav className="flex min-w-0 flex-1 items-center overflow-x-auto no-scrollbar h-full" aria-label="Primary navigation"> {/* nav landmark for keyboard/screen readers */}
+      <div className="flex min-w-max items-center gap-0 h-full pr-0 sm:gap-0.5 sm:pr-2">
         {/* Products with hover panel */}
         <div className="relative group h-full flex items-stretch"> {/* keep hover area tall */}
           <Link to="/products" className={`${getNavLinkClassName(isProductsActive)} ${focusRingClass}`}>
@@ -294,7 +294,7 @@ const NavbarIcons = () => {
   const wishCount = useSelector((s: RootState) => s.wishlist.items.length); // wishlist count
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex shrink-0 items-center gap-0.5 sm:gap-1.5 md:gap-3">
       <SearchDrawer />
 
       <NavLink

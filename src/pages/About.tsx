@@ -1,5 +1,6 @@
 import React from "react"; // React types
-import heroImg from "@/assets/images/fragrances-hero.jpg"; // placeholder image
+import storyImg from "@/assets/images/Banner-middle.png"; // story image
+import personImg from "@/assets/images/Person.jpg"; // team placeholder image
 
 const values = [ // value cards data
   { title: "Quality First", body: "We pick everyday products that feel premium without the premium markup." },
@@ -55,7 +56,7 @@ const About: React.FC = () => ( // full about page
         </p>
       </div>
       <div className="about-story__media"> {/* right column */}
-        <img src={heroImg} alt="Lifestyle" className="about-story__image" /> {/* lifestyle image */}
+        <img src={storyImg} alt="Our Story" className="about-story__image" /> {/* lifestyle image */}
       </div>
     </section>
 
@@ -87,7 +88,7 @@ const About: React.FC = () => ( // full about page
       <div className="about-team__grid"> {/* team cards */}
         {team.map((t) => (
           <div key={t.name} className="about-card about-team__card"> {/* team card */}
-            <div className="about-team__avatar" aria-hidden="true" /> {/* avatar circle */}
+            <img src={personImg} alt={t.name} className="about-team__avatar" /> {/* shared team placeholder */}
             <div className="about-team__name">{t.name}</div> {/* person name */}
             <div className="about-team__role">{t.role}</div> {/* role text */}
             <p className="about-team__quote">“{t.quote}”</p> {/* short quote */}
