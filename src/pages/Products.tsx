@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "@/app/store";
 import { addToCart } from "@/features/cart/cartSlice";
-import { getLastProductsValidationWarnings, Product } from "@/features/products/services";
+import { Product } from "@/features/products/services";
 import { useCategories, useProducts } from "@/features/products/hooks";
 import { toggleWishlist } from "@/features/wishlist/wishlistSlice";
 import { useToast } from "@/components/ui/toastContext";
@@ -93,7 +93,6 @@ const ProductsPage = () => { // product listing page with URL-synced filters
     }
     return sorted;
   }, [products, selectedCategory, searchQuery, sortBy, saleMode]);
-  const productValidationWarnings = getLastProductsValidationWarnings(); // non-blocking API validation details
   const hasUsableProducts = products.length > 0; // keep UI alive when stale data exists
   const hasUsableCategories = categories.length > 0 || FALLBACK_CATEGORIES.length > 0; // categories always have fallback
   const hasBlockingLoadFailure = (productsError || categoriesError) && !hasUsableProducts && !hasUsableCategories; // only block when nothing renderable exists

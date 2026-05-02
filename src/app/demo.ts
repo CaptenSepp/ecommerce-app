@@ -4,50 +4,60 @@ type CartItem = Product & { quantity: number } // cart item shape for localStora
 
 const demoCartItems: CartItem[] = [ // demo cart items for fast checkout
   {
-    id: 901,
-    title: 'Demo Backpack',
-    description: 'Lightweight daypack',
-    price: 39.99,
-    discountPercentage: 0,
-    rating: 4.6,
-    stock: 50,
-    brand: 'Demo Co',
-    category: 'bags',
-    thumbnail: '',
-    images: [],
+    id: 1,
+    title: 'Essence Mascara Lash Princess',
+    description: 'The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.',
+    price: 9.99,
+    discountPercentage: 10.48,
+    rating: 2.56,
+    stock: 99,
+    brand: 'Essence',
+    category: 'beauty',
+    thumbnail: 'https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp',
+    images: ['https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp'],
     quantity: 1,
   },
   {
-    id: 902,
-    title: 'Demo Sneakers',
-    description: 'Everyday trainers',
-    price: 59.5,
-    discountPercentage: 0,
-    rating: 4.4,
-    stock: 80,
-    brand: 'Demo Co',
-    category: 'shoes',
-    thumbnail: '',
-    images: [],
+    id: 11,
+    title: 'Annibale Colombo Bed',
+    description: 'The Annibale Colombo Bed is a luxurious and elegant bed frame, crafted with high-quality materials for a comfortable and stylish bedroom.',
+    price: 1899.99,
+    discountPercentage: 8.57,
+    rating: 4.77,
+    stock: 88,
+    brand: 'Annibale Colombo',
+    category: 'furniture',
+    thumbnail: 'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/thumbnail.webp',
+    images: [
+      'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/1.webp',
+      'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/2.webp',
+      'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/3.webp',
+    ],
     quantity: 2,
   },
 ] // keep this small to load fast
 
 const demoWishlistItems: Product[] = [ // demo wishlist items
   {
-    id: 903,
-    title: 'Demo Hoodie',
-    description: 'Soft fleece hoodie',
-    price: 49.0,
-    discountPercentage: 0,
-    rating: 4.2,
-    stock: 40,
-    brand: 'Demo Co',
-    category: 'apparel',
-    thumbnail: '',
-    images: [],
+    id: 12,
+    title: 'Annibale Colombo Sofa',
+    description: 'The Annibale Colombo Sofa is a sophisticated and comfortable seating option, featuring exquisite design and premium upholstery for your living room.',
+    price: 2499.99,
+    discountPercentage: 14.4,
+    rating: 3.92,
+    stock: 60,
+    brand: 'Annibale Colombo',
+    category: 'furniture',
+    thumbnail: 'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/thumbnail.webp',
+    images: [
+      'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/1.webp',
+      'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/2.webp',
+      'https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/3.webp',
+    ],
   },
 ] // single item keeps the list short
+
+const legacyDemoIds = new Set([901, 902, 903]) // old fake seeded product ids
 
 const isDemoParamEnabled = () => { // check URL flag
   const params = new URLSearchParams(window.location.search) // read current query params
@@ -72,10 +82,17 @@ const writeStoredState = (key: string, value: unknown) => { // safe localStorage
   }
 }
 
-const isEmptyItemsState = (value: unknown): value is { items: unknown[] } => { // checks items list
+const isMissingItemsState = (value: unknown): value is { items: unknown[] } => { // checks missing items list only
   if (!value || typeof value !== 'object') return true // missing or wrong shape
   const items = (value as { items?: unknown[] }).items // read items list
-  return !Array.isArray(items) || items.length === 0 // treat missing or empty as empty
+  return !Array.isArray(items) // only seed when state is missing
+}
+
+const hasLegacyDemoItems = (value: unknown): value is { items: Array<{ id: number }> } => { // detect old fake seed entries
+  if (!value || typeof value !== 'object') return false // ignore missing or invalid state
+  const items = (value as { items?: Array<{ id?: number }> }).items // read maybe-items safely
+  if (!Array.isArray(items)) return false // only arrays can contain product items
+  return items.some((item) => legacyDemoIds.has(item.id ?? -1)) // replace only old fake products
 }
 
 export const initDemoIfNeeded = () => { // seed demo data if needed
@@ -84,11 +101,11 @@ export const initDemoIfNeeded = () => { // seed demo data if needed
   const existingCart = readStoredState<{ items: CartItem[] }>('cart') // read current cart
   const existingWishlist = readStoredState<{ items: Product[] }>('wishlist') // read current wishlist
 
-  if (forceDemo || isEmptyItemsState(existingCart)) { // seed cart when forced or empty
+  if (forceDemo || isMissingItemsState(existingCart) || hasLegacyDemoItems(existingCart)) { // seed cart when forced, missing, or legacy fake
     writeStoredState('cart', { items: demoCartItems }) // set demo cart
   }
 
-  if (forceDemo || isEmptyItemsState(existingWishlist)) { // seed wishlist when forced or empty
+  if (forceDemo || isMissingItemsState(existingWishlist) || hasLegacyDemoItems(existingWishlist)) { // seed wishlist when forced, missing, or legacy fake
     writeStoredState('wishlist', { items: demoWishlistItems }) // set demo wishlist
   }
 }

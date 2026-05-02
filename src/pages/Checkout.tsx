@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/app/store'
+import { setUser } from '@/features/auth/authSlice'
 import { clearCart } from '@/features/cart/cartSlice'
 import { createOrder } from '@/features/orders/services'
 import { useNavigate, Link } from 'react-router-dom'
@@ -64,6 +65,7 @@ const Checkout = () => { // checkout form + order summary
       return // block submit when validation fails
     }
     const order = await createOrder(items, { name, email, address }) // create order record
+    dispatch(setUser({ id: email.trim().toLowerCase(), name: name.trim(), email: email.trim().toLowerCase() })) // keep orders page in sync with checkout email
     dispatch(clearCart()) // empty the cart after placing order
     navigate(`/order-confirmation?orderId=${order.id}`, { // go to confirmation page
       replace: true,

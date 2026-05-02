@@ -57,6 +57,7 @@ store.subscribe(() => {
   const state = store.getState() // read current state snapshot
   saveState('cart', state.cart) // persist cart slice
   saveState('wishlist', state.wishlist) // persist wishlist slice
+  saveState('auth', state.auth) // persist auth slice
 })
 
 // Typed hooks and state helpers
