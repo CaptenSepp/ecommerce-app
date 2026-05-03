@@ -786,7 +786,7 @@
   }
   @media (max-width: 767px) {
     .grid__cards {
-      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); /* about 25% smaller cards on phones */
+      grid-template-columns: repeat(auto-fill, minmax(98px, 1fr)); /* about half-size cards on phones */
     }
   }
 
