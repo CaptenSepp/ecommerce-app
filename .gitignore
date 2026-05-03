@@ -39,3 +39,4 @@ node_modules/
 # tailwind artifacts (falls generiert)
 *.css
 *.css.map
+coverage/

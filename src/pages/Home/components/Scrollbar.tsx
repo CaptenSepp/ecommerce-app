@@ -3,12 +3,10 @@ import { Link } from "react-router-dom";
 import { Star } from "lucide-react"; // rating icon
 import { useProducts } from "@/features/products/hooks";
 import { Product } from "@/features/products/services";
-
 type ScrollbarProps = {
   offset?: number;
   title?: string;
 };
-
 type ProductScrollProps = {
   limit?: number;
   offset?: number;
@@ -21,7 +19,6 @@ type ProductScrollHandle = {
 
 const Scrollbar: React.FC<ScrollbarProps> = ({ offset = 0, title }) => {
   const rowRef = React.useRef<ProductScrollHandle | null>(null); // holds methods to scroll left/right
-
   return (
     <div className="flex-column__grid">
       <div className="mb-3 flex items-center justify-between"> {/* title + buttons row */}
