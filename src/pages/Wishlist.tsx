@@ -1,31 +1,28 @@
-// src/pages/Wishlist.tsx
 import { useSelector } from 'react-redux'
-import { RootState } from '../store/store'
+import { RootState, useAppDispatch } from '@/app/store'
+import { clearWishlist } from '@/features/wishlist/wishlistSlice'
+import WishlistItemsList from '@/features/wishlist/components/WishlistItemsList'
 
-import { useDispatch } from 'react-redux'
-import { clearWishlist } from '../features/wishlist/wishlistSlice';
-
-const WishlistPage = () => {
-
-  const dispatch = useDispatch();
-  const wishlist = useSelector((state: RootState) => state.wishlist.items);
+const WishlistPage = () => { // wishlist page using store items
+  const dispatch = useAppDispatch() // typed dispatch for sinding wishlist actions like clear
+  const wishlist = useSelector((state: RootState) => state.wishlist.items) // read wishlist items
 
   return (
-    <div>
-      <h1>Wishlist</h1>
-      {wishlist.length === 0 ? <p>No items yet.</p> : (
-        <ul>
-          {wishlist.map(item => (
-            <li key={item.id}>{item.title}</li>
-          ))}
-        </ul>
-      )}
-      {wishlist.length > 0 && (
-        <button className='btn btn-primary btn-sm' onClick={() => dispatch(clearWishlist())}>
-          clear the wishlist
-        </button>
-      )}
+    <div className="bg-white py-6 sm:py-8 lg:py-12">
+      <div className="mx-auto max-w-screen-lg px-4 md:px-8">
+        <div className="mb-6 sm:mb-10 lg:mb-16 flex justify-between items-center">
+          <h2 className="u-text-2xl u-font-bold u-text-gray-800 u-text-3xl-lg">Your Wishlist</h2>
+          {wishlist.length > 0 && (
+            <button className='btn btn-secondary btn-sm' onClick={() => dispatch(clearWishlist())}> {/* clear all items */}
+              Clear Wishlist
+            </button>
+          )}
+        </div>
+
+        <WishlistItemsList />
+      </div>
     </div>
-  );
+  )
 }
+
 export default WishlistPage

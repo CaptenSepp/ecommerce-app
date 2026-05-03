@@ -1,34 +1,75 @@
-# ecommerce-app
-E-commerce web application built with React, TypeScript, Tailwind CSS, and state/(Redux Toolkit, Context API). custom hooks, design patterns, Framer Motion , and routing with React Router.
+# E-Commerce App
 
-# 🛒 E-commerce Web App (React + TypeScript)
+This project is a React storefront built with Vite and TypeScript. It includes product browsing, product details, cart and wishlist state, checkout, and order history.
 
-This is a full-featured e-commerce web application built with **Vite**, **React**, and **TypeScript**, using best practices and scalable design patterns like **Redux Toolkit**, **React Query**, **Framer Motion**, **React Hook Form**, and **Tailwind CSS**.
+## What The App Does
 
----
+- Shows a home page with featured shopping sections.
+- Fetches products and categories from DummyJSON.
+- Lets users browse, search, filter, and sort products.
+- Lets users view product details and add items to cart or wishlist.
+- Lets users complete checkout and create an order.
+- Lets users view order history by email through the local Express server.
 
-## 🔧 Tech Stack
+## User Flow
 
-- ⚛️ React 18 + TypeScript
-- 🧱 Redux Toolkit & Context API
-- 📡 React Query (TanStack Query)
-- 🎨 Tailwind CSS + CSS animations
-- 🎭 Framer Motion
-- 🌐 React Router v6
-- 🧪 React Hook Form
-- 🛠 Vite + ESM-based tooling
+`browse products -> cart -> checkout -> order history`
 
----
+## Stack
 
-## 🚀 Getting Started
+- React 19
+- TypeScript
+- Vite
+- React Router
+- Redux Toolkit
+- React Redux
+- TanStack React Query
+- Tailwind CSS v4
+- Express
+
+## Main Routes
+
+- `/` Home
+- `/products` Product catalog
+- `/products/:productId` Product details
+- `/cart` Cart
+- `/checkout` Checkout
+- `/order-confirmation` Order confirmation
+- `/orders` Order history
+- `/wishlist` Wishlist
+- `/about` About
+- `/login` Login
+- `/retailers` Retailers
+
+## Data
+
+- Product catalog data comes from `https://dummyjson.com`.
+- Orders are created and read from the local Express server in `server/`.
+- Cart and wishlist are stored in browser `localStorage`.
+
+## Run The Project
+
+Frontend:
 
 ```bash
-# Clone the repo
-git clone https://github.com/YOUR_USERNAME/ecommerce-app.git
-cd ecommerce-app
-
-# Install dependencies
 npm install
-
-# Run locally
 npm run dev
+```
+
+Backend:
+
+```bash
+cd server
+npm install
+npm run dev
+```
+
+## Test Commands
+
+```bash
+npm run test
+npm run test:e2e
+npm run lint
+npm run typecheck
+npm run build
+```

@@ -1,0 +1,36 @@
+﻿import { useQuery } from '@tanstack/react-query'
+import { getCategories, getProductById, getProducts, Product, Category } from './services'
+
+export function useProducts() {
+  return useQuery<Product[], Error>({
+    queryKey: ['products'],
+    queryFn: () => getProducts(),
+    staleTime: 5 * 60 * 1000,           // 5 Minuten "frisch"
+    refetchOnMount: false,              // Kein Reload beim Zurückkommen
+    refetchOnWindowFocus: false,        // Kein Reload bei Tabwechsel
+    placeholderData: []
+  })
+}
+
+export function useProductById(id: number) {
+  return useQuery<Product, Error>({
+    queryKey: ['product', id],
+    queryFn: () => getProductById(id),
+    staleTime: 5 * 60 * 1000,
+    refetchOnMount: false, 
+    refetchOnWindowFocus: false,
+    placeholderData: undefined,
+  })
+}
+
+export const useCategories = () => {
+  return useQuery<Category[], Error>({
+    queryKey: ['categories'],
+    queryFn: () => getCategories(),
+    staleTime: 5 * 60 * 1000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    placeholderData: []
+  })
+}
+

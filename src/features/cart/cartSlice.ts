@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Product } from '../products/api'
+import { Product } from '../products/services'
 
-interface CartItem extends Product {
+interface CartItem extends Product { // cart item includes product data + quantity
   quantity: number
 }
 
-interface CartState {
+interface CartState { // slice state shape
   items: CartItem[]
 }
 
-const initialState: CartState = {
+const initialState: CartState = { // default empty cart
   items: []
 }
 
@@ -20,23 +20,23 @@ const cartSlice = createSlice({
     addToCart(state, action: PayloadAction<Product>) {
       const existingItem = state.items.find(cartItem => cartItem.id === action.payload.id)
       if (existingItem) {
-        existingItem.quantity += 1
+        existingItem.quantity += 1 // increase quantity if already in cart
       } else {
-        state.items.push({ ...action.payload, quantity: 1 })
+        state.items.push({ ...action.payload, quantity: 1 }) // otherwise add new line item
       }
     },
     removeFromCart(state, action: PayloadAction<number>) {
-      state.items = state.items.filter(cartItem => cartItem.id !== action.payload)
+      state.items = state.items.filter(cartItem => cartItem.id !== action.payload) // remove by product id
     },
     updateQuantity(state, action: PayloadAction<{ id: number; quantity: number }>) {
       const targetItem = state.items.find(cartItem => cartItem.id === action.payload.id)
-      if (targetItem) targetItem.quantity = action.payload.quantity
+      if (targetItem) targetItem.quantity = action.payload.quantity // set explicit quantity
     },
     clearCart(state) {
-      state.items = []
+      state.items = [] // drop all items
     }
   }
 })
 
-export const { addToCart, removeFromCart, updateQuantity, clearCart } = cartSlice.actions
-export default cartSlice.reducer
+export const { addToCart, removeFromCart, updateQuantity, clearCart } = cartSlice.actions // action creators
+export default cartSlice.reducer // reducer export
