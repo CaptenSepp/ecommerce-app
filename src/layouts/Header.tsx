@@ -43,7 +43,7 @@ const NavbarCategories = () => {
           <Link to="/products" className={`${getNavLinkClassName(isProductsActive)} ${focusRingClass}`}>
             <span className="nav-link__label">Products</span> {/* compact hover area */}
           </Link>
-          <div className="fixed left-0 right-0 top-[calc(var(--header-h)-1px)] z-50 rounded-lg border border-[color:var(--overlay-white-10)] bg-[color:var(--brand-black)] u-text-white shadow-lg p-4 invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity"> {/* full-width dropdown */}
+          <div className="pointer-events-none fixed left-0 right-0 top-[calc(var(--header-h)-1px)] z-50 hidden rounded-lg border border-[color:var(--overlay-white-10)] bg-[color:var(--brand-black)] u-text-white shadow-lg p-4 invisible opacity-0 transition-opacity md:block group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:opacity-100"> {/* desktop-only dropdown */}
             <div className="mb-2 u-text-sm u-text-white-70">Shop by category</div> {/* softer text on dark bg */}
             <div className="grid grid-cols-2 gap-3">
               {categoryCards.slice(0, 4).map((c) => (
@@ -64,7 +64,7 @@ const NavbarCategories = () => {
           <NavLink to="/about" className={({ isActive }) => `${getNavLinkClassName(isActive)} ${focusRingClass}`}>
             <span className="nav-link__label">About Us</span> {/* compact hover area */}
           </NavLink>
-          <div className="fixed left-0 right-0 top-[calc(var(--header-h)-1px)] z-50 rounded-lg border border-[color:var(--overlay-white-10)] bg-[color:var(--brand-black)] u-text-white shadow-lg p-4 invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity"> {/* full-width dropdown */}
+          <div className="pointer-events-none fixed left-0 right-0 top-[calc(var(--header-h)-1px)] z-50 hidden rounded-lg border border-[color:var(--overlay-white-10)] bg-[color:var(--brand-black)] u-text-white shadow-lg p-4 invisible opacity-0 transition-opacity md:block group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:opacity-100"> {/* desktop-only dropdown */}
             <p className="u-text-sm u-text-white-70">
               Learn about our mission, quality standards, and team.
             </p>
@@ -80,7 +80,7 @@ const NavbarCategories = () => {
           <Link to="/products?sale=1&sort=price-asc" className={`${getNavLinkClassName(isSaleActive)} ${focusRingClass}`}>
             <span className="nav-link__label">Sale</span> {/* compact hover area */}
           </Link>
-          <div className="fixed left-0 right-0 top-[calc(var(--header-h)-1px)] z-50 rounded-lg border border-[color:var(--overlay-white-10)] bg-[color:var(--brand-black)] u-text-white shadow-lg p-4 invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity"> {/* full-width dropdown */}
+          <div className="pointer-events-none fixed left-0 right-0 top-[calc(var(--header-h)-1px)] z-50 hidden rounded-lg border border-[color:var(--overlay-white-10)] bg-[color:var(--brand-black)] u-text-white shadow-lg p-4 invisible opacity-0 transition-opacity md:block group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:opacity-100"> {/* desktop-only dropdown */}
             <div className="mb-2 u-text-sm u-text-white-70">Deals you might like</div> {/* softer text on dark bg */}
             <div className="grid grid-cols-2 gap-3">
               <Link to="/products?sale=1&sort=price-asc" className={`rounded-md p-2 hover:bg-[color:var(--overlay-white-10)] u-font-medium ${focusRingClass}`}>All Deals</Link>
@@ -289,12 +289,12 @@ const SearchDrawer = () => {
   );
 };
 
-const NavbarIcons = () => {
+const NavbarIcons = ({ className = "" }: { className?: string }) => {
   const cartCount = useSelector((s: RootState) => s.cart.items.reduce((sum, it) => sum + (it.quantity ?? 0), 0)); // total cart quantity
   const wishCount = useSelector((s: RootState) => s.wishlist.items.length); // wishlist count
 
   return (
-    <div className="flex shrink-0 items-center gap-0.5 sm:gap-1.5 md:gap-3">
+    <div className={`header-icons-bar ${className}`.trim()}>
       <SearchDrawer />
 
       <NavLink
@@ -339,9 +339,10 @@ const Header = () => {
         <div className="header__items">
           <Logo />
           <NavbarCategories />
-          <NavbarIcons />
+          <NavbarIcons className="hidden md:flex" />
         </div>
       </header>
+      <NavbarIcons className="header-icons-bar--mobile md:hidden" />
     </div>
   );
 };

@@ -11,6 +11,7 @@
   @apply flex flex-col gap-y-0 px-4 min-h-screen; /* sticky footer layout */
   background: var(--brand-gray-200); /* global page background */
   padding-top: var(--header-h); /* offset fixed header */
+  padding-bottom: var(--mobile-bar-h); /* offset fixed mobile bottom bar when present */
 }
 
 /****************
@@ -30,6 +31,16 @@
 }
 .header__items {
   @apply flex items-center justify-between w-full h-full px-3; /* full height + inner padding */
+}
+@media (max-width: 640px) {
+  .layout {
+    padding-left: 1.2rem; /* slightly tighter mobile shell */
+    padding-right: 1.2rem; /* slightly tighter mobile shell */
+  }
+  .header__items {
+    padding-left: 1rem; /* slimmer header padding on mobile */
+    padding-right: 1rem; /* slimmer header padding on mobile */
+  }
 }
 .header__logo_img {
   @apply h-12;

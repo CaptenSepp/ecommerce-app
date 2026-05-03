@@ -92,6 +92,7 @@
     --control-h: 4.4rem; /* 44px control height */
     --icon-btn: 4rem;
     --header-h: 7.2rem; /* fixed header height */
+    --mobile-bar-h: 0rem; /* default: no bottom mobile bar */
     --btn-text-size: var(--fs-lg); /* shared button text size */
 
     /* Subtle shadow scale */
@@ -102,6 +103,10 @@
     font-size: 62.5%;
     @media (max-width: 480px) {
       font-size: 56.25%;
+    }
+    @media (max-width: 767px) {
+      --header-h: 5.6rem; /* slimmer header on small screens */
+      --mobile-bar-h: 5.8rem; /* reserve space for fixed mobile bottom bar */
     }
 
     --fs-base: 1.6rem; /* base text size */
@@ -260,6 +265,7 @@
     right: 1.6rem; /* bottom-right corner */
     bottom: 1.6rem; /* bottom-right corner */
     z-index: 70; /* above header */
+    pointer-events: none; /* do not block page clicks when panel is closed */
     display: flex; /* stack panel + button */
     flex-direction: column; /* drop-up layout */
     align-items: flex-end; /* align to right */
@@ -279,6 +285,7 @@
     display: inline-flex; /* center icon */
     align-items: center; /* center icon */
     justify-content: center; /* center icon */
+    pointer-events: auto; /* keep trigger button clickable */
   }
   .assistant-fab__btn:hover {
     background: var(--glass-dark-hover); /* stronger hover */
@@ -749,7 +756,7 @@
   .nav-link-active .nav-link__label {
     background: var(--overlay-white-10); /* compact hover/active */
   }
-  @media (max-width: 640px) {
+  @media (max-width: 767px) {
     .nav-link {
       padding: 0; /* shrink nav spacing first on phones */
     }
@@ -758,8 +765,8 @@
       font-size: 1.3rem; /* slightly smaller nav text on phones */
     }
     .icon-button {
-      width: 2.8rem; /* smaller icon hit area on phones */
-      height: 2.8rem; /* smaller icon hit area on phones */
+      width: 3.6rem; /* slimmer icon size inside the mobile bottom bar */
+      height: 3.6rem; /* slimmer icon size inside the mobile bottom bar */
     }
   }
 
@@ -776,6 +783,11 @@
   .grid__cards {
     @apply grid gap-3 sm:gap-4; /* tighter horizontal spacing */
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* bigger cards, fewer per row */
+  }
+  @media (max-width: 767px) {
+    .grid__cards {
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); /* about 25% smaller cards on phones */
+    }
   }
 
   .card {
@@ -817,6 +829,13 @@
   }
   .line-item__actions {
     @apply flex w-full justify-between border-t border-[color:var(--border-color)] p-4 sm:w-auto sm:border-none sm:pl-0 lg:p-6 lg:pl-0;
+  }
+  @media (max-width: 640px) {
+    .line-item__actions {
+      flex-direction: column; /* stack actions to avoid overlap on phones */
+      align-items: stretch; /* let controls use full row width */
+      gap: 1.2rem; /* add clean spacing between control rows */
+    }
   }
   .item-title {
     @apply mb-1 text-lg font-bold lg:text-xl;
@@ -876,6 +895,37 @@
     box-shadow: var(--shadow-sm); /* subtle lift */
   }
 
+  .header-icons-bar {
+    display: flex; /* shared icon row */
+    flex-shrink: 0; /* keep icons at fixed width */
+    align-items: center; /* vertical align */
+    gap: 0.2rem; /* compact default spacing */
+  }
+  @media (min-width: 641px) {
+    .header-icons-bar {
+      gap: 1.2rem; /* restore room on tablet/desktop */
+    }
+  }
+  @media (max-width: 767px) {
+    .header-icons-bar--mobile {
+      position: fixed; /* keep icon bar attached to viewport bottom */
+      left: 0; /* full-width bottom bar */
+      right: 0; /* full-width bottom bar */
+      bottom: 0; /* attach to viewport bottom */
+      z-index: 65; /* stay above page content and below modal drawers */
+      display: flex; /* ensure icons render on mobile */
+      flex-shrink: 0; /* keep stable width behavior */
+      align-items: center; /* vertical align icons */
+      justify-content: space-around; /* spread icons evenly */
+      gap: 0.4rem; /* slight spacing between icons */
+      min-height: var(--mobile-bar-h); /* stable bottom bar height */
+      padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom)); /* support phone safe area */
+      background: var(--brand-black); /* match top header */
+      border-top: 1px solid var(--overlay-white-16); /* separate from content */
+      box-shadow: 0 -8px 18px rgba(17, 17, 17, 0.14); /* subtle top shadow */
+    }
+  }
+
   /* Footer navigation: force white text on dark footer */
   .footer-nav {
     padding: 0.5rem;
@@ -894,6 +944,66 @@
   .footer .nav-link-active {
     background: var(--brand-orange);
     color: var(--brand-white);
+  }
+
+  .products-filters-sheet {
+    position: fixed; /* keep mobile sheet above the page */
+    inset: 0; /* cover whole viewport */
+    z-index: 50; /* stay above content */
+  }
+  .products-filters-sheet__backdrop {
+    position: absolute; /* fill the whole layer */
+    inset: 0; /* full-screen backdrop */
+    background: rgba(0, 0, 0, 0.4); /* simple dark overlay */
+  }
+  .products-filters-sheet__panel {
+    position: absolute; /* anchor to viewport bottom */
+    inset-inline: 0; /* full width */
+    top: calc(var(--header-h) + 0.8rem); /* always start below the fixed header */
+    bottom: 0; /* slide up from bottom */
+    max-height: none; /* let top/bottom control total height */
+    overflow-y: auto; /* scroll when content is tall */
+    border-radius: 1.6rem 1.6rem 0 0; /* rounded top only */
+    background: var(--brand-white); /* clean sheet surface */
+    padding: 1.6rem; /* sheet inner spacing */
+    box-shadow: var(--shadow-lg); /* clear elevation */
+  }
+  .products-filters-sheet__header {
+    position: sticky; /* keep controls visible while scrolling */
+    top: -1.6rem; /* keep sticky header flush with panel top padding */
+    z-index: 1; /* keep above panel content */
+    display: flex; /* title + close action */
+    align-items: center; /* vertical align */
+    justify-content: space-between; /* push close button right */
+    gap: 1.2rem; /* small spacing between title and button */
+    margin-bottom: 1.6rem; /* spacing below header */
+    padding: 1.6rem 0 1.2rem; /* rebuild panel top padding for sticky header */
+    background: var(--brand-white); /* cover content while sticky */
+  }
+  .products-filters-sheet__header-actions {
+    display: flex; /* keep cancel and done in one row */
+    align-items: center; /* vertical align */
+    gap: 0.8rem; /* spacing between actions */
+  }
+  .products-card__actions {
+    position: relative; /* keep action row above card overlay */
+    z-index: 1; /* improve touch reliability */
+    display: flex; /* action button row */
+    gap: 0.8rem; /* space between buttons */
+  }
+  .products-card__action-btn {
+    position: relative; /* make each button a clear tap target */
+    z-index: 1; /* keep button above decorative layers */
+  }
+  @media (max-width: 767px) {
+    .products-card__actions {
+      flex-direction: column; /* stack buttons on narrow phones */
+      align-items: stretch; /* use full width inside the card */
+    }
+    .products-card__action-btn {
+      width: 100%; /* give each button full tap width */
+      justify-content: center; /* center icon + label */
+    }
   }
 
   /* Contact section styles with semi-transparent background */
