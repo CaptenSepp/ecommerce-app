@@ -7,7 +7,6 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
 
 const focusRingClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2' // visible keyboard focus
-const CUSTOMER_STORAGE_KEY = 'checkout-customer-session' // session key for guest customer data
 
 type CheckoutFormValues = { // form model for validation
   name: string
@@ -16,31 +15,6 @@ type CheckoutFormValues = { // form model for validation
 }
 
 type CheckoutFormErrors = Partial<Record<keyof CheckoutFormValues | 'form', string>> // field + form errors
-
-const emptyCheckoutFormValues: CheckoutFormValues = { // empty form fallback
-  name: '',
-  email: '',
-  address: '',
-}
-
-const loadStoredCustomer = (): CheckoutFormValues => { // read customer data for this browser session
-  if (typeof window === 'undefined') return emptyCheckoutFormValues // guard SSR-like environments
-  try {
-    const rawValue = window.sessionStorage.getItem(CUSTOMER_STORAGE_KEY) // load saved customer draft
-    if (!rawValue) return emptyCheckoutFormValues // fallback when nothing was saved
-    return { ...emptyCheckoutFormValues, ...JSON.parse(rawValue) as Partial<CheckoutFormValues> } // keep expected shape
-  } catch {
-    return emptyCheckoutFormValues // ignore storage or parse failures
-  }
-}
-
-const saveStoredCustomer = (customer: CheckoutFormValues) => { // keep latest customer data in this tab session
-  if (typeof window === 'undefined') return // guard SSR-like environments
-  try {
-    window.sessionStorage.setItem(CUSTOMER_STORAGE_KEY, JSON.stringify(customer)) // persist only checkout fields
-  } catch { // ignore storage write failures
-  }
-}
 
 const validateCheckoutForm = (values: CheckoutFormValues, hasItems: boolean): CheckoutFormErrors => { // central validation layer
   const errors: CheckoutFormErrors = {}
@@ -69,11 +43,10 @@ const Checkout = () => { // checkout form + order summary
   const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0) // compute subtotal
   const shipping = items.length ? 4.99 : 0 // simple shipping rule
   const total = subtotal + shipping // final total
-  const initialCustomer = useRef(loadStoredCustomer()).current // load session customer only once
 
-  const [name, setName] = useState(initialCustomer.name) // controlled input for full name
-  const [email, setEmail] = useState(initialCustomer.email) // controlled input for email
-  const [address, setAddress] = useState(initialCustomer.address) // controlled input for address
+  const [name, setName] = useState('') // controlled input for full name
+  const [email, setEmail] = useState('') // controlled input for email
+  const [address, setAddress] = useState('') // controlled input for address
   const [errors, setErrors] = useState<CheckoutFormErrors>({}) // current validation errors
   const [touched, setTouched] = useState<Partial<Record<keyof CheckoutFormValues, boolean>>>({}) // tracks interacted fields
   const nameInputRef = useRef<HTMLInputElement | null>(null) // focus target for invalid name
@@ -91,16 +64,8 @@ const Checkout = () => { // checkout form + order summary
       else if (nextErrors.address) addressInputRef.current?.focus()
       return // block submit when validation fails
     }
-
-    const trimmedCustomer = {
-      name: name.trim(),
-      email: email.trim().toLowerCase(),
-      address: address.trim(),
-    } // normalize once before saving and sending
-    const order = await createOrder(items, trimmedCustomer) // create order record
-
-    saveStoredCustomer(trimmedCustomer) // keep customer fields for next order in this session
-    dispatch(setUser({ id: trimmedCustomer.email, name: trimmedCustomer.name, email: trimmedCustomer.email })) // keep orders page in sync
+    const order = await createOrder(items, { name, email, address }) // create order record
+    dispatch(setUser({ id: email.trim().toLowerCase(), name: name.trim(), email: email.trim().toLowerCase() })) // keep orders page in sync with checkout email
     dispatch(clearCart()) // empty the cart after placing order
     navigate(`/order-confirmation?orderId=${order.id}`, { // go to confirmation page
       replace: true,
@@ -192,7 +157,7 @@ const Checkout = () => { // checkout form + order summary
           <ul className="space-y-2 mb-4">
             {items.map(it => ( // render line items
               <li key={it.id} className="flex justify-between u-text-sm">
-                <span className="truncate">{it.title} x {it.quantity}</span>
+                <span className="truncate">{it.title} × {it.quantity}</span>
                 <span>${(it.price * it.quantity).toFixed(2)}</span>
               </li>
             ))}
