@@ -11,15 +11,15 @@ type SearchResultsProps = {
 }
 
 const SearchResults = ({ isError, isLoading, normalizedQuery, onSelect, visibleResults }: SearchResultsProps) => (
-  <div className="space-y-3">
+  <div className="flex min-h-0 flex-1 flex-col gap-3">
     <div className="u-text-sm text-muted">Results</div>
     {isLoading && <div className="u-text-sm text-muted">Loading products...</div>}
     {isError && <div className="u-text-sm text-muted">Could not load products.</div>}
     {!isLoading && !isError && normalizedQuery && visibleResults.length === 0 && <div className="u-text-sm text-muted">No results found.</div>}
     {!isLoading && !isError && visibleResults.length > 0 && (
-      <div className="space-y-3">
+      <div className="no-scrollbar min-h-0 flex-1 space-y-3 overflow-y-auto pr-1">
         {visibleResults.map((product) => (
-          <Link key={product.id} to={`/products/${product.id}`} className={`flex items-center gap-4 rounded-md border border-[color:var(--border-color)] p-3 hover:bg-gray-50 ${focusRingClass}`} onClick={onSelect}>
+          <Link key={product.id} to={`/products/${product.id}`} className={`flex items-center gap-4 rounded-md p-3 hover:bg-gray-50 ${focusRingClass}`} onClick={onSelect}>
             <span className="media-thumb">
               <img src={product.thumbnail} alt={product.title} loading="lazy" className="media-thumb__img" />
             </span>

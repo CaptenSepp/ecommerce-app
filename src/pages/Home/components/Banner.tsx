@@ -18,7 +18,7 @@ const Banner = () => { // hero banner section
                 touch
               </h1>
 
-              <p className="mt-4 text-pretty banner__subcopy"> {/* hero subcopy */}
+              <p className="banner__subcopy mt-4 hidden text-pretty md:block"> {/* hide long subcopy on phones so CTA buttons stay visible */}
                 Discover fresh arrivals and trusted bestsellers curated for your day-to-day.
                 Shop quality products, fair prices, fast delivery.
               </p>

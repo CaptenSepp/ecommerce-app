@@ -11,6 +11,6 @@ export const getNavLinkClassName = (isActive: boolean) =>
   `nav-link${isActive ? " nav-link-active" : ""}` // main nav active helper
 
 export const getIconLinkClassName = (isActive: boolean) =>
-  `icon-button transition cursor-pointer ${
-    isActive ? "bg-brand-orange u-text-white" : "text-brand-orange hover:bg-gray-100"
+  `icon-button header-icons-bar__link transition cursor-pointer ${
+    isActive ? "u-text-white" : "text-brand-orange"
   }` // shared icon button helper

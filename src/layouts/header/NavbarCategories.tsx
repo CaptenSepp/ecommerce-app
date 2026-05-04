@@ -1,9 +1,10 @@
-import { Link, NavLink, useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { categoryCards } from "@/features/products/data/categories"
 import { focusRingClass, getNavLinkClassName } from "./header-tools"
+import SearchDrawer from "./SearchDrawer"
 
 const dropdownClassName =
-  "pointer-events-none fixed left-0 right-0 top-[calc(var(--header-h)-1px)] z-50 hidden rounded-lg border border-[color:var(--overlay-white-10)] bg-[color:var(--brand-black)] p-4 shadow-lg invisible opacity-0 transition-opacity md:block group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:opacity-100 u-text-white" // shared desktop panel
+  "pointer-events-none fixed left-0 top-[calc(var(--header-total-h)-2.2rem)] z-50 hidden w-1/2 rounded-b-lg bg-[color:var(--brand-black)] p-4 shadow-lg invisible opacity-0 transition-opacity md:block group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:opacity-100 u-text-white" // shared desktop panel
 
 const NavbarCategories = () => {
   const location = useLocation() // current path and query
@@ -16,12 +17,12 @@ const NavbarCategories = () => {
   const isProductsActive = isOnProducts && !isSaleActive // normal products tab state
 
   return (
-    <nav className="flex h-full min-w-0 flex-1 items-center overflow-x-auto no-scrollbar" aria-label="Primary navigation">
-      <div className="flex h-full min-w-max items-center gap-0 pr-0 sm:gap-0.5 sm:pr-2">
+    <nav className="flex min-w-0 flex-1 items-center overflow-x-auto no-scrollbar" aria-label="Primary navigation">
+      <div className="header-nav-bar flex min-w-max items-stretch gap-0 pr-0">
         {/* Each top-level item keeps its own dropdown content with it.
             That way hover and keyboard focus open the matching panel only. */}
-        <div className="group relative flex h-full items-stretch">
-          <Link to="/products" className={`${getNavLinkClassName(isProductsActive)} ${focusRingClass}`}>
+        <div className="group relative flex items-stretch">
+          <Link to="/products" className={`header-nav-bar__item header-nav-bar__link ${getNavLinkClassName(isProductsActive)} ${focusRingClass}`}>
             <span className="nav-link__label">Products</span>
           </Link>
           <div className={dropdownClassName}>
@@ -40,21 +41,8 @@ const NavbarCategories = () => {
           </div>
         </div>
 
-        <div className="group relative flex h-full items-stretch">
-          <NavLink to="/about" className={({ isActive }) => `${getNavLinkClassName(isActive)} ${focusRingClass}`}>
-            <span className="nav-link__label">About Us</span>
-          </NavLink>
-          <div className={dropdownClassName}>
-            <p className="u-text-sm u-text-white-70">Learn about our mission, quality standards, and team.</p>
-            <div className="mt-3 flex gap-3">
-              <Link to="/about" className={`btn btn-primary btn-sm ${focusRingClass}`}>Our Story</Link>
-              <Link to="/login" className={`btn btn-secondary btn-sm ${focusRingClass}`}>Join</Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="group relative flex h-full items-stretch">
-          <Link to="/products?sale=1&sort=price-asc" className={`${getNavLinkClassName(isSaleActive)} ${focusRingClass}`}>
+        <div className="group relative flex items-stretch">
+          <Link to="/products?sale=1&sort=price-asc" className={`header-nav-bar__item header-nav-bar__link ${getNavLinkClassName(isSaleActive)} ${focusRingClass}`}>
             <span className="nav-link__label">Sale</span>
           </Link>
           <div className={dropdownClassName}>
@@ -68,6 +56,10 @@ const NavbarCategories = () => {
               ))}
             </div>
           </div>
+        </div>
+
+        <div className="ml-2 shrink-0">
+          <SearchDrawer />
         </div>
       </div>
     </nav>

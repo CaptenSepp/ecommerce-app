@@ -1,5 +1,5 @@
+import { User } from "lucide-react"
 import { NavLink } from "react-router-dom"
-import { FiLogIn } from "react-icons/fi"
 import LoginPage from "@/pages/Login"
 import { focusRingClass, getIconLinkClassName } from "./header-tools"
 import { useHeaderDrawer } from "./use-header-drawer"
@@ -19,7 +19,7 @@ const LoginDrawer = () => {
         aria-controls="login-drawer"
         aria-label="Open login drawer"
       >
-        <FiLogIn size={20} />
+        <User size={20} />
       </button>
 
       {isDrawerOpen && <div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-xs" onClick={closeDrawer} />}

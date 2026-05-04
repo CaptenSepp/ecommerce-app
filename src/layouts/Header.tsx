@@ -10,12 +10,20 @@ const Header = () => (
       <div className="header__main">
         <div className="header__items">
           <Logo />
-          <NavbarCategories />
-          <NavbarIcons className="hidden md:flex" />
+
+          {/* Keep the white text navigation as the flexible top-row area. */}
+          <div className="flex min-w-0 flex-1 self-stretch items-stretch">
+            <NavbarCategories />
+          </div>
+
+          {/* Push the icon buttons to the far right on desktop. */}
+          <NavbarIcons className="hidden self-stretch md:ml-auto md:flex" />
         </div>
       </div>
     </header>
-    <NavbarIcons className="mobile-nav-bar--mobile md:hidden" />
+
+    {/* Reuse the existing mobile bottom-bar class name. */}
+    <NavbarIcons className="header-icons-bar--mobile md:hidden" />
   </div>
 )
 
