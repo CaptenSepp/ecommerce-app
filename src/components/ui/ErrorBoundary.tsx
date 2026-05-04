@@ -26,10 +26,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   render() { // render UI or fallback
     if (this.state.hasError) { // fallback UI on crash
       return (
-        <div className="mx-auto max-w-md p-6 text-center"> {/* fallback wrapper */}
+        <div className="app-page-shell app-page-shell--narrow app-page-shell--center"> {/* fallback wrapper */}
           <h1 className="u-text-2xl u-font-semibold mb-2">Something went wrong</h1> {/* title */}
           <p className="text-muted mb-6">Please try reloading or go back home.</p> {/* guidance */}
-          <div className="flex justify-center gap-3"> {/* action buttons */}
+          <div className="app-state-panel__actions"> {/* action buttons */}
             <a href="/" className="btn btn-secondary">Go home</a> {/* escape hatch */}
             <button type="button" className="btn btn-primary" onClick={this.handleReload}>
               Reload {/* refresh action */}

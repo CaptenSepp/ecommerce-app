@@ -9,6 +9,48 @@
   background: var(--brand-black); /* Keep the top footer section on the same dark surface. */
 }
 
+.footer__content {
+  display: flex; /* split footer content */
+  width: 100%; /* keep full width */
+  flex-direction: column; /* stack on small screens */
+  gap: 1.5rem; /* section spacing */
+  padding-left: clamp(1rem, 3vw, 4rem); /* shared side padding */
+  padding-right: clamp(1rem, 3vw, 4rem); /* shared side padding */
+}
+
+.footer__lead {
+  display: flex; /* wrap left column */
+}
+
+.footer__hours {
+  margin-top: 0.25rem; /* small gap before opening hours */
+}
+
+.footer__links {
+  display: grid; /* links grid */
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* two columns by default */
+  gap: 0.75rem; /* link spacing */
+}
+
 .footer__meta {
   padding-bottom: 1rem; /* Give the copyright line a little space from the bottom edge. */
+}
+
+@media (min-width: 768px) {
+  .footer__content {
+    flex-direction: row; /* two columns on desktop */
+  }
+
+  .footer__lead,
+  .footer__links-wrap {
+    flex-basis: 50%; /* even column split */
+  }
+
+  .footer__lead {
+    align-items: flex-start; /* align left column to the top */
+  }
+
+  .footer__links {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* three columns on desktop */
+  }
 }

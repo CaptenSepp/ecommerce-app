@@ -14,7 +14,7 @@ const Checkout = () => {
   const items = useSelector((state: RootState) => state.cart.items)
 
   return (
-    <div className="mx-auto max-w-screen-lg p-4">
+    <div className="app-page-shell app-page-shell--wide">
       <div className="mb-4"><Link to="/cart" className="text-brand-orange hover:underline">Back to cart</Link></div>
       <h1 className="mb-6 u-text-2xl u-font-semibold">Checkout</h1>
       <div className="grid gap-6 md:grid-cols-2">

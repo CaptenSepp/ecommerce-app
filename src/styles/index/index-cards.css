@@ -4,6 +4,10 @@
     grid-template-columns: repeat(auto-fill, minmax(174px, 1fr)); /* desktop cards size */
   }
 
+  .grid__cards--two-cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* keep category cards at two equal columns */
+  }
+
   .card {
     padding: var(--space-5); /* default card padding */
     border-radius: var(--r-lg); /* softer edges for general cards */
@@ -98,6 +102,10 @@
   @media (max-width: 767px) {
     .grid__cards {
       grid-template-columns: repeat(auto-fill, minmax(147px, 1fr)); /* phone cards about 2 per row */
+    }
+
+    .grid__cards--two-cols {
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* keep the category layout unchanged on phones */
     }
   }
 

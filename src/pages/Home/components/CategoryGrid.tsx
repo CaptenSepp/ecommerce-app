@@ -33,10 +33,7 @@ const CategoryGridCard = ({ img, label, href }: CategoryCardProps) => { // singl
 };
 
 const CategoryGrid = ({ cards }: Props) => ( // lays out cards in a two-column grid
-  <section
-    className="grid__cards grid-cols-2"
-    style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }} // two equal columns
-  >
+  <section className="grid__cards grid__cards--two-cols">
     {cards.map((card) => (
       <CategoryGridCard key={card.id} {...card} />
     ))}

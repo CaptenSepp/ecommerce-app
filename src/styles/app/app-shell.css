@@ -17,6 +17,30 @@
   padding-bottom: var(--mobile-bar-h); /* offset fixed mobile bottom bar when present */
 }
 
+.app-page-shell {
+  margin-left: auto; /* center page content */
+  margin-right: auto; /* center page content */
+  padding: 1rem; /* shared page spacing */
+}
+
+.app-page-shell--narrow {
+  max-width: 28rem; /* compact state pages */
+}
+
+.app-page-shell--wide {
+  max-width: 64rem; /* standard content pages */
+}
+
+.app-page-shell--center {
+  text-align: center; /* center state content */
+}
+
+.app-state-panel__actions {
+  display: flex; /* action row */
+  justify-content: center; /* center buttons */
+  gap: 0.75rem; /* keep button spacing */
+}
+
 @media (max-width: 640px) {
   .layout {
     padding-left: 1.2rem; /* slightly tighter mobile shell */

@@ -8,7 +8,7 @@ const OrderConfirmation = () => { // post-order confirmation screen
   const order = (location.state as { order?: Order } | null)?.order // order from navigation state
 
   return (
-    <div className="mx-auto max-w-md p-6 text-center">
+    <div className="app-page-shell app-page-shell--narrow app-page-shell--center">
       <h1 className="u-text-2xl u-font-semibold mb-2">Thank you!</h1>
       <p className="text-muted mb-4">Your order has been placed successfully.</p>
       {orderId && ( // show order id when present
@@ -30,7 +30,7 @@ const OrderConfirmation = () => { // post-order confirmation screen
           </div>
         </div>
       )}
-      <div className="flex justify-center gap-3">
+      <div className="app-state-panel__actions">
         <Link to="/products" className="btn btn-secondary">Continue Shopping</Link> {/* back to catalog */}
         <Link to="/" className="btn btn-primary">Go Home</Link> {/* back to home */}
       </div>
