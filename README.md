@@ -1,70 +1,63 @@
 # E-Commerce App
 
-This project is a React storefront built with Vite and TypeScript. It includes product browsing, product details, cart and wishlist state, checkout, and order history.
+This project is a React storefront built with Vite and TypeScript.
+It has product browsing, product details, cart, wishlist, login UI, checkout, and orders.
 
-## What The App Does
+## Current App State
 
-- Shows a home page with featured shopping sections.
-- Fetches products and categories from DummyJSON.
-- Lets users browse, search, filter, and sort products.
-- Lets users view product details and add items to cart or wishlist.
-- Lets users complete checkout and create an order.
-- Lets users view order history by email through the local Express server.
-
-## User Flow
-
-`browse products -> cart -> checkout -> order history`
-
-## Stack
-
-- React 19
-- TypeScript
-- Vite
-- React Router
-- Redux Toolkit
-- React Redux
-- TanStack React Query
-- Tailwind CSS v4
-- Express
+- React 19 SPA with Vite and TypeScript
+- Routing with React Router
+- Server state with TanStack React Query
+- Client state with Redux Toolkit
+- Persisted slices: `cart`, `wishlist`, `auth`
+- Product data from `https://dummyjson.com`
+- Order API from `api/orders.js`
+- Global error boundary and toast provider
+- Floating in-browser assistant panel
 
 ## Main Routes
 
 - `/` Home
-- `/products` Product catalog
+- `/products` Product list
 - `/products/:productId` Product details
 - `/cart` Cart
 - `/checkout` Checkout
 - `/order-confirmation` Order confirmation
-- `/orders` Order history
+- `/orders` Orders for the signed-in user
 - `/wishlist` Wishlist
 - `/about` About
-- `/login` Login
 - `/retailers` Retailers
+- `/login` Login
+- `*` Not found page
 
-## Data
+## Data Flow
 
-- Product catalog data comes from `https://dummyjson.com`.
-- Orders are created and read from the local Express server in `server/`.
-- Cart and wishlist are stored in browser `localStorage`.
+- Product and category requests live in `src/features/products/services.ts`
+- Order requests live in `src/features/orders/services.ts`
+- Redux store setup lives in `src/app/store.ts`
+- The app saves `cart`, `wishlist`, and `auth` to `localStorage`
+- `api/orders.js` keeps orders in memory by user email
 
-## Run The Project
+## Project Structure
 
-Frontend:
+- `src/app` app setup: router, store, query client
+- `src/layouts` shared shell parts
+- `src/pages` route pages
+- `src/features` feature logic and feature UI
+- `src/components/ui` shared UI pieces
+- `src/assets` images, fonts, logos
+- `api` Vercel-style API routes
+- `e2e` Playwright tests
+- `archive` old kept files, not active app code
+
+## Run
 
 ```bash
 npm install
 npm run dev
 ```
 
-Backend:
-
-```bash
-cd server
-npm install
-npm run dev
-```
-
-## Test Commands
+## Test
 
 ```bash
 npm run test
@@ -73,3 +66,9 @@ npm run lint
 npm run typecheck
 npm run build
 ```
+
+## Notes
+
+- Login is UI/client-state only
+- Orders page needs a signed-in user from the `auth` slice
+- Orders stored by `api/orders.js` are in-memory demo data, not permanent database data
