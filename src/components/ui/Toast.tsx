@@ -39,37 +39,32 @@ const kindStyles: Record<ToastKind, { bg: string; border: string }> = { // visua
 
 const ToastContainer: React.FC<{ toasts: Toast[]; onClose: (id: string) => void }> = ({ toasts, onClose }) => {
   return (
-    <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 1000, display: 'flex', flexDirection: 'column', gap: 8 }}> {/* fixed top-right stack */}
-      {toasts.map(t => (
-        <div
-          key={t.id}
-          role="status"
-          style={{ // per-toast styling
-            background: kindStyles[t.kind].bg,
-            color: '#111',
-            borderLeft: `4px solid ${kindStyles[t.kind].border}`,
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-            borderRadius: 8,
-            padding: '10px 12px',
-            minWidth: 240,
-            maxWidth: 360,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: 12,
-          }}
-        >
-          <span style={{ lineHeight: 1.2 }}>{t.message}</span>
-          <button
-            onClick={() => onClose(t.id)}
-            aria-label="Close notification"
-            style={{ background: 'transparent', border: 'none', color: '#555', cursor: 'pointer', fontSize: 16 }} // minimal reset button styling
-          >
-            ×
-          </button>
-        </div>
+    <div className="toast-stack"> {/* Keep all toasts in one fixed stack near the top-right corner. */}
+      {toasts.map((toast) => (
+        <ToastItem key={toast.id} toast={toast} onClose={onClose} />
       ))}
     </div>
   )
 }
 
+const ToastItem: React.FC<{ toast: Toast; onClose: (id: string) => void }> = ({ toast, onClose }) => {
+  const kindStyle = kindStyles[toast.kind] // Read the color pair once so the JSX below stays simple.
+
+  return (
+    <div
+      role="status"
+      className="toast-item"
+      style={{ '--toast-bg': kindStyle.bg, '--toast-border': kindStyle.border } as React.CSSProperties}
+    >
+      <span className="toast-item__message">{toast.message}</span>
+      <button
+        type="button"
+        onClick={() => onClose(toast.id)}
+        aria-label="Close notification"
+        className="toast-item__close"
+      >
+        ×
+      </button>
+    </div>
+  )
+}

@@ -48,7 +48,7 @@ const OrdersPage = () => { // orders list page
       <h1 className="u-text-2xl u-font-semibold mb-6">Your Orders</h1> {/* page title */}
       <div className="space-y-6">
         {orders.map((order) => ( // render each order
-          <article key={order.id} className="rounded-lg p-4" style={{ background: 'var(--surface)' }}>
+          <article key={order.id} className="surface-card p-4">
             <header className="flex flex-wrap items-center justify-between gap-2 mb-4">
               <div>
                 <div className="u-text-sm text-muted">Order ID</div>

@@ -9,9 +9,13 @@ const CartSummary = () => {
   const shipping = items.length ? 4.99 : 0; // simple shipping rule
   const total = subtotal + shipping; // compute total
 
+  const handleCheckout = () => {
+    navigate('/checkout') // Keep navigation in a named handler so the button JSX stays simple.
+  }
+
   return (
     <div className="flex flex-col items-end gap-4">
-      <div className="w-full rounded-lg p-4 sm:max-w-xs" style={{ background: 'var(--surface)' }}>
+      <div className="surface-card w-full p-4 sm:max-w-xs">
         <div className="space-y-1">
           <div className="flex justify-between gap-4 text-muted">
             <span>Subtotal</span>
@@ -38,7 +42,7 @@ const CartSummary = () => {
 
       <button
         className="btn btn-primary u-text-base-md px-8 py-3"
-        onClick={() => navigate('/checkout')} // go to checkout
+        onClick={handleCheckout} // go to checkout
         disabled={items.length === 0} // disable when cart empty
       >
         Check out

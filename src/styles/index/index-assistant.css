@@ -172,6 +172,43 @@
     box-shadow: none; /* no input box focus style */
   }
 
+  .toast-stack {
+    position: fixed; /* Keep notifications visible above page content. */
+    top: 1.6rem;
+    right: 1.6rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .toast-item {
+    background: var(--toast-bg); /* Let each toast kind supply its own background color. */
+    color: var(--brand-black);
+    border-left: 4px solid var(--toast-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.8rem;
+    padding: 1rem 1.2rem;
+    min-width: 24rem;
+    max-width: 36rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .toast-item__message {
+    line-height: 1.2; /* Keep two-line messages compact but readable. */
+  }
+
+  .toast-item__close {
+    background: transparent; /* Reset the button so only the icon is visible. */
+    border: none;
+    color: #555;
+    cursor: pointer;
+    font-size: 1.6rem;
+  }
+
   @media (max-width: 767px) {
     .assistant-fab {
       bottom: 8rem; /* move phone assistant above bottom bar */

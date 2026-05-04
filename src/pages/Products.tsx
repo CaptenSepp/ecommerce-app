@@ -44,31 +44,121 @@ const ProductsPage = () => {
   const hasBlockingLoadFailure = (productsError || categoriesError) && products.length === 0 && categories.length === 0
 
   // Write the chosen filter state back into the URL so refresh and sharing still work.
-  const updateParams = (category: string, sort: string) => setSearchParams(buildProductSearchParams({ category, query: searchQuery, saleMode, sort }))
+  const updateParams = (category: string, sort: string) => {
+    setSearchParams(buildProductSearchParams({ category, query: searchQuery, saleMode, sort }))
+  }
 
   // Retry only the requests that failed instead of blindly re-running everything.
-  const retryFailedQueries = () => { const retries: Promise<unknown>[] = []; if (productsError) retries.push(refetchProducts()); if (categoriesError) retries.push(refetchCategories()); if (retries.length === 0) retries.push(refetchProducts(), refetchCategories()); void Promise.all(retries) }
+  const retryFailedQueries = () => {
+    const retries: Promise<unknown>[] = []
+    if (productsError) retries.push(refetchProducts())
+    if (categoriesError) retries.push(refetchCategories())
+
+    // When there is no single known failed query, retry both requests together.
+    if (retries.length === 0) retries.push(refetchProducts(), refetchCategories())
+    void Promise.all(retries)
+  }
 
   // The mobile sheet edits draft values first, then copies them into the live page state only on Done.
-  const applyMobileFilters = () => { setSelectedCategory(draftCategory); setSortBy(draftSortBy); updateParams(draftCategory, draftSortBy); setIsMobileFiltersOpen(false) }
+  const applyMobileFilters = () => {
+    setSelectedCategory(draftCategory)
+    setSortBy(draftSortBy)
+    updateParams(draftCategory, draftSortBy)
+    setIsMobileFiltersOpen(false)
+  }
+
+  const handleOpenMobileFilters = () => {
+    setIsMobileFiltersOpen(true) // Keep the button handler named so the JSX stays shorter.
+  }
+
+  const handleCloseMobileFilters = () => {
+    setIsMobileFiltersOpen(false) // Reuse the same close action in every place that hides the sheet.
+  }
+
+  const handleCategoryChange = (nextCategory: string) => {
+    setSelectedCategory(nextCategory)
+    updateParams(nextCategory, sortBy)
+  }
+
+  const handleSortChange = (nextSort: string) => {
+    setSortBy(nextSort)
+    updateParams(selectedCategory, nextSort)
+  }
 
   if (isProductsLoading || isCategoriesLoading) return <p role="status" aria-live="polite">Loading...</p>
   if (hasBlockingLoadFailure) return <ProductsErrorState errorMessage={productsError?.message || categoriesError?.message || "Failed to load data"} onRetry={retryFailedQueries} />
 
   return (
     <div className="px-4 py-8">
-      <div className="mb-4 flex items-center justify-between gap-3 md:hidden">
-        <button type="button" className={`btn btn-secondary btn-sm ${focusRingClass}`} onClick={() => setIsMobileFiltersOpen(true)}>Filter & Sort</button>
-        <div className="u-text-sm text-muted">{filteredProducts.length} results</div>
-      </div>
+      <ProductsMobileToolbar resultCount={filteredProducts.length} onOpenFilters={handleOpenMobileFilters} />
       <div className="flex gap-8">
-        <aside className="hidden w-64 shrink-0 md:block" aria-label="Product filters">
-          <ProductFilters selectedCategory={selectedCategory} sortBy={sortBy} availableCategories={availableCategories} focusRingClass={focusRingClass} title="Filter & Sort" onCategoryChange={(nextCategory) => { setSelectedCategory(nextCategory); updateParams(nextCategory, sortBy) }} onSortChange={(nextSort) => { setSortBy(nextSort); updateParams(selectedCategory, nextSort) }} />
-        </aside>
+        <ProductsDesktopFilters
+          availableCategories={availableCategories}
+          selectedCategory={selectedCategory}
+          sortBy={sortBy}
+          onCategoryChange={handleCategoryChange}
+          onSortChange={handleSortChange}
+        />
         <ProductsGrid products={filteredProducts} />
       </div>
-      {isMobileFiltersOpen && <MobileFiltersSheet availableCategories={availableCategories} draftCategory={draftCategory} draftSortBy={draftSortBy} onApply={applyMobileFilters} onCategoryChange={setDraftCategory} onClose={() => setIsMobileFiltersOpen(false)} onSortChange={setDraftSortBy} />}
+      {isMobileFiltersOpen && (
+        <MobileFiltersSheet
+          availableCategories={availableCategories}
+          draftCategory={draftCategory}
+          draftSortBy={draftSortBy}
+          onApply={applyMobileFilters}
+          onCategoryChange={setDraftCategory}
+          onClose={handleCloseMobileFilters}
+          onSortChange={setDraftSortBy}
+        />
+      )}
     </div>
+  )
+}
+
+type ProductsMobileToolbarProps = {
+  resultCount: number
+  onOpenFilters: () => void
+}
+
+const ProductsMobileToolbar = ({ resultCount, onOpenFilters }: ProductsMobileToolbarProps) => {
+  return (
+    <div className="mb-4 flex items-center justify-between gap-3 md:hidden">
+      <button type="button" className={`btn btn-secondary btn-sm ${focusRingClass}`} onClick={onOpenFilters}>
+        Filter & Sort
+      </button>
+      <div className="u-text-sm text-muted">{resultCount} results</div>
+    </div>
+  )
+}
+
+type ProductsDesktopFiltersProps = {
+  availableCategories: typeof fallbackCategories
+  selectedCategory: string
+  sortBy: string
+  onCategoryChange: (nextCategory: string) => void
+  onSortChange: (nextSort: string) => void
+}
+
+const ProductsDesktopFilters = ({
+  availableCategories,
+  selectedCategory,
+  sortBy,
+  onCategoryChange,
+  onSortChange,
+}: ProductsDesktopFiltersProps) => {
+  return (
+    <aside className="hidden w-64 shrink-0 md:block" aria-label="Product filters">
+      <ProductFilters
+        selectedCategory={selectedCategory}
+        sortBy={sortBy}
+        availableCategories={availableCategories}
+        focusRingClass={focusRingClass}
+        title="Filter & Sort"
+        onCategoryChange={onCategoryChange}
+        onSortChange={onSortChange}
+      />
+    </aside>
   )
 }
 

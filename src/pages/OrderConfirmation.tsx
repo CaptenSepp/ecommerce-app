@@ -15,7 +15,7 @@ const OrderConfirmation = () => { // post-order confirmation screen
         <p className="text-muted mb-4">Order ID: {orderId}</p>
       )}
       {order && ( // show summary from created order
-        <div className="mb-6 rounded-lg p-4 text-left" style={{ background: 'var(--surface)' }}> {/* summary card */}
+        <div className="surface-card mb-6 p-4 text-left"> {/* summary card */}
           <div className="u-font-semibold mb-2">Order Summary</div>
           <div className="space-y-2">
             {order.items.map((item) => (

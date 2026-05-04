@@ -10,7 +10,7 @@ const OrderSummary = ({ items }: OrderSummaryProps) => {
   const total = subtotal + shipping // final total
 
   return (
-    <aside className="rounded-lg p-4" style={{ background: "var(--surface)" }}>
+    <aside className="surface-card p-4">
       <h2 className="mb-3 u-text-lg u-font-semibold">Order Summary</h2>
       <ul className="mb-4 space-y-2">
         {items.map((item) => (

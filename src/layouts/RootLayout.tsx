@@ -21,10 +21,7 @@ export default Layout;
 
 const Footer: React.FC = () => ( // inlined footer layout
   <footer className="footer">
-    <section
-      className="w-full py-8" // footer info section
-      style={{ backgroundColor: "var(--brand-black)" }} // solid footer background
-    >
+    <section className="footer__section w-full py-8"> {/* footer info section */}
       <div className="flex w-full flex-col gap-6 px-[clamp(1rem,3vw,4rem)] u-text-white md:flex-row"> {/* split footer content */}
         <div className="flex md:basis-1/2 md:items-start"> {/* left column (1 of 2) */}
           <div>
@@ -78,7 +75,7 @@ const Footer: React.FC = () => ( // inlined footer layout
       <NavLink to="/wishlist" className={({ isActive }) => isActive ? "nav-link nav-link-active" : "nav-link"}>Wishlist</NavLink>
       <NavLink to="/about" className={({ isActive }) => isActive ? "nav-link nav-link-active" : "nav-link"}>About</NavLink>
     </nav>
-    � {new Date().getFullYear()} My E-commerce
+    <div className="footer__meta">&copy; {new Date().getFullYear()} My E-commerce</div>
   </footer>
 );
 

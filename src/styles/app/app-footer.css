@@ -4,3 +4,11 @@
   color: var(--brand-white);
   background: var(--brand-black);
 }
+
+.footer__section {
+  background: var(--brand-black); /* Keep the top footer section on the same dark surface. */
+}
+
+.footer__meta {
+  padding-bottom: 1rem; /* Give the copyright line a little space from the bottom edge. */
+}
