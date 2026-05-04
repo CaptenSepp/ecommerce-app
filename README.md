@@ -1,4 +1,4 @@
-# shopella-app
+# Shopella App
 
 Shopella is a React storefront built with Vite and TypeScript.
 It has product browsing, product details, cart, wishlist, login UI, checkout, and orders.
