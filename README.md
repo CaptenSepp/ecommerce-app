@@ -1,6 +1,6 @@
-# E-Commerce App
+# shopella-app
 
-This project is a React storefront built with Vite and TypeScript.
+Shopella is a React storefront built with Vite and TypeScript.
 It has product browsing, product details, cart, wishlist, login UI, checkout, and orders.
 
 ## Current App State
