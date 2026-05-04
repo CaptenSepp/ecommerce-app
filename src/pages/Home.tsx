@@ -1,77 +1,51 @@
-import { Banner, CategoryGrid, RichText, Scrollbar, FullBleedImage, TrustBar, FeaturedCollectionGrid, BestSellersRow, BrandStoryMini, SocialProofSection } from "@/pages/Home/components";
-import { gridMiddle, gridTop } from "@/features/products/data/categories";
-import middleBannerImg from "@/assets/images/Banner-middle.png";
-import newsletterBannerImg from "@/assets/images/Banner-newsletter.png";
+import { gridMiddle, gridTop } from "@/features/products/data/categories"
+import middleBannerImg from "@/assets/images/Banner-middle.png"
+import {
+  Banner,
+  BestSellersRow,
+  BrandStoryMini,
+  CategoryGrid,
+  FeaturedCollectionGrid,
+  FullBleedImage,
+  NewsletterSignupSection,
+  RichText,
+  Scrollbar,
+  SocialProofSection,
+  TrustBar,
+} from "@/pages/Home/components"
+import { HOME_SECTION_TITLES } from "@/pages/Home/components/HomeSections"
 
-const Home = () => { // marketing home composed of sections
+const Home = () => {
   return (
-    <div className="flex-column pb-10"> {/* add space before footer */}
-      {/* hero banner at the top */}
+    <div className="flex-column pb-10">
       <Banner />
+      <FeaturedCollectionGrid />
+      <CategoryGrid cards={gridTop} />
 
-      {/* new sections (easy to reorder) */}
-      <FeaturedCollectionGrid /> {/* featured collections */}
+      <BestSellersRow
+        title="Best sellers this week"
+        subtitle="Most loved picks right now"
+      />
 
-      <CategoryGrid cards={gridTop} /> {/* category grid */}
+      <BrandStoryMini />
 
-      <BestSellersRow title="Best sellers this week" subtitle="Most loved picks right now" /> {/* best sellers row */}
+      <RichText>{HOME_SECTION_TITLES.freshPicks}</RichText>
+      <FullBleedImage src={middleBannerImg} alt="Middle banner" />
+      <Scrollbar offset={0} title="Best picks for you" />
 
-      <BrandStoryMini /> {/* condensed story */}
-
-      {/* existing sections */}
-      <RichText>{"Fresh Picks for You"}</RichText> {/* section heading */}
-
-      <FullBleedImage src={middleBannerImg} alt="Middle banner" /> {/* full-bleed image strip */}
-
-      <Scrollbar offset={0} title="Best picks for you" /> {/* horizontal product scroller */}
-
-      <RichText>{"Trending Now"}</RichText>
-
+      <RichText>{HOME_SECTION_TITLES.trendingNow}</RichText>
       <CategoryGrid cards={gridMiddle} />
 
-      <RichText>{"Top Rated Deals"}</RichText>
+      <RichText>{HOME_SECTION_TITLES.topRatedDeals}</RichText>
+      <Scrollbar offset={8} title="Best sellers from your region" />
 
-      <Scrollbar offset={8} title="Best sellers from your region" /> {/* horizontal product scroller (offset) */}
-      
-      <SocialProofSection /> {/* testimonials */}
+      <SocialProofSection />
 
-      <RichText>{"Fragrance Spotlight"}</RichText>
-
-      {/* <FullBleedImage src={heroImg} alt="Fragrances hero" /> */}
-
-      {/* <RichText>{"More to Explore"}</RichText>
-
-      <CategoryGrid cards={gridTop} /> */}
-
-      <TrustBar /> {/* trust strip */}
-
-      <section className="w-full py-10 contact-section"> {/* contact section above footer */}
-        <div className="flex w-full flex-col gap-0 px-4 md:flex-row"> {/* split layout */}
-          <div className="md:w-1/2"> {/* left image */}
-            <img
-              src={newsletterBannerImg} // contact image
-              alt="Newsletter banner"
-              className="h-full w-full rounded-lg object-cover" // fill space
-              loading="lazy" // keep page light
-            />
-          </div>
-          <div className="flex flex-col items-start gap-4 md:w-1/2 contact-form-wrap"> {/* right form only */}
-            <div className="text-left"> {/* copy block above form */}
-              <h2 className="mb-1 u-text-white">Subscribe to our newsletter</h2> {/* main title */}
-              <p className="u-text-sm u-text-white-80"> {/* supporting text */}
-                Get fresh deals and product updates delivered weekly.
-              </p>
-            </div>
-            <form className="contact-form" onSubmit={(e) => e.preventDefault()}> {/* static subscribe form */}
-              <input className="contact-input" type="text" placeholder="Your name" /> {/* name field */}
-              <input className="contact-input" type="email" placeholder="Email address" /> {/* email field */}
-              <button type="submit" className="btn btn-primary btn-sm">Subscribe</button> {/* submit button */}
-            </form>
-          </div>
-        </div>
-      </section>
+      <RichText>{HOME_SECTION_TITLES.fragranceSpotlight}</RichText>
+      <TrustBar />
+      <NewsletterSignupSection />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

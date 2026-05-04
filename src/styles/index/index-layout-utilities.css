@@ -1,0 +1,27 @@
+@layer utilities {
+  .bg-brand-orange {
+    background: var(--brand-orange); /* orange background helper */
+  }
+
+  .line-clamp-2 {
+    @apply overflow-hidden;
+    display: -webkit-box; /* old WebKit clamp */
+    -webkit-box-orient: vertical; /* old WebKit clamp */
+    -webkit-line-clamp: 2; /* limit to two lines */
+  }
+
+  .full-bleed {
+    width: 100vw; /* viewport width */
+    margin-left: calc(50% - 50vw); /* expand left */
+    margin-right: calc(50% - 50vw); /* expand right */
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Edge */
+  }
+}

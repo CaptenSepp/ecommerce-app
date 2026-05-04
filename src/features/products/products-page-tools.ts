@@ -1,7 +1,6 @@
 import type { Category, Product } from "@/features/products/services"
 
-export const focusRingClass =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2" // Reuse one focus style so every filter control shows keyboard focus the same way.
+export { focusRingClass } from "@/components/ui/focus-tools"
 
 export const fallbackCategories: Category[] = [
   { slug: "beauty", name: "Beauty" },

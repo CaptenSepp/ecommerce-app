@@ -1,0 +1,109 @@
+@layer components {
+  .header {
+    display: flex; /* stack announcement and main row */
+    flex-direction: column; /* keep orange strip above the dark row */
+    width: 100vw; /* make header full width */
+    margin-left: calc(50% - 50vw); /* cancel page side padding */
+    margin-right: calc(50% - 50vw); /* cancel page side padding */
+    background: var(--brand-black); /* dark header base */
+  }
+
+  .header__main {
+    width: 100%; /* let the main row span full header width */
+  }
+
+  .header__items {
+    display: flex; /* keep logo, links, and icons in one row */
+    align-items: stretch; /* remove dead space inside the header row */
+    width: 100%; /* fill available header width */
+    min-height: var(--header-h); /* make the real row height match the shared header token */
+    gap: 0.8rem; /* small spacing between header blocks */
+    margin: 0; /* remove container outer spacing */
+    padding: 0; /* remove container inner spacing */
+  }
+
+  .header-announcement {
+    display: flex; /* center the announcement text */
+    align-items: center; /* vertical center */
+    justify-content: center; /* horizontal center */
+    min-height: 3.4rem; /* slim strip like before */
+    padding: 0.6rem 1.2rem; /* keep text away from edges */
+    background: var(--brand-orange); /* restore orange strip */
+    color: var(--brand-white); /* white text on orange */
+    text-align: center; /* keep text tidy on small screens */
+  }
+
+  .header-announcement__text {
+    font-size: var(--fs-md); /* compact message size */
+    font-weight: var(--fw-bold); /* readable strip text */
+    line-height: 1.3; /* tighter two-line mobile wrap */
+  }
+
+  .badge-counter {
+    @apply absolute leading-none text-white;
+    top: 0; /* anchor to icon corner */
+    right: 0; /* anchor to icon corner */
+    transform: translate(50%, -50%); /* move outside icon */
+    height: 1.2rem; /* smaller badge height */
+    min-width: 1.2rem; /* keep circular for 1 digit */
+    padding: 0 0.3rem; /* tighter horizontal padding */
+    border-radius: var(--r-pill); /* pill for 2+ digits */
+    font-size: 0.85rem; /* smaller text */
+    font-weight: var(--fw-semibold); /* readable weight */
+    background: var(--brand-orange); /* badge background */
+    box-shadow: var(--shadow-sm); /* subtle lift */
+  }
+
+  .header-icons-bar {
+    display: flex; /* shared icon row */
+    flex-shrink: 0; /* keep icons at fixed width */
+    align-items: center; /* vertical align */
+    gap: 0.2rem; /* compact default spacing */
+  }
+
+  .header-icons-bar:has(.header-icons-bar__link:hover) .header-icons-bar__link:not(:hover):not(:focus-visible) {
+    color: var(--brand-gray-600) !important; /* keep the hovered icon unchanged */
+  }
+
+  @media (min-width: 641px) {
+    .header-icons-bar {
+      gap: 1.2rem; /* restore room on tablet/desktop */
+    }
+  }
+
+  @media (max-width: 767px) {
+    .header__items {
+      justify-content: flex-start; /* keep top-row content at the left */
+      margin: 0; /* keep mobile row spacing removed too */
+      padding: 0; /* keep mobile row spacing removed too */
+    }
+
+    .header-announcement {
+      min-height: 3rem; /* smaller strip on phones */
+      padding: 0.5rem 0.8rem; /* tighter mobile spacing */
+    }
+
+    .header-icons-bar--mobile {
+      position: fixed; /* keep icon bar attached to viewport bottom */
+      left: 0; /* full-width bottom bar */
+      right: 0; /* full-width bottom bar */
+      bottom: 0; /* attach to viewport bottom */
+      z-index: 65; /* stay above page content and below modal drawers */
+      display: flex; /* ensure icons render on mobile */
+      flex-shrink: 0; /* keep stable width behavior */
+      align-items: center; /* vertical align icons */
+      justify-content: space-around; /* spread icons evenly */
+      gap: 0.4rem; /* slight spacing between icons */
+      min-height: var(--mobile-bar-h); /* stable bottom bar height */
+      padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom)); /* support phone safe area */
+      background: var(--brand-black); /* match top header */
+      border-top: 1px solid var(--overlay-white-16); /* separate from content */
+      box-shadow: 0 -8px 18px rgba(17, 17, 17, 0.14); /* subtle top shadow */
+    }
+
+    .icon-button {
+      width: 3.6rem; /* slimmer icon size inside the mobile bottom bar */
+      height: 3.6rem; /* slimmer icon size inside the mobile bottom bar */
+    }
+  }
+}

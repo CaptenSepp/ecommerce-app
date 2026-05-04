@@ -44,17 +44,17 @@ const CheckoutForm = ({ hasItems, initialValues, onSubmit }: CheckoutFormProps) 
       {errors.form ? <p className="u-text-sm u-text-danger" role="alert">{errors.form}</p> : null}
       <div>
         <label htmlFor="checkout-name" className="mb-1 block u-text-sm">Full name</label>
-        <input id="checkout-name" ref={nameInputRef} className={`input-field ${focusRingClass} ${touched.name && errors.name ? "border-red-500" : ""}`} value={values.name} onChange={(event) => updateField("name", event.target.value)} onBlur={() => touchField("name")} aria-invalid={Boolean(touched.name && errors.name)} aria-describedby={touched.name && errors.name ? "checkout-name-error" : undefined} />
+        <input id="checkout-name" ref={nameInputRef} className={`input-field ${focusRingClass} ${touched.name && errors.name ? "input-field-error" : ""}`} value={values.name} onChange={(event) => updateField("name", event.target.value)} onBlur={() => touchField("name")} aria-invalid={Boolean(touched.name && errors.name)} aria-describedby={touched.name && errors.name ? "checkout-name-error" : undefined} />
         {touched.name && errors.name ? <p id="checkout-name-error" className="mt-1 u-text-sm u-text-danger" role="alert">{errors.name}</p> : null}
       </div>
       <div>
         <label htmlFor="checkout-email" className="mb-1 block u-text-sm">Email</label>
-        <input id="checkout-email" ref={emailInputRef} type="email" className={`input-field ${focusRingClass} ${touched.email && errors.email ? "border-red-500" : ""}`} value={values.email} onChange={(event) => updateField("email", event.target.value)} onBlur={() => touchField("email")} aria-invalid={Boolean(touched.email && errors.email)} aria-describedby={touched.email && errors.email ? "checkout-email-error" : undefined} />
+        <input id="checkout-email" ref={emailInputRef} type="email" className={`input-field ${focusRingClass} ${touched.email && errors.email ? "input-field-error" : ""}`} value={values.email} onChange={(event) => updateField("email", event.target.value)} onBlur={() => touchField("email")} aria-invalid={Boolean(touched.email && errors.email)} aria-describedby={touched.email && errors.email ? "checkout-email-error" : undefined} />
         {touched.email && errors.email ? <p id="checkout-email-error" className="mt-1 u-text-sm u-text-danger" role="alert">{errors.email}</p> : null}
       </div>
       <div>
         <label htmlFor="checkout-address" className="mb-1 block u-text-sm">Address</label>
-        <textarea id="checkout-address" ref={addressInputRef} className={`input-field ${focusRingClass} ${touched.address && errors.address ? "border-red-500" : ""}`} value={values.address} onChange={(event) => updateField("address", event.target.value)} onBlur={() => touchField("address")} aria-invalid={Boolean(touched.address && errors.address)} aria-describedby={touched.address && errors.address ? "checkout-address-error" : undefined} rows={3} />
+        <textarea id="checkout-address" ref={addressInputRef} className={`input-field ${focusRingClass} ${touched.address && errors.address ? "input-field-error" : ""}`} value={values.address} onChange={(event) => updateField("address", event.target.value)} onBlur={() => touchField("address")} aria-invalid={Boolean(touched.address && errors.address)} aria-describedby={touched.address && errors.address ? "checkout-address-error" : undefined} rows={3} />
         {touched.address && errors.address ? <p id="checkout-address-error" className="mt-1 u-text-sm u-text-danger" role="alert">{errors.address}</p> : null}
       </div>
       <button type="submit" className={`btn btn-primary ${focusRingClass}`}>Place Order</button>

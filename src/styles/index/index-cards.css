@@ -1,0 +1,106 @@
+@layer components {
+  .grid__cards {
+    @apply grid gap-3 sm:gap-4; /* tighter horizontal spacing */
+    grid-template-columns: repeat(auto-fill, minmax(174px, 1fr)); /* desktop cards size */
+  }
+
+  .card {
+    padding: var(--space-5); /* default card padding */
+    border-radius: var(--r-lg); /* softer edges for general cards */
+    overflow: hidden; /* clip images to rounded corners */
+    border: 1px solid var(--border-color); /* base card border */
+    background: var(--brand-white); /* clean card surface */
+    transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease; /* subtle hover */
+    box-shadow: var(--shadow-sm); /* light resting shadow */
+  }
+
+  .card--product {
+    padding: var(--space-5); /* consistent spacing */
+    border-radius: var(--r-xl); /* larger radius for product cards */
+    min-height: 16rem; /* keep product card height */
+    max-width: none; /* let grid control width */
+    aspect-ratio: 4 / 5; /* taller card ratio */
+    background-position: center; /* center product media */
+    background-repeat: no-repeat; /* stop tiling */
+    background-size: cover; /* fill card area */
+  }
+
+  .card--product.bg-cover:hover {
+    background-size: contain; /* show full product on hover */
+    background-repeat: no-repeat; /* keep image clean */
+    background-position: center; /* center full image */
+    background-color: var(--brand-white); /* white fallback */
+  }
+
+  .line-item {
+    @apply flex flex-wrap gap-x-4 overflow-hidden sm:gap-y-4 lg:gap-6;
+    padding: var(--space-5); /* consistent line-item spacing */
+    border-radius: var(--r-lg); /* match card radius */
+    border: 1px solid var(--border-color); /* base border */
+    transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease; /* subtle hover */
+    box-shadow: var(--shadow-sm); /* resting shadow */
+  }
+
+  .line-item__actions {
+    @apply flex w-full justify-between border-t border-[color:var(--border-color)] p-4 sm:w-auto sm:border-none sm:pl-0 lg:p-6 lg:pl-0;
+  }
+
+  .item-title {
+    @apply mb-1 text-lg font-bold lg:text-xl;
+    color: var(--brand-black);
+  }
+
+  .item-brand {
+    @apply block;
+    color: var(--text-muted);
+  }
+
+  .item-price {
+    @apply mb-1 block font-bold md:text-lg;
+    color: var(--brand-black);
+  }
+
+  .stock-note {
+    @apply block text-sm;
+    color: var(--text-muted);
+  }
+
+  .media-thumb {
+    @apply relative block h-48 w-32 overflow-hidden rounded-md bg-gray-100 sm:h-56 sm:w-40;
+  }
+
+  .media-thumb__img {
+    @apply h-full w-full object-cover object-center transition duration-200;
+  }
+
+  .media-thumb:hover .media-thumb__img {
+    transform: scale(1.1); /* small zoom */
+  }
+
+  .card:hover,
+  .card--product:hover,
+  .line-item:hover {
+    transform: translateY(-2px); /* subtle lift */
+    box-shadow: var(--shadow-md); /* slightly stronger shadow */
+    border-color: var(--border-color-strong); /* tiny darker border */
+  }
+
+  .empty-state {
+    @apply text-center;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 767px) {
+    .grid__cards {
+      grid-template-columns: repeat(auto-fill, minmax(147px, 1fr)); /* phone cards about 2 per row */
+    }
+  }
+
+  @media (max-width: 640px) {
+    .line-item__actions {
+      flex-direction: column; /* stack actions to avoid overlap on phones */
+      align-items: stretch; /* let controls use full row width */
+      gap: 1.2rem; /* add clean spacing between control rows */
+    }
+  }
+}

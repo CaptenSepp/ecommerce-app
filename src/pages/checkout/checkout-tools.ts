@@ -1,5 +1,4 @@
-export const focusRingClass =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2" // Reuse the same visible focus style so keyboard navigation stays clear across the whole checkout flow.
+export { focusRingClass } from "@/components/ui/focus-tools"
 
 export const CUSTOMER_STORAGE_KEY = "checkout-customer-session" // Keep the storage key in one place so load and save always point to the same session data.
 

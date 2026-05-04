@@ -1,0 +1,84 @@
+@layer components {
+  .products-filters-sheet {
+    position: fixed; /* keep mobile sheet above the page */
+    inset: 0; /* cover whole viewport */
+    z-index: 50; /* stay above content */
+  }
+
+  .products-filters-sheet__backdrop {
+    position: absolute; /* fill the whole layer */
+    inset: 0; /* full-screen backdrop */
+    background: rgba(0, 0, 0, 0.4); /* simple dark overlay */
+  }
+
+  .products-filters-sheet__panel {
+    position: absolute; /* anchor to viewport bottom */
+    inset-inline: 0; /* full width */
+    top: calc(var(--header-h) + 0.8rem); /* always start below the fixed header */
+    bottom: 0; /* slide up from bottom */
+    max-height: none; /* let top/bottom control total height */
+    overflow-y: auto; /* scroll when content is tall */
+    border-radius: 1.6rem 1.6rem 0 0; /* rounded top only */
+    background: var(--brand-white); /* clean sheet surface */
+    padding: 1.6rem; /* sheet inner spacing */
+    box-shadow: var(--shadow-lg); /* clear elevation */
+  }
+
+  .products-filters-sheet__header {
+    position: sticky; /* keep controls visible while scrolling */
+    top: -1.6rem; /* keep sticky header flush with panel top padding */
+    z-index: 1; /* keep above panel content */
+    display: flex; /* title + close action */
+    align-items: center; /* vertical align */
+    justify-content: space-between; /* push close button right */
+    gap: 1.2rem; /* small spacing between title and button */
+    margin-bottom: 1.6rem; /* spacing below header */
+    padding: 1.6rem 0 1.2rem; /* rebuild panel top padding for sticky header */
+    background: var(--brand-white); /* cover content while sticky */
+  }
+
+  .products-filters-sheet__header-actions {
+    display: flex; /* keep cancel and done in one row */
+    align-items: center; /* vertical align */
+    gap: 0.8rem; /* spacing between actions */
+  }
+
+  .products-card__actions {
+    position: relative; /* keep action row above card overlay */
+    z-index: 1; /* improve touch reliability */
+    display: flex; /* action button row */
+    gap: 0.8rem; /* space between buttons */
+  }
+
+  .products-card__action-btn {
+    position: relative; /* make each button a clear tap target */
+    z-index: 1; /* keep button above decorative layers */
+  }
+
+  .products-card__action-text {
+    font-size: 1.2rem; /* smaller desktop label so actions fit inside cards */
+  }
+
+  @media (min-width: 768px) {
+    .products-card__action-btn {
+      min-height: auto; /* let product action buttons fit their content */
+      padding: 0.8rem 1rem; /* smaller desktop button padding inside cards */
+    }
+  }
+
+  @media (max-width: 767px) {
+    .products-card__actions {
+      flex-direction: row; /* keep phone action buttons in one row */
+      align-items: flex-start; /* let each button keep its own width */
+    }
+
+    .products-card__action-btn {
+      display: inline-flex; /* size the button from its icon content */
+      justify-content: center; /* center icon + label */
+    }
+
+    .products-card__action-text {
+      display: none; /* keep only the action icons on phones */
+    }
+  }
+}

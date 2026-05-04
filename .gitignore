@@ -7,8 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
 dist-ssr
 *.local
 
@@ -31,12 +29,8 @@ build/
 .next/
 .cache/
 .vite/
-*.log
 
 # dependencies
 node_modules/
 
-# tailwind artifacts (falls generiert)
-*.css
-*.css.map
 coverage/

@@ -1,0 +1,117 @@
+@layer utilities {
+  .u-text-xs {
+    font-size: var(--fs-md); /* extra small */
+  }
+
+  .u-text-sm {
+    font-size: var(--fs-md); /* small */
+  }
+
+  .u-text-md {
+    font-size: var(--fs-md); /* base */
+  }
+
+  .u-text-base {
+    font-size: var(--fs-base); /* normal text */
+  }
+
+  .u-text-lg {
+    font-size: var(--fs-lg); /* large */
+  }
+
+  .u-text-xl {
+    font-size: var(--fs-xl); /* extra large */
+  }
+
+  .u-text-2xl {
+    font-size: var(--fs-2xl); /* 2x large */
+  }
+
+  .u-text-3xl {
+    font-size: var(--fs-3xl); /* 3x large */
+  }
+
+  .u-text-4xl {
+    font-size: var(--fs-4xl); /* 4x large */
+  }
+
+  .u-font-light {
+    font-weight: var(--fw-semibold); /* keep at least semibold */
+  }
+
+  .u-font-medium {
+    font-weight: var(--fw-semibold); /* keep at least semibold */
+  }
+
+  .u-font-semibold {
+    font-weight: var(--fw-semibold); /* semi bold */
+  }
+
+  .u-font-bold {
+    font-weight: var(--fw-bold); /* bold */
+  }
+
+  .u-text-white {
+    color: var(--brand-white); /* white text */
+  }
+
+  .u-text-white-70 {
+    color: rgba(255, 255, 255, 0.7); /* soft white */
+  }
+
+  .u-text-white-80 {
+    color: rgba(255, 255, 255, 0.8); /* softer white */
+  }
+
+  .u-text-gray-400 {
+    color: var(--brand-gray-400); /* muted gray */
+  }
+
+  .u-text-gray-500 {
+    color: var(--brand-gray-500); /* mid gray */
+  }
+
+  .u-text-gray-600 {
+    color: var(--brand-gray-600); /* deep gray */
+  }
+
+  .u-text-gray-700 {
+    color: var(--brand-gray-700); /* darker gray */
+  }
+
+  .u-text-gray-800 {
+    color: var(--brand-gray-800); /* heading gray */
+  }
+
+  .u-text-danger {
+    color: var(--brand-red); /* error text */
+  }
+
+  .text-muted {
+    color: var(--text-muted); /* shared muted text */
+  }
+
+  .text-brand-black {
+    color: var(--brand-black); /* shared black text */
+  }
+
+  .text-brand-orange {
+    color: var(--brand-orange); /* shared orange text */
+  }
+
+  @media (min-width: 768px) {
+    .u-text-lg-md {
+      font-size: var(--fs-lg); /* large on md+ */
+    }
+
+    .u-text-base-md {
+      font-size: var(--fs-base); /* base on md+ */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .u-text-3xl-lg {
+      font-size: var(--fs-3xl); /* 3xl on lg+ */
+    }
+  }
+}

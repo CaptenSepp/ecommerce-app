@@ -1,0 +1,52 @@
+/* --- BASE -------------------------------------------------------- */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "DM Serif Text", "Poynter", "New York", "Iowan Old Style", "Apple Garamond", "Baskerville", "Times New Roman", "Droid Serif", "Times", "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* serif stack with emoji fallbacks */
+    color: var(--brand-black);
+    background: var(--brand-gray-100);
+    overflow-x: hidden;
+    font-weight: var(--fw-semibold); /* default to semibold */
+  }
+
+  @media (max-width: 767px) {
+    html {
+      -ms-overflow-style: none; /* hide mobile page scrollbar in old Edge */
+      scrollbar-width: none; /* hide mobile page scrollbar in Firefox */
+    }
+    html::-webkit-scrollbar {
+      display: none; /* hide mobile page scrollbar in WebKit browsers */
+    }
+  }
+
+  h1 {
+    font-size: var(--fs-4xl);
+  }
+  h2 {
+    font-size: var(--fs-3xl);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: var(--fw-black);
+    margin: 0 0 0.5em;
+  }
+
+  a {
+    color: var(--brand-orange);
+    transition: color 0.15s;
+  }
+  a:hover {
+    color: var(--brand-orange-hover);
+  }
+}
+

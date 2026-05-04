@@ -1,0 +1,180 @@
+@layer components {
+  .assistant-fab {
+    position: fixed; /* keep on screen */
+    right: 1.6rem; /* bottom-right corner */
+    bottom: 1.6rem; /* bottom-right corner */
+    z-index: 70; /* above header */
+    pointer-events: none; /* do not block page clicks when panel is closed */
+    display: flex; /* stack panel + button */
+    flex-direction: column; /* drop-up layout */
+    align-items: flex-end; /* align to right */
+    gap: 0.8rem; /* space between panel and button */
+  }
+
+  .assistant-fab__btn {
+    width: 4.8rem; /* circular button */
+    height: 4.8rem; /* circular button */
+    border-radius: 9999px; /* round shape */
+    background: var(--glass-dark); /* dark glass base */
+    color: var(--brand-white); /* white text */
+    font-weight: var(--fw-semibold); /* readable label */
+    border: 1px solid rgba(255, 255, 255, 0.24); /* glass edge */
+    box-shadow: 0 12px 28px rgba(17, 17, 17, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.18); /* floating depth */
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.2); /* glass effect */
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2); /* Safari support */
+    display: inline-flex; /* center icon */
+    align-items: center; /* center icon */
+    justify-content: center; /* center icon */
+    pointer-events: auto; /* keep trigger button clickable */
+  }
+
+  .assistant-fab__btn:hover {
+    background: var(--glass-dark-hover); /* stronger hover */
+  }
+
+  .assistant-panel {
+    width: 26rem; /* small panel */
+    max-width: min(90vw, 32rem); /* responsive width */
+    min-height: 36rem; /* larger default panel height */
+    max-height: 80vh; /* never exceed most of browser height */
+    background: var(--brand-white); /* panel base */
+    border: 1px solid var(--border-color); /* subtle border */
+    border-radius: var(--r-lg); /* soft corners */
+    box-shadow: var(--shadow-lg); /* elevated panel */
+    opacity: 0; /* hidden by default */
+    transform: translateY(8px); /* subtle drop */
+    pointer-events: none; /* no click when closed */
+    transition: opacity 180ms ease, transform 180ms ease; /* smooth open */
+  }
+
+  .assistant-panel--open {
+    opacity: 1; /* visible */
+    transform: translateY(0); /* slide up */
+    pointer-events: auto; /* allow interaction */
+  }
+
+  .assistant-panel__header {
+    display: flex; /* title + close */
+    align-items: center; /* vertical align */
+    justify-content: space-between; /* push close right */
+    padding: 1.2rem; /* match panel padding */
+    border-bottom: 1px solid var(--border-color); /* header divider */
+  }
+
+  .assistant-panel__actions {
+    display: flex; /* keep header buttons inline */
+    align-items: center; /* align button heights */
+    gap: 0.6rem; /* small space between actions */
+  }
+
+  .assistant-panel__title {
+    font-size: var(--fs-md); /* small title */
+    font-weight: var(--fw-semibold); /* medium emphasis */
+    color: var(--brand-black); /* readable title */
+  }
+
+  .assistant-panel__text-btn {
+    font-size: 1.1rem; /* slightly smaller helper action */
+    font-weight: 400; /* keep helper action light */
+    color: var(--text-muted); /* softer action style */
+  }
+
+  .assistant-panel__text-btn:hover {
+    color: var(--brand-black); /* stronger on hover */
+  }
+
+  .assistant-panel__close {
+    width: 3rem; /* small hit area */
+    height: 3rem; /* square button */
+    border-radius: var(--r-md); /* soft corners */
+    display: inline-flex; /* center icon */
+    align-items: center; /* center icon */
+    justify-content: center; /* center icon */
+  }
+
+  .assistant-panel__close:hover {
+    background: var(--brand-gray-100); /* light hover */
+  }
+
+  .assistant-panel__content {
+    padding: 1.2rem; /* inner spacing */
+    display: flex; /* stack messages and composer */
+    flex-direction: column; /* vertical layout */
+    gap: 1.2rem; /* spacing between sections */
+    height: calc(80vh - 5.6rem); /* keep content area tall inside max panel */
+    min-height: calc(36rem - 5.6rem); /* match larger default panel */
+  }
+
+  .assistant-panel__messages {
+    min-height: 18rem; /* visible thread area */
+    max-height: 24rem; /* avoid oversized panel */
+    overflow-y: auto; /* scroll long chats */
+    display: flex; /* stack bubble blocks */
+    flex-direction: column; /* top to bottom */
+    gap: 0.8rem; /* space between messages */
+    flex: 1 1 auto; /* let history give space to growing input */
+    min-width: 0; /* keep layout stable inside flex column */
+  }
+
+  .assistant-message {
+    padding: 0.8rem; /* bubble spacing */
+    border-radius: var(--r-md); /* soft bubble corners */
+    border: 1px solid var(--border-color); /* subtle separator */
+    background: var(--brand-gray-50); /* default assistant bubble */
+  }
+
+  .assistant-message--user {
+    background: var(--brand-orange-100); /* user bubble tint */
+  }
+
+  .assistant-message__role {
+    display: block; /* keep label above text */
+    margin-bottom: 0.4rem; /* small label spacing */
+    font-size: 1.05rem; /* compact label */
+    font-weight: 400; /* avoid bold chat labels */
+    color: var(--text-muted); /* quiet label tone */
+  }
+
+  .assistant-message__text {
+    font-size: 1.15rem; /* slightly smaller body text */
+    font-weight: 400; /* lighter text for longer chat */
+    line-height: 1.4; /* fit more text comfortably */
+    color: var(--brand-black); /* clear contrast */
+    white-space: pre-wrap; /* keep line breaks */
+    word-break: break-word; /* prevent overflow */
+  }
+
+  .assistant-panel__composer {
+    display: flex; /* stack input and send button */
+    flex-direction: column; /* simple mobile-first layout */
+    border-top: 1px solid var(--border-color); /* single divider above input */
+    padding-top: 0.8rem; /* small space under divider */
+    margin-top: auto; /* keep input area pinned to panel bottom */
+  }
+
+  .assistant-panel__input {
+    width: 100%; /* fill panel width */
+    border: 0; /* remove inner textarea border */
+    border-radius: 0; /* keep it flat inside footer area */
+    padding: 0; /* no boxed input look */
+    font-size: 1.15rem; /* slightly smaller input text */
+    font-weight: 400; /* avoid bold typing look */
+    line-height: 1.4; /* more compact text flow */
+    background: var(--brand-white); /* clear field background */
+    resize: none; /* auto-grow by script instead */
+    overflow-y: auto; /* scroll only after max height */
+    min-height: 1.7rem; /* single-line start height */
+    max-height: 14rem; /* stop growth before taking entire panel */
+  }
+
+  .assistant-panel__input:focus {
+    outline: none; /* remove default browser ring */
+    box-shadow: none; /* no input box focus style */
+  }
+
+  @media (max-width: 767px) {
+    .assistant-fab {
+      bottom: 8rem; /* move phone assistant above bottom bar */
+    }
+  }
+}

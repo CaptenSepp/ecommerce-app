@@ -8,3 +8,4 @@ export { default as FeaturedCollectionGrid } from './FeaturedCollectionGrid'; //
 export { default as BestSellersRow } from './BestSellersRow'; // best sellers row
 export { default as BrandStoryMini } from './BrandStoryMini'; // brand story mini
 export { default as SocialProofSection } from './SocialProofSection'; // social proof
+export { default as NewsletterSignupSection } from './NewsletterSignupSection'; // newsletter signup section

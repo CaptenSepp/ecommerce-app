@@ -13,7 +13,7 @@ const Banner = () => { // hero banner section
             <div className="max-w-prose"> {/* keep readable line length */}
               <h1 className="banner__title"> {/* hero headline */}
                 Everyday essentials with a
-                <strong className="banner__accent"> bold</strong>
+                <strong className="banner__accent"> BOLD </strong>
                 
                 touch
               </h1>

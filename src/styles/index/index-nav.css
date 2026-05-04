@@ -1,0 +1,92 @@
+@layer components {
+  .nav-link {
+    @apply inline-flex items-center self-stretch rounded-md font-medium text-white; /* let the hover area reach the full header row height */
+    padding: 0 0.55rem; /* use height for vertical sizing */
+    white-space: nowrap; /* keep nav text on one line */
+  }
+
+  .header-nav-bar__item {
+    align-self: stretch; /* make each trigger reach the full row height */
+    display: inline-flex; /* keep icon and text centered inside the full-height trigger */
+    align-items: center; /* vertical center inside the taller trigger */
+    transition: color 0.15s ease; /* keep the text/icon color change smooth */
+  }
+
+  .header-nav-bar__icon:hover {
+    color: var(--brand-orange); /* hovered nav item turns orange */
+  }
+
+  .header-nav-bar__link.nav-link-active {
+    color: var(--brand-white); /* text nav stays white like the icon pattern */
+  }
+
+  .header-nav-bar:has(.header-nav-bar__item:hover) .header-nav-bar__item:not(:hover):not(:focus-visible) {
+    color: var(--brand-gray-600) !important; /* dim only the other nav items */
+  }
+
+  .nav-link__label {
+    display: inline-flex; /* keep text and hover area together */
+    align-items: center; /* vertical align text */
+    padding: 0.5rem 0.8rem; /* smaller visual hover area */
+    border-radius: var(--r-md); /* match button corners */
+    transition: background 0.15s; /* smooth hover */
+    white-space: nowrap; /* keep About Us on one line */
+  }
+
+  .nav-link:hover {
+    background: transparent; /* keep hover on label only */
+  }
+
+  .nav-link-active {
+    background: transparent; /* keep active on label only */
+    color: var(--brand-white); /* keep active text readable */
+  }
+
+  .nav-link:hover .nav-link__label,
+  .nav-link-active .nav-link__label {
+    background: var(--overlay-white-10); /* compact hover/active */
+  }
+
+  .header-nav-bar__link .nav-link__label {
+    background: transparent; /* remove the compact label hover pill */
+    transition: color 0.15s ease; /* keep only text color motion */
+  }
+
+  .header-nav-bar__link:hover .nav-link__label,
+  .header-nav-bar__link.nav-link-active .nav-link__label {
+    background: transparent !important; /* force-remove the old shared nav pill here only */
+  }
+
+  .footer-nav {
+    padding: 0.5rem; /* footer nav spacing */
+    display: flex; /* footer nav row */
+    flex-wrap: wrap; /* allow wrap */
+    gap: 0.5rem; /* link gap */
+    justify-content: center; /* center footer links */
+    margin-bottom: 0.5rem; /* space below links */
+  }
+
+  .footer .nav-link {
+    color: var(--brand-white); /* force white footer links */
+  }
+
+  .footer .nav-link:hover {
+    background: var(--overlay-white-08); /* footer hover */
+  }
+
+  .footer .nav-link-active {
+    background: var(--brand-orange); /* footer active background */
+    color: var(--brand-white); /* footer active text */
+  }
+
+  @media (max-width: 767px) {
+    .nav-link {
+      padding: 0 0.9rem; /* add more space between top header nav buttons on phones */
+    }
+
+    .nav-link__label {
+      padding: 0.35rem 0.18rem; /* keep shape but tighter */
+      font-size: 1.3rem; /* slightly smaller nav text on phones */
+    }
+  }
+}

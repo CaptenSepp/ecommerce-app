@@ -32,7 +32,7 @@ const SearchDrawer = () => {
           <div className="flex h-full min-h-0 flex-col gap-4">
             <div>
               <label htmlFor="header-search" className="u-text-sm u-font-medium">Search</label>
-              <input id="header-search" type="text" className={`input-field mt-2 h-[36px] max-w-[260px] rounded-2xl py-0 ${focusRingClass}`} placeholder="Search products..." value={queryText} onChange={(event) => setQueryText(event.target.value)} />
+              <input id="header-search" type="text" className={`input-field header-search-input ${focusRingClass}`} placeholder="Search products..." value={queryText} onChange={(event) => setQueryText(event.target.value)} />
             </div>
             <SearchResults isError={isError} isLoading={isLoading} normalizedQuery={normalizedQuery} onSelect={() => undefined} visibleResults={visibleResults} />
           </div>
@@ -59,7 +59,7 @@ const SearchDrawer = () => {
         <div className="flex h-full min-h-0 flex-col gap-4 p-6">
           <div>
             <label htmlFor="drawer-search" className="u-text-sm u-font-medium">Search</label>
-            <input id="drawer-search" type="text" className={`input-field mt-2 h-[36px] max-w-[260px] rounded-2xl py-0 ${focusRingClass}`} placeholder="Search products..." value={queryText} onChange={(event) => setQueryText(event.target.value)} />
+            <input id="drawer-search" type="text" className={`input-field header-search-input ${focusRingClass}`} placeholder="Search products..." value={queryText} onChange={(event) => setQueryText(event.target.value)} />
           </div>
           <SearchResults isError={isError} isLoading={isLoading} normalizedQuery={normalizedQuery} onSelect={closeDrawer} visibleResults={visibleResults} />
         </div>

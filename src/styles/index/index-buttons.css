@@ -1,0 +1,88 @@
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-2 font-medium transition disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 touch-manipulation; /* shared button base */
+    font-size: var(--btn-text-size); /* unified button text size */
+    font-weight: var(--fw-bold); /* bold button text */
+    min-height: var(--control-h); /* consistent button height */
+    padding: 0 1.6rem; /* 16px horizontal padding */
+    border-radius: var(--r-md); /* unified square-ish radius */
+    border: 1px solid rgba(255, 255, 255, 0.34); /* brighter glass edge */
+    box-shadow: 0 10px 24px rgba(17, 17, 17, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.24); /* matte depth */
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.35); /* shared glass effect */
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.35); /* Safari support */
+    transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, border-color 150ms ease; /* premium motion */
+  }
+
+  .btn-sm {
+    min-height: var(--control-h); /* same height for consistency */
+    padding: 0 1.6rem; /* same horizontal padding */
+  }
+
+  .btn-primary {
+    background: var(--glass-orange); /* orange glass base */
+    color: var(--brand-white); /* keep white label */
+    border-color: rgba(255, 228, 204, 0.42); /* warm glass edge */
+  }
+
+  .btn-primary:hover {
+    background: var(--glass-orange-hover); /* stronger orange glass */
+  }
+
+  .btn-secondary {
+    color: var(--brand-black); /* darker text for readability */
+    background: var(--glass-white); /* white glass base */
+    border-color: rgba(255, 255, 255, 0.48); /* crisp edge */
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; /* smooth */
+  }
+
+  .btn-secondary:hover {
+    background: var(--glass-white-hover); /* brighter glass hover */
+    color: var(--brand-black); /* keep readable */
+  }
+
+  .btn-icon {
+    @apply p-1;
+  }
+
+  .btn-square {
+    border-radius: var(--r-md); /* unified with base button */
+  }
+
+  .icon-button {
+    width: var(--icon-btn); /* fixed hit area */
+    height: var(--icon-btn); /* square hit area */
+    display: inline-flex; /* center icon */
+    align-items: center; /* vertical center */
+    justify-content: center; /* horizontal center */
+    border-radius: var(--r-pill); /* pill style */
+  }
+
+  .btn-danger {
+    background: rgba(225, 29, 72, 0.76); /* red glass base */
+    color: var(--brand-white); /* keep white text */
+    border-color: rgba(255, 212, 221, 0.38); /* soft edge */
+  }
+
+  .btn-danger:hover {
+    background: rgba(159, 18, 57, 0.82); /* deeper red glass */
+  }
+
+  .btn:hover {
+    transform: translateY(-1px); /* subtle lift */
+    box-shadow: var(--shadow-md); /* slightly stronger shadow */
+  }
+
+  .btn:active {
+    transform: translateY(0); /* neutral active state */
+    box-shadow: var(--shadow-sm); /* return to base shadow */
+  }
+
+  .submit-button {
+    @apply w-full rounded-lg px-6 py-2.5 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-300 transform focus:outline-none;
+    background: var(--brand-black);
+  }
+
+  .submit-button:hover {
+    background: var(--brand-black-true); /* darker submit hover */
+  }
+}

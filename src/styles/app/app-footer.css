@@ -1,0 +1,6 @@
+.footer {
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--brand-white);
+  background: var(--brand-black);
+}

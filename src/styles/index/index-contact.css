@@ -1,0 +1,54 @@
+@layer components {
+  .contact-section {
+    position: relative; /* overlay base */
+    background-size: cover; /* keep media cover */
+    background-position: center; /* center media */
+    padding: 3rem 1rem; /* outer spacing */
+    background: var(--brand-gray-600); /* contact section base */
+  }
+
+  .contact-section::before {
+    content: ""; /* decorative overlay */
+    position: absolute; /* stretch overlay */
+    inset: 0; /* full overlay */
+    background: linear-gradient(90deg, var(--overlay-dark-35), var(--overlay-dark-15)); /* soft fade */
+  }
+
+  .contact-form {
+    position: relative; /* stay above overlay */
+    z-index: 1; /* keep form clickable */
+    max-width: 48rem; /* readable width */
+    margin: 0; /* align with top-left content */
+    padding: 1rem; /* inner spacing */
+    background: transparent; /* match section background */
+    -webkit-backdrop-filter: blur(4px); /* Safari blur */
+    backdrop-filter: blur(4px); /* soft blur */
+    display: grid; /* simple grid */
+    grid-template-columns: 1fr 1fr auto; /* two fields + button */
+    gap: 0.75rem; /* field gap */
+  }
+
+  .contact-form-wrap {
+    background: var(--brand-gray-600); /* keep section background */
+    padding: var(--space-5); /* keep spacing around form */
+  }
+
+  .contact-input {
+    border: 1px solid var(--border-color); /* field border */
+    background: var(--brand-white); /* keep fields visible */
+    border-radius: 0.5rem; /* simple radius */
+    padding: 0.5rem 0.75rem; /* field spacing */
+  }
+
+  .contact-input:focus {
+    outline: none; /* remove browser outline */
+    border-color: var(--brand-orange); /* accent border on focus */
+    box-shadow: 0 0 0 3px var(--brand-orange-100); /* soft focus ring */
+  }
+
+  @media (max-width: 640px) {
+    .contact-form {
+      grid-template-columns: 1fr; /* stack fields on phones */
+    }
+  }
+}

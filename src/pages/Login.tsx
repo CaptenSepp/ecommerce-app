@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import LoginField from "./login/LoginField"
-import { LoginFormErrors, LoginFormValues, validateLoginForm } from "./login/login-tools"
+import { focusRingClass, LoginFormErrors, LoginFormValues, validateLoginForm } from "./login/login-tools"
 
 const LoginPage = () => {
   const [values, setValues] = useState<LoginFormValues>({ email: "", password: "" }) // form values
@@ -23,7 +23,7 @@ const LoginPage = () => {
             </div>
             <LoginField id="password" label="" value={values.password} inputRef={passwordInputRef} onChange={(nextValue) => updateField("password", nextValue)} onBlur={() => touchField("password")} error={touched.password ? errors.password : undefined} describedBy="login-password-error" type="password" />
           </div>
-          <div className="mt-6"><button type="submit" className="submit-button focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2">Sign In</button></div>
+          <div className="mt-6"><button type="submit" className={`submit-button ${focusRingClass}`}>Sign In</button></div>
         </form>
         <div className="mt-4 flex items-center justify-between"><span className="w-1/5 border-b lg:w-1/5"></span><a href="#" className="u-text-xs text-center u-text-gray-500 uppercase hover:underline">or login with Social Media</a><span className="w-1/5 border-b lg:w-1/5"></span></div>
         <div className="mt-6 flex items-center -mx-2"><button type="button" className="social-button"><span className="mx-2 hidden sm:inline">Sign in with Google</span></button><a href="#" className="secondary-button mx-2"><svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"></svg></a></div>

@@ -1,0 +1,34 @@
+.login-wrapper {
+  width: 100%;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-box {
+  margin: auto;
+  width: 100%;
+  max-width: 24rem;
+  border-radius: 0.5rem;
+  background: var(--brand-white);
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-logo {
+  width: auto;
+  height: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .login-logo {
+    height: 2rem;
+  }
+}
+
+.truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

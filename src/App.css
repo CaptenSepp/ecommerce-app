@@ -1,2 +1,4 @@
-@import "./styles/app/app-01.css";
-@import "./styles/app/app-02.css";
+@import "./styles/app/app-shell.css";
+@import "./styles/app/app-header.css";
+@import "./styles/app/app-footer.css";
+@import "./styles/app/app-auth.css";

@@ -1,0 +1,73 @@
+#root {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--brand-gray-100); /* ensure visible global background */
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  padding-left: 1rem;
+  padding-right: 1rem; /* sticky footer layout */
+  gap: 0; /* keep zero vertical gap without unsupported utility */
+  background: var(--brand-gray-200); /* global page background */
+  padding-top: var(--header-total-h); /* offset the full fixed header */
+  padding-bottom: var(--mobile-bar-h); /* offset fixed mobile bottom bar when present */
+}
+
+@media (max-width: 640px) {
+  .layout {
+    padding-left: 1.2rem; /* slightly tighter mobile shell */
+    padding-right: 1.2rem; /* slightly tighter mobile shell */
+  }
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-column__grid {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.flex-column__banner {
+  width: 100%;
+}
+
+.richtext-topic {
+  font-size: var(--fs-3xl);
+  font-weight: bold;
+  font-family: inherit; /* use global font stack */
+}
+
+.scroll-row__card {
+  display: flex;
+  width: 100%;
+  gap: 1.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.5rem;
+}
+
+.scroll-row__card_img {
+  max-height: 3rem;
+  object-fit: cover;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.75rem;
+  font-size: var(--fs-lg);
+}
+
+.card--product_img {
+  min-height: 180px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}

@@ -1,4 +1,5 @@
 import { Heart, ShoppingCart } from "lucide-react"
+import type { MouseEvent } from "react"
 import { Link } from "react-router-dom"
 import { useAppDispatch } from "@/app/store"
 import { useToast } from "@/components/ui/toastContext"
@@ -11,17 +12,31 @@ const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch() // dispatch product actions
   const { notify } = useToast() // show quick feedback
 
+  const handleAddToCart = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault() // Keep the parent link from opening on button clicks.
+    event.stopPropagation()
+    dispatch(addToCart(product))
+    notify("Added to cart", "success")
+  }
+
+  const handleToggleWishlist = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault() // Use the same event handling for the second quick action.
+    event.stopPropagation()
+    dispatch(toggleWishlist(product))
+    notify("Wishlist updated", "info")
+  }
+
   return (
     <div className="flex flex-col">
       <Link to={`/products/${product.id}`} className="card card--product bg-cover bg-center relative block" style={{ backgroundImage: `url(${product.thumbnail})` }} aria-label={`View ${product.title}`}>
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
         <div className="relative flex h-full flex-col justify-end">
           <div className="products-card__actions">
-            <button type="button" aria-label={`Add ${product.title} to cart`} className={`btn btn-primary btn-sm btn-square products-card__action-btn ${focusRingClass}`} onClick={(event) => { event.preventDefault(); event.stopPropagation(); dispatch(addToCart(product)); notify("Added to cart", "success") }}>
+            <button type="button" aria-label={`Add ${product.title} to cart`} className={`btn btn-primary btn-sm btn-square products-card__action-btn ${focusRingClass}`} onClick={handleAddToCart}>
               <ShoppingCart size={14} />
               <span className="products-card__action-text">Add</span>
             </button>
-            <button type="button" aria-label={`Add ${product.title} to wishlist`} className={`btn btn-secondary btn-sm btn-square products-card__action-btn ${focusRingClass}`} onClick={(event) => { event.preventDefault(); event.stopPropagation(); dispatch(toggleWishlist(product)); notify("Wishlist updated", "info") }}>
+            <button type="button" aria-label={`Add ${product.title} to wishlist`} className={`btn btn-secondary btn-sm btn-square products-card__action-btn ${focusRingClass}`} onClick={handleToggleWishlist}>
               <Heart size={14} />
               <span className="products-card__action-text">Wish</span>
             </button>

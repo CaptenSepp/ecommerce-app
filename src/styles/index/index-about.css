@@ -1,0 +1,227 @@
+@layer components {
+  .about-page {
+    padding: 2.4rem 1.6rem; /* base page padding */
+  }
+
+  .about-hero {
+    min-height: 32rem; /* medium hero height */
+    background: var(--brand-black); /* dark hero block */
+    color: var(--brand-white); /* light text */
+    border-radius: var(--r-lg); /* soft corners */
+    display: flex; /* center content */
+    align-items: center; /* vertical center */
+    padding: 3.2rem; /* roomy spacing */
+  }
+
+  .about-hero__content {
+    max-width: 68rem; /* readable width */
+  }
+
+  .about-hero__label {
+    font-size: var(--fs-md); /* small label */
+    letter-spacing: 0.2rem; /* spaced label */
+    opacity: 0.75; /* subtle label */
+  }
+
+  .about-hero__title {
+    font-size: var(--fs-4xl); /* big headline */
+    font-weight: var(--fw-bold); /* bold headline */
+    margin: 0; /* remove default */
+  }
+
+  .about-hero__intro {
+    margin-top: 1.2rem; /* spacing */
+    max-width: 56rem; /* readable paragraph */
+    font-size: var(--fs-md); /* medium text */
+    opacity: 0.9; /* softer tone */
+  }
+
+  .about-hero__actions {
+    margin-top: 1.6rem; /* spacing */
+    display: flex; /* button row */
+    flex-wrap: wrap; /* wrap on small */
+    gap: 1.2rem; /* button gap */
+  }
+
+  .about-divider {
+    height: 1px; /* thin divider */
+    background: var(--border-color); /* subtle line */
+    margin: 2.4rem 0; /* vertical space */
+  }
+
+  .about-section__title {
+    font-size: var(--fs-2xl); /* section title */
+    font-weight: var(--fw-bold); /* strong title */
+    margin-bottom: 1.2rem; /* spacing */
+  }
+
+  .about-paragraph {
+    font-size: var(--fs-md); /* body size */
+    color: var(--text-muted); /* soft text */
+    margin-bottom: 1.2rem; /* spacing */
+  }
+
+  .about-story {
+    display: grid; /* two columns */
+    grid-template-columns: 1fr; /* stacked by default */
+    gap: 2.4rem; /* column gap */
+    align-items: center; /* vertical align */
+  }
+
+  .about-story__image {
+    width: 100%; /* full width */
+    height: 100%; /* fill box */
+    max-height: 36rem; /* cap height */
+    object-fit: cover; /* crop nicely */
+    border-radius: var(--r-lg); /* soft edges */
+    filter: saturate(1.05); /* subtle pop */
+  }
+
+  .about-values {
+    margin-top: 2.4rem; /* section spacing */
+    padding: 2.4rem; /* inner space */
+    background: var(--brand-gray-50); /* light section */
+    border-radius: var(--r-lg); /* soft corners */
+  }
+
+  .about-values__grid {
+    display: grid; /* grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* responsive cards */
+    gap: 1.6rem; /* card gap */
+  }
+
+  .about-card {
+    background: var(--brand-gray-600); /* dark shared card surface */
+    border: 1px solid var(--border-color); /* card border */
+    border-radius: var(--r-lg); /* soft corners */
+    padding: 1.6rem; /* inner spacing */
+    height: 100%; /* equal height */
+  }
+
+  .about-card__title {
+    font-size: var(--fs-lg); /* card title */
+    font-weight: var(--fw-bold); /* bold title */
+    color: var(--brand-white); /* readable on dark surface */
+    margin-bottom: 0.6rem; /* spacing */
+  }
+
+  .about-card__body {
+    font-size: var(--fs-md); /* card text */
+    color: rgba(255, 255, 255, 0.8); /* softer white on dark surface */
+  }
+
+  .about-stats {
+    margin-top: 2.4rem; /* section spacing */
+  }
+
+  .about-stats__box {
+    background: var(--brand-gray-600); /* dark shared card surface */
+    border: 1px solid var(--border-color); /* border */
+    border-radius: var(--r-lg); /* soft corners */
+    padding: 1.6rem; /* inner spacing */
+    display: grid; /* stats grid */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* responsive columns */
+    gap: 1.2rem; /* spacing */
+  }
+
+  .about-stats__value {
+    font-size: var(--fs-2xl); /* big number */
+    font-weight: var(--fw-bold); /* bold */
+    color: var(--brand-white); /* readable on dark surface */
+  }
+
+  .about-stats__label {
+    font-size: var(--fs-md); /* small label */
+    color: rgba(255, 255, 255, 0.8); /* softer white on dark surface */
+  }
+
+  .about-team {
+    margin-top: 2.4rem; /* section spacing */
+  }
+
+  .about-team__grid {
+    display: grid; /* team grid */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* responsive cards */
+    gap: 1.6rem; /* spacing */
+  }
+
+  .about-team__card {
+    text-align: center; /* center text */
+  }
+
+  .about-team__avatar {
+    width: 6rem; /* avatar size */
+    height: 6rem; /* avatar size */
+    border-radius: 9999px; /* round avatar */
+    background: var(--brand-gray-200); /* placeholder */
+    margin: 0 auto 1rem; /* center + space */
+  }
+
+  .about-team__name {
+    font-size: var(--fs-lg); /* name size */
+    font-weight: var(--fw-bold); /* bold name */
+    color: var(--brand-white); /* readable on dark surface */
+  }
+
+  .about-team__role {
+    font-size: var(--fs-md); /* role size */
+    color: rgba(255, 255, 255, 0.8); /* softer white on dark surface */
+    margin-bottom: 0.6rem; /* spacing */
+  }
+
+  .about-team__quote {
+    font-size: var(--fs-md); /* quote size */
+    color: rgba(255, 255, 255, 0.8); /* softer white on dark surface */
+    font-style: italic; /* quote style */
+  }
+
+  .about-hq {
+    margin-top: 2.4rem; /* section spacing */
+  }
+
+  .about-hq__grid {
+    display: grid; /* two cards */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* responsive */
+    gap: 1.6rem; /* spacing */
+  }
+
+  .about-cta {
+    margin-top: 2.4rem; /* section spacing */
+  }
+
+  .about-cta__box {
+    border: 1px solid var(--border-color); /* border */
+    border-radius: var(--r-lg); /* soft corners */
+    padding: 2.4rem; /* spacing */
+    background: var(--brand-gray-600); /* dark shared card surface */
+  }
+
+  .about-cta__title {
+    font-size: var(--fs-2xl); /* strong headline */
+    font-weight: var(--fw-bold); /* bold */
+    color: var(--brand-white); /* readable on dark surface */
+    margin-bottom: 0.8rem; /* spacing */
+  }
+
+  .about-cta__text {
+    font-size: var(--fs-md); /* supporting text */
+    color: rgba(255, 255, 255, 0.8); /* softer white on dark surface */
+    margin-bottom: 1.6rem; /* spacing */
+  }
+
+  .about-cta__actions {
+    display: flex; /* buttons row */
+    flex-wrap: wrap; /* wrap on small */
+    gap: 1.2rem; /* spacing */
+  }
+
+  @media (min-width: 768px) {
+    .about-page {
+      padding: 3.2rem 2.4rem; /* bigger padding */
+    }
+
+    .about-story {
+      grid-template-columns: 1.1fr 1fr; /* two columns */
+    }
+  }
+}

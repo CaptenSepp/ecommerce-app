@@ -1,0 +1,19 @@
+@layer components {
+  .input-field {
+    @apply mt-2 block w-full rounded-lg border bg-white px-4 py-2 text-gray-700 focus:outline-none;
+    border-color: var(--border-color);
+  }
+
+  .input-field:focus {
+    border-color: var(--brand-orange); /* accent border on focus */
+    box-shadow: 0 0 0 3px var(--brand-orange-100); /* soft focus ring */
+  }
+
+  .input-field-error {
+    border-color: var(--brand-red); /* shared invalid field border */
+  }
+
+  .header-search-input {
+    @apply mt-2 h-[36px] max-w-[260px] rounded-2xl py-0; /* shared search field sizing */
+  }
+}
