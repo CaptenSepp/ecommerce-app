@@ -69,6 +69,11 @@ npm run build
 
 ## Notes
 
+- This is a portfolio demo, so a few areas are marked as demo scope in the UI
 - Login is UI/client-state only
+- Assistant messages are saved locally and do not call a live AI backend
+- Featured collection cards are visual demo previews
+- Newsletter signup and sample customer feedback are presentation-only
+- Footer directory links are shown for layout, not live destinations
 - Orders page needs a signed-in user from the `auth` slice
 - Orders stored by `api/orders.js` are in-memory demo data, not permanent database data

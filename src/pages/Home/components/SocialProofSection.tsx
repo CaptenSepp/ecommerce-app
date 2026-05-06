@@ -1,4 +1,4 @@
-const testimonials = [ // fake testimonials
+const testimonials = [ // sample testimonials
   { name: "Ava L.", text: "Fast shipping and great quality. I reordered in the same week." },
   { name: "Noah R.", text: "The essentials are actually useful. Simple checkout, quick delivery." },
   { name: "Sophia K.", text: "Support replied fast and fixed my issue right away." },
@@ -6,7 +6,7 @@ const testimonials = [ // fake testimonials
 
 const SocialProofSection = () => ( // testimonials section
   <section className="social-proof"> {/* section wrapper */}
-    <div className="social-proof__title">What Customers Say</div> {/* section title */}
+    <div className="social-proof__title">Sample Customer Feedback</div> {/* section title */}
     <div className="social-proof__grid"> {/* cards grid */}
       {testimonials.map((t) => (
         <div key={t.name} className="social-proof__card"> {/* testimonial card */}

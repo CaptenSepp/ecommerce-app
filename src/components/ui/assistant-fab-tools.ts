@@ -8,7 +8,7 @@ export const ASSISTANT_STORAGE_KEY = "assistant-chat-messages" // saved thread k
 export const ASSISTANT_DRAFT_KEY = "assistant-chat-draft" // saved draft key
 
 export const createAssistantReply = (questionText: string) =>
-  `Saved in your browser: "${questionText}". AI backend reply will be connected later.` // temporary fake reply
+  `Demo assistant saved your message locally: "${questionText}". Live AI replies are outside this portfolio build.` // demo reply
 
 export const loadStoredMessages = () => {
   try {

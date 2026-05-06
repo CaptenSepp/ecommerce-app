@@ -46,6 +46,11 @@
     box-shadow: 0 0 0 3px var(--brand-orange-100); /* soft focus ring */
   }
 
+  .contact-section__note {
+    color: rgba(255, 255, 255, 0.8); /* quiet demo note */
+    font-size: var(--fs-sm); /* small helper text */
+  }
+
   @media (max-width: 640px) {
     .contact-form {
       grid-template-columns: 1fr; /* stack fields on phones */

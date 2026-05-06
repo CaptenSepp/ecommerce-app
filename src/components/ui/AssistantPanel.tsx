@@ -18,7 +18,7 @@ const AssistantPanel = ({ draftText, inputRef, isOpen, messages, onClear, onClos
   <div className="assistant-fab">
     <div id="assistant-panel" className={`assistant-panel ${isOpen ? "assistant-panel--open" : ""}`}>
       <div className="assistant-panel__header">
-        <span className="assistant-panel__title">Assistant</span>
+        <span className="assistant-panel__title">Assistant Demo</span>
         <div className="assistant-panel__actions">
           <button type="button" className="assistant-panel__text-btn" onClick={onClear}>Clear whole chat</button>
           <button type="button" className="assistant-panel__close" aria-label="Close assistant panel" onClick={onClose}><X size={16} /></button>
@@ -26,7 +26,7 @@ const AssistantPanel = ({ draftText, inputRef, isOpen, messages, onClear, onClos
       </div>
       <div className="assistant-panel__content">
         <div className="assistant-panel__messages">
-          {messages.length === 0 ? <p className="u-text-sm text-muted">Write here. Messages stay in this browser.</p> : messages.map((messageItem) => (
+          {messages.length === 0 ? <p className="u-text-sm text-muted">Demo chat. Messages stay in this browser.</p> : messages.map((messageItem) => (
             <div key={messageItem.id} className={`assistant-message assistant-message--${messageItem.role}`}>
               <span className="assistant-message__role">{messageItem.role === "user" ? "You" : "AI"}</span>
               <p className="assistant-message__text">{messageItem.text}</p>

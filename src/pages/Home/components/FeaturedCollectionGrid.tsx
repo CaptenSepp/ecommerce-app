@@ -17,7 +17,7 @@ const FeaturedCollectionGrid = () => ( // featured grid section
           <img src={card.image} alt={card.title} className="featured-card__image" /> {/* background image */}
           <div className="featured-card__overlay" aria-hidden="true" /> {/* gradient overlay */}
           <div className="featured-card__content"> {/* text + button */}
-            <span className="featured-card__status">Coming Soon</span> {/* not active yet */}
+            <span className="featured-card__status">Demo Preview</span> {/* demo label */}
             <div className="featured-card__title">{card.title}</div> {/* collection name */}
             <button type="button" className="btn featured-card__btn" disabled aria-disabled="true">{card.cta}</button> {/* disabled CTA */}
           </div>

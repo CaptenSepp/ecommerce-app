@@ -41,6 +41,7 @@ const LoginPage = ({ onSuccess }: LoginPageProps) => {
   return (
     <main className="login-wrapper">
       <div className="login-box">
+        <p className="login-box__note">Demo sign-in stores this user in your browser.</p>
         <form className="mt-6" onSubmit={async (event) => { event.preventDefault(); if (isSubmitting) return; try { await submitLogin() } finally { setIsSubmitting(false) } }} noValidate>
           <LoginField id="name" label="Name" value={values.name} inputRef={nameInputRef} onChange={(nextValue) => updateField("name", nextValue)} onBlur={() => touchField("name")} error={touched.name ? errors.name : undefined} describedBy="login-name-error" />
           <LoginField id="email" label="Email" value={values.email} inputRef={emailInputRef} onChange={(nextValue) => updateField("email", nextValue)} onBlur={() => touchField("email")} error={touched.email ? errors.email : undefined} describedBy="login-email-error" type="email" />

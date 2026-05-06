@@ -31,6 +31,7 @@ const NewsletterSignupSection = () => {
               Subscribe
             </button>
           </form>
+          <p className="contact-section__note">Demo form for presentation.</p>
         </div>
       </div>
     </section>
