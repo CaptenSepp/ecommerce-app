@@ -47,7 +47,7 @@ describe('WishlistItemsList', () => {
     const item = buildProduct({ title: 'Wish Item A' }) // sample item
     renderWithStore([item]) // render with data
     expect(screen.getByText('Wish Item A')).toBeInTheDocument() // item title visible
-    expect(screen.getByRole('button', { name: /add to cart/i })).toBeInTheDocument() // action button
+    expect(screen.getByRole('button', { name: /add wish item a to cart/i })).toBeInTheDocument() // action button
     expect(screen.getByRole('button', { name: /remove/i })).toBeInTheDocument() // remove button
   })
 })

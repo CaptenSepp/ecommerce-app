@@ -8,7 +8,8 @@ export default defineConfig({
     },
   },
   test: {
-    exclude: ['e2e/**'], // keep Playwright specs out of Vitest
+    include: ['src/**/*.{test,spec}.{ts,tsx}'], // test only app unit files
+    exclude: ['node_modules/**', 'dist/**', 'e2e/**'], // skip deps, build, and e2e
     environment: 'jsdom', // DOM APIs for React tests
     setupFiles: './src/setupTests.ts', // shared test setup
     globals: true, // allow describe/it/expect without imports

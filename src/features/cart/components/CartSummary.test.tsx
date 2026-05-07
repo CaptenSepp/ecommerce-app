@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest' // test helpers
-import { render, screen, within } from '@testing-library/react' // RTL helpers
+import { act, render, screen, within } from '@testing-library/react' // RTL helpers
 import userEvent from '@testing-library/user-event' // user interactions
 import { Provider } from 'react-redux' // redux provider
 import { configureStore } from '@reduxjs/toolkit' // test store setup
@@ -84,8 +84,8 @@ describe('CartSummary navigation', () => {
 describe('CartSummary state updates', () => {
   it('updates totals when cart quantity changes', () => {
     const { store } = renderWithStore([buildItem({ price: 10, quantity: 1 })]) // initial item
-    expect(screen.getByText('$10.00 USD')).toBeInTheDocument() // total with shipping
-    store.dispatch(updateQuantity({ id: 1, quantity: 3 })) // increase quantity in store
+    expect(screen.getByText('$14.99 USD')).toBeInTheDocument() // total with shipping
+    act(() => store.dispatch(updateQuantity({ id: 1, quantity: 3 }))) // update redux state
     expect(screen.getByText('$34.99 USD')).toBeInTheDocument() // total reflects new quantity
   })
 })

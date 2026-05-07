@@ -11,6 +11,7 @@ import ProductsPage from '@/pages/Products' // products page
 import CartPage from '@/pages/Cart' // cart page
 import Checkout from '@/pages/Checkout' // checkout page
 import { ToastContext } from '@/components/ui/toastContext' // toast provider
+import authReducer from '@/features/auth/authSlice' // auth reducer for layout
 import type { Product, Category } from '@/features/products/services' // product types
 
 const useProductsMock = vi.fn() // controlled products hook mock
@@ -59,8 +60,8 @@ describe('User flow: add to cart then checkout', () => {
     }) // mock categories list
 
     const store = configureStore({
-      reducer: { cart: cartReducer, wishlist: wishlistReducer }, // reducers for flow
-      preloadedState: { cart: { items: [] }, wishlist: { items: [] } }, // empty initial state
+      reducer: { cart: cartReducer, wishlist: wishlistReducer, auth: authReducer }, // reducers for flow
+      preloadedState: { cart: { items: [] }, wishlist: { items: [] }, auth: { user: null } }, // empty initial state
     })
 
     const router = createMemoryRouter(
@@ -86,8 +87,8 @@ describe('User flow: add to cart then checkout', () => {
       </Provider>
     )
 
-    await user.click(screen.getByRole('button', { name: /^add$/i })) // add product to cart
-    await user.click(screen.getByRole('link', { name: /open cart/i })) // go to cart
+    await user.click(screen.getByRole('button', { name: /add flow product to cart/i })) // add product to cart
+    await user.click(screen.getAllByRole('link', { name: /open cart/i })[0]) // go to cart
     expect(screen.getByText('Your Cart')).toBeInTheDocument() // cart page visible
     await user.click(screen.getByRole('button', { name: /check out/i })) // go to checkout
     expect(screen.getByRole('heading', { name: 'Checkout' })).toBeInTheDocument() // checkout visible
