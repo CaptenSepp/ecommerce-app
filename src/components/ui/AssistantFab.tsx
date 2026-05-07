@@ -13,8 +13,8 @@ const AssistantFab = () => {
 
   // Save the conversation and the unfinished draft separately.
   // This keeps both the sent messages and half-written input after reload.
-  useEffect(() => { try { localStorage.setItem(ASSISTANT_STORAGE_KEY, JSON.stringify(messages)) } catch {} }, [messages]) // keep thread saved
-  useEffect(() => { try { localStorage.setItem(ASSISTANT_DRAFT_KEY, draftText) } catch {} }, [draftText]) // keep draft saved
+  useEffect(() => { try { localStorage.setItem(ASSISTANT_STORAGE_KEY, JSON.stringify(messages)) } catch { return } }, [messages]) // keep thread saved
+  useEffect(() => { try { localStorage.setItem(ASSISTANT_DRAFT_KEY, draftText) } catch { return } }, [draftText]) // keep draft saved
 
   // Reset the height first, then grow to the real content height.
   // That allows the textarea to shrink again after text is removed.

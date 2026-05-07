@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render( // mount app to #r
     <Provider store={store}> {/* redux provider */}
       <QueryClientProvider client={getQueryClient()}> {/* react-query provider */}
         <ToastProvider> {/* toast context */}
-          <ErrorBoundary> {/* global crash protection */}
+          <ErrorBoundary>
             <App /> {/* route tree */}
           </ErrorBoundary>
         </ToastProvider>

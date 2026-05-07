@@ -11,6 +11,7 @@ It has product browsing, product details, cart, wishlist, login UI, checkout, an
 - Client state with Redux Toolkit
 - Persisted slices: `cart`, `wishlist`, `auth`
 - Product data from `https://dummyjson.com`
+- Product names and images are demo data only; this app is not affiliated with listed brands
 - Order API from `api/orders.js`
 - Global error boundary and toast provider
 - Floating in-browser assistant panel
@@ -70,6 +71,7 @@ npm run build
 ## Notes
 
 - This is a portfolio demo, so a few areas are marked as demo scope in the UI
+- Product names, brand names, and images come from DummyJSON for demo/testing only
 - Login is UI/client-state only
 - Assistant messages are saved locally and do not call a live AI backend
 - Featured collection cards are visual demo previews

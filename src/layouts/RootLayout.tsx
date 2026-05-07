@@ -13,7 +13,7 @@ const Layout: React.FC = () => ( // app shell with header, main, footer
 
     <Footer /> {/* site footer */}
 
-    <AssistantFab /> {/* global floating assistant */}
+    <AssistantFab />
   </div>
 );
 
@@ -33,7 +33,7 @@ const Footer: React.FC = () => ( // inlined footer layout
           </div>
         </div>
         <div className="footer__links-wrap"> {/* right column (1 of 2) */}
-          <p className="footer__note">Demo directory links shown for layout.</p>
+          <p className="footer__note">Demo product data and images are for portfolio use only. Shopella is not affiliated with listed brands.</p>
           <div className="footer__links u-text-sm"> {/* 3-column link list */}
             <span className="footer__demo-link">Instagram</span>
             <span className="footer__demo-link">TikTok</span>
@@ -47,24 +47,7 @@ const Footer: React.FC = () => ( // inlined footer layout
             <span className="footer__demo-link">Press</span>
             <span className="footer__demo-link">Sustainability</span>
             <span className="footer__demo-link">Affiliates</span>
-            <span className="footer__demo-link">Help Center</span>
-            <span className="footer__demo-link">Contact Us</span>
-            <span className="footer__demo-link">Order Tracking</span>
-            <span className="footer__demo-link">Shipping</span>
-            <span className="footer__demo-link">Returns</span>
-            <span className="footer__demo-link">Warranty</span>
-            <span className="footer__demo-link">Size Guide</span>
-            <span className="footer__demo-link">Gift Cards</span>
-            <span className="footer__demo-link">Store Locator</span>
-            <span className="footer__demo-link">Wholesale</span>
-            <span className="footer__demo-link">Rewards</span>
-            <span className="footer__demo-link">Refer a Friend</span>
-            <span className="footer__demo-link">FAQ</span>
-            <span className="footer__demo-link">Privacy Policy</span>
-            <span className="footer__demo-link">Terms of Service</span>
-            <span className="footer__demo-link">Accessibility</span>
-            <span className="footer__demo-link">Security</span>
-            <span className="footer__demo-link">Blog</span>
+
           </div>
         </div>
       </div>
