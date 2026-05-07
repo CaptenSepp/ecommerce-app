@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react"
 import { useEffect, useMemo, useRef, useState } from "react" // local dropdown behavior
 
 type SortOption = { // simple sort option model
@@ -50,7 +51,7 @@ const ProductSortSelect = ({ value, focusRingClass, onChange }: ProductSortSelec
         onClick={() => setIsOpen((previous) => !previous)} // toggle options panel
       >
         <span className="sort-select__value">{selectedOption.label}</span>
-        <span className="sort-select__chevron" aria-hidden="true">v</span>
+        <ChevronDown className="sort-select__chevron" size={16} aria-hidden="true" />
       </button>
 
       {isOpen && ( // render panel only when opened

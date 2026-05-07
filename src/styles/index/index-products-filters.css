@@ -43,11 +43,71 @@
     gap: 0.8rem; /* spacing between actions */
   }
 
+  .sort-select {
+    position: relative; /* anchor the dropdown panel */
+    width: 100%; /* match sidebar width */
+  }
+
+  .sort-select__trigger {
+    position: relative; /* place icon without moving text */
+    display: flex; /* label left, chevron right */
+    width: 100%; /* fill the filter column */
+    align-items: center; /* center trigger content */
+    justify-content: center; /* center the selected label */
+    gap: 0.8rem; /* small space before chevron */
+    min-height: 3.2rem; /* fit the filter list height */
+    padding: 0 0.9rem; /* compact sidebar padding */
+    border-radius: var(--r-md); /* match app buttons */
+    border: 1px solid var(--border-color); /* visible dropdown edge */
+    background: var(--brand-white); /* clean dropdown surface */
+    font-size: 1.2rem; /* match filter option text */
+    box-shadow: var(--shadow-sm); /* modern light depth */
+  }
+
+  .sort-select__value {
+    overflow: hidden; /* stop long labels pushing chevron */
+    text-overflow: ellipsis; /* keep one clean line */
+    white-space: nowrap; /* keep trigger height stable */
+  }
+
+  .sort-select__chevron {
+    position: absolute; /* keep label centered */
+    right: 0.9rem; /* align icon with padding */
+    flex: 0 0 auto; /* keep chevron visible */
+    color: var(--text-muted); /* softer icon color */
+  }
+
+  .sort-select__panel {
+    position: absolute; /* show options over page content */
+    top: calc(100% + 0.4rem); /* small gap below trigger */
+    left: 0; /* align to trigger */
+    right: 0; /* match trigger width */
+    z-index: 20; /* keep above product cards */
+    overflow: hidden; /* clip option hover to radius */
+    border-radius: var(--r-md); /* match trigger radius */
+    border: 1px solid var(--border-color); /* panel edge */
+    background: var(--brand-white); /* readable panel */
+    box-shadow: var(--shadow-md); /* dropdown depth */
+  }
+
+  .sort-select__option {
+    display: block; /* each option gets full row */
+    width: 100%; /* full clickable width */
+    padding: 0.9rem 1.2rem; /* comfortable option size */
+    text-align: left; /* normal dropdown alignment */
+  }
+
+  .sort-select__option:hover,
+  .sort-select__option--selected {
+    background: var(--surface); /* selected and hover feedback */
+    color: var(--brand-black); /* keep text readable */
+  }
+
   .products-card__actions {
     position: relative; /* keep action row above card overlay */
     z-index: 1; /* improve touch reliability */
     display: flex; /* action button row */
-    gap: 0.8rem; /* space between buttons */
+    gap: 0.6rem; /* smaller gap keeps buttons inside narrow cards */
   }
 
   .products-card__action-btn {
@@ -62,7 +122,7 @@
   @media (min-width: 768px) {
     .products-card__action-btn {
       min-height: auto; /* let product action buttons fit their content */
-      padding: 0.8rem 1rem; /* smaller desktop button padding inside cards */
+      padding: 0.7rem 0.7rem; /* smaller desktop button padding inside cards */
     }
   }
 
