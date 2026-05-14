@@ -2,6 +2,7 @@ export type OrderItem = { // stored order line item
   id: number
   title: string
   price: number
+  discountPercentage?: number
   quantity: number
 }
 

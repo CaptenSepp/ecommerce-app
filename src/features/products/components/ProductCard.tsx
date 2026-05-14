@@ -6,6 +6,7 @@ import { useAppDispatch } from "@/app/store"
 import { useToast } from "@/components/ui/toastContext"
 import { addToCart } from "@/features/cart/cartSlice"
 import type { Product } from "@/features/products/services"
+import ProductPrice from "@/features/products/components/ProductPrice"
 import { toggleWishlist } from "@/features/wishlist/wishlistSlice"
 import { focusRingClass } from "@/features/products/products-page-tools"
 
@@ -61,7 +62,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       <div className="mt-3 px-2 flex flex-col">
         <h3 className="u-font-semibold">{product.title}</h3>
         {product.brand.trim().length > 0 && product.brand !== "Unknown brand" && <p className="mb-2 u-text-sm">{product.brand}</p>}
-        <p className="text-brand-orange u-font-bold">${product.price}</p>
+        <ProductPrice price={product.price} discountPercentage={product.discountPercentage} className="text-brand-orange u-font-bold" />
       </div>
     </div>
   )

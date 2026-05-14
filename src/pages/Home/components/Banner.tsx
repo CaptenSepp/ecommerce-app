@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import topBannerImg from "@/assets/images/Banner-top.png"; // top banner image
 
 const Banner = () => { // hero banner section
@@ -24,13 +25,13 @@ const Banner = () => { // hero banner section
               </p>
 
               <div className="mt-4 flex flex-wrap justify-center gap-4"> {/* center buttons */}
-                <a className="btn btn-primary" href="/products"> {/* primary CTA */}
+                <Link className="btn btn-primary" to="/products"> {/* primary CTA */}
                   Shop Now
-                </a>
+                </Link>
 
-                <a className="btn btn-secondary" href="/products?sale=1&sort=price-asc"> {/* secondary CTA */}
+                <Link className="btn btn-secondary" to="/products?sale=1&sort=price-asc"> {/* secondary CTA */}
                   Explore Deals
-                </a>
+                </Link>
               </div>
             </div>
           </div>

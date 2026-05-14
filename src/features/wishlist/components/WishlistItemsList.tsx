@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/app/store'
 import { addToCart } from '@/features/cart/cartSlice'
+import ProductPrice from '@/features/products/components/ProductPrice'
 import { toggleWishlist } from '@/features/wishlist/wishlistSlice'
 import { Link } from 'react-router-dom'
 
@@ -36,7 +37,7 @@ const WishlistItemsList = () => {
             </div>
 
             <div>
-              <span className="item-price">${item.price}</span>
+              <ProductPrice price={item.price} discountPercentage={item.discountPercentage} className="item-price" />
               <span className={`stock-note${item.stock === 0 ? ' stock-note--empty' : ''}`}>
                 {item.stock} in stock
               </span>

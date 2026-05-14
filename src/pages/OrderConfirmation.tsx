@@ -1,5 +1,6 @@
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import type { Order } from '@/features/orders/types'
+import ProductPrice from '@/features/products/components/ProductPrice'
 
 const OrderConfirmation = () => { // post-order confirmation screen
   const [searchParams] = useSearchParams() // read query params
@@ -21,7 +22,7 @@ const OrderConfirmation = () => { // post-order confirmation screen
             {order.items.map((item) => (
               <div key={item.id} className="flex justify-between u-text-sm">
                 <span className="truncate">{item.title} x {item.quantity}</span>
-                <span>${(item.price * item.quantity).toFixed(2)}</span>
+                <ProductPrice price={item.price} discountPercentage={item.discountPercentage} quantity={item.quantity} />
               </div>
             ))}
           </div>

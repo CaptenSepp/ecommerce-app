@@ -124,7 +124,7 @@ type ProductsMobileToolbarProps = {
 const ProductsMobileToolbar = ({ resultCount, onOpenFilters }: ProductsMobileToolbarProps) => {
   return (
     <div className="mb-4 flex items-center justify-between gap-3 md:hidden">
-      <button type="button" className={`btn btn-secondary btn-sm ${focusRingClass}`} onClick={onOpenFilters}>
+      <button type="button" className={`btn btn-secondary btn-sm products-mobile-toolbar__filter-button ${focusRingClass}`} onClick={onOpenFilters}>
         Filter & Sort
       </button>
       <div className="u-text-sm text-muted">{resultCount} results</div>

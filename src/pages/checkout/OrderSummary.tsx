@@ -1,4 +1,5 @@
 import type { Product } from "@/features/products/services"
+import ProductPrice from "@/features/products/components/ProductPrice"
 
 type OrderSummaryProps = {
   items: Array<Product & { quantity: number }>
@@ -16,7 +17,7 @@ const OrderSummary = ({ items }: OrderSummaryProps) => {
         {items.map((item) => (
           <li key={item.id} className="flex justify-between u-text-sm">
             <span className="truncate">{item.title} x {item.quantity}</span>
-            <span>${(item.price * item.quantity).toFixed(2)}</span>
+            <ProductPrice price={item.price} discountPercentage={item.discountPercentage} quantity={item.quantity} />
           </li>
         ))}
       </ul>

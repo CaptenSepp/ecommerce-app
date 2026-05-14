@@ -43,7 +43,7 @@ const NavbarCategories = () => {
 
         <div className="group relative flex items-stretch">
           <Link to="/products?sale=1&sort=price-asc" className={`header-nav-bar__item header-nav-bar__link ${getNavLinkClassName(isSaleActive)} ${focusRingClass}`}>
-            <span className="nav-link__label">Sale</span>
+            <span className="nav-link__label">Best Deals</span>
           </Link>
           <div className={dropdownClassName}>
             <div className="mb-2 u-text-sm u-text-white-70">Deals you might like</div>

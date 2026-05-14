@@ -13,6 +13,7 @@ const normalizeOrderItems = (items) => ( // normalize incoming cart items
     id: Number(item.id),
     title: String(item.title ?? ''),
     price: Number(item.price ?? 0),
+    discountPercentage: Number(item.discountPercentage ?? 0),
     quantity: Number(item.quantity ?? 0),
   })) : []
 )

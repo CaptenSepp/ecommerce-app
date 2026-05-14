@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux' // redux selector
 import { RootState } from '@/app/store' // root state type
 import { getOrders } from '@/features/orders/services' // orders service
 import type { Order } from '@/features/orders/types' // order type
+import ProductPrice from '@/features/products/components/ProductPrice'
 
 const OrdersPage = () => { // orders list page
   const user = useSelector((state: RootState) => state.auth.user) // read auth user
@@ -63,7 +64,7 @@ const OrdersPage = () => { // orders list page
               {order.items.map((item) => ( // render order items
                 <div key={item.id} className="flex justify-between u-text-sm">
                   <span className="truncate">{item.title} x {item.quantity}</span>
-                  <span>${(item.price * item.quantity).toFixed(2)}</span>
+                  <ProductPrice price={item.price} discountPercentage={item.discountPercentage} quantity={item.quantity} />
                 </div>
               ))}
             </div>

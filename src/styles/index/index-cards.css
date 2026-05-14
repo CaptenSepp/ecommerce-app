@@ -64,6 +64,22 @@
     color: var(--brand-black);
   }
 
+  .product-price {
+    display: flex; /* keep old and new price in one row */
+    align-items: baseline; /* align mixed price sizes */
+    gap: 0.6rem; /* small space between prices */
+  }
+
+  .product-price__old {
+    color: var(--text-muted);
+    font-weight: 400;
+    text-decoration: line-through;
+  }
+
+  .product-price__current {
+    color: inherit;
+  }
+
   .stock-note {
     @apply block text-sm;
     color: var(--text-muted);

@@ -21,9 +21,7 @@ const SearchDrawer = () => {
         <button
           type="button"
           className={`icon-button header-nav-bar__item header-nav-bar__icon transition cursor-pointer u-text-white ${focusRingClass}`}
-          aria-haspopup="dialog"
-          aria-controls="search-panel"
-          aria-label="Open search panel"
+          aria-label="Search products"
         >
           <Search size={20} />
         </button>

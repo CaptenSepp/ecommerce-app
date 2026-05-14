@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/app/store'
 import { addToCart, removeFromCart, updateQuantity } from '@/features/cart/cartSlice'
+import ProductPrice from '@/features/products/components/ProductPrice'
 
 const CartItemsList = () => {
   const dispatch = useAppDispatch(); // dispatch actions
@@ -34,7 +35,7 @@ const CartItemsList = () => {
             </div>
 
             <div>
-              <span className="item-price">${item.price}</span>
+              <ProductPrice price={item.price} discountPercentage={item.discountPercentage} className="item-price" />
               <span className={`stock-note${item.stock <= 0 ? ' stock-note--empty' : ''}`}>
                 {item.stock} in stock
               </span>
@@ -70,7 +71,7 @@ const CartItemsList = () => {
 
             <div className="flex items-center gap-3">
               <span className="block u-font-bold text-brand-black u-text-lg-md">
-                ${(item.price * item.quantity).toFixed(2)}
+                <ProductPrice price={item.price} discountPercentage={item.discountPercentage} quantity={item.quantity} />
               </span>
               <button
                 className="btn btn-danger btn-sm"

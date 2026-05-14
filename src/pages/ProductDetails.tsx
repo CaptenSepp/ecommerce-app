@@ -4,13 +4,21 @@ import { useProductById } from '@/features/products/hooks'
 import { addToCart } from '@/features/cart/cartSlice'
 import { toggleWishlist } from '@/features/wishlist/wishlistSlice'
 import { useToast } from '@/components/ui/toastContext'
+import ProductPrice from '@/features/products/components/ProductPrice'
 import type { Product } from '@/features/products/services'
 
 const ProductDetails = () => {
-  const dispatch = useAppDispatch() // typed dispatch for cart/wishlist actions
-  const { notify } = useToast() // toast helper
   const { productId } = useParams<{ productId: string }>() // read id from URL
   const productIdNumber = Number(productId) // coerce to number for API hook
+
+  if (!Number.isFinite(productIdNumber)) return <div>Not found</div> // invalid route id
+
+  return <ProductDetailsContent productIdNumber={productIdNumber} />
+}
+
+const ProductDetailsContent = ({ productIdNumber }: { productIdNumber: number }) => {
+  const dispatch = useAppDispatch() // typed dispatch for cart/wishlist actions
+  const { notify } = useToast() // toast helper
   const { data: product, isLoading, error, refetch } = useProductById(productIdNumber) // fetch product by id incl. retry
 
   const handleRetry = () => {
@@ -84,7 +92,7 @@ const ProductDetailsSummary = ({
         {product.brand} • Rating: {product.rating}
       </p>
       <p className="mb-4">{product.description}</p>
-      <p className="text-brand-orange u-font-bold u-text-xl mb-4">${product.price}</p>
+      <ProductPrice price={product.price} discountPercentage={product.discountPercentage} className="text-brand-orange u-font-bold u-text-xl mb-4" />
       <p className="stock-note mb-4">{product.stock} available in stock</p>
 
       <div className="flex gap-3">

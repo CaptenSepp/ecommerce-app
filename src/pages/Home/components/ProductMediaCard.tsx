@@ -2,6 +2,7 @@ import type { MouseEvent } from "react"
 import { Star } from "lucide-react"
 import { Link } from "react-router-dom"
 import type { Product } from "@/features/products/services"
+import ProductPrice from "@/features/products/components/ProductPrice"
 
 type ProductMediaCardProps = {
   product: Product
@@ -27,7 +28,7 @@ const ProductMediaCard = ({ product, onClick }: ProductMediaCardProps) => {
           <Star size={14} className="best-row__star" aria-hidden="true" />
           <span className="best-row__rating-text">{product.rating.toFixed(1)}</span>
         </div>
-        <div className="best-row__price u-font-bold">${product.price}</div>
+        <ProductPrice price={product.price} discountPercentage={product.discountPercentage} className="best-row__price u-font-bold" />
       </div>
     </Link>
   )
