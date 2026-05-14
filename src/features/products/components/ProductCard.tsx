@@ -14,6 +14,8 @@ const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch() // dispatch product actions
   const { notify } = useToast() // show quick feedback
   const isOutOfStock = product.stock <= 0 // disable buying when no stock is left
+  const productImageClass = product.id === 8 ? "card--product-fit" : "bg-cover" // product 8 needs a full-fit image
+  const productImageUrl = product.id === 8 ? product.thumbnail.replace("'", "%27") : product.thumbnail // fix apostrophe in CSS url
   const [stockTooltip, setStockTooltip] = useState<{ x: number; y: number } | null>(null)
 
   const handleAddToCart = (event: MouseEvent<HTMLButtonElement>) => {
@@ -38,7 +40,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   return (
     <div className="flex flex-col">
-      <Link to={`/products/${product.id}`} className="card card--product bg-cover bg-center relative block" style={{ backgroundImage: `url(${product.thumbnail})` }} aria-label={`View ${product.title}`}>
+      <Link to={`/products/${product.id}`} className={`card card--product ${productImageClass} bg-center relative block`} style={{ backgroundImage: `url(${productImageUrl})` }} aria-label={`View ${product.title}`}>
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
         <div className="relative flex h-full flex-col justify-end">
           <div className="products-card__actions">

@@ -3,20 +3,21 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import About from "@/pages/About";
-import Cart from "@/pages/Cart";
-import Home from "@/pages/Home";
+import About from "@/features/about/pages/About";
+import Account from "@/features/account/pages/Account";
+import Cart from "@/features/cart/pages/Cart";
+import Home from "@/features/home/pages/Home";
 import Layout from "@/layouts/RootLayout";
-import LoginPage from "@/pages/Login";
-import NotFoundPage from "@/pages/NotFound";
-import ProductDetails from "@/pages/ProductDetails";
-import ProductsPage from "@/pages/Products";
-import Wishlist from "@/pages/Wishlist";
-import Checkout from "@/pages/Checkout";
-import OrderConfirmation from "@/pages/OrderConfirmation";
-import Retailers from "@/pages/Retailers";
-import ErrorPage from "@/pages/ErrorPage";
-import OrdersPage from "@/pages/Orders";
+import LoginPage from "@/features/auth/pages/Login";
+import NotFoundPage from "@/features/error/pages/NotFound";
+import ProductDetails from "@/features/products/pages/ProductDetails";
+import ProductsPage from "@/features/products/pages/Products";
+import Wishlist from "@/features/wishlist/pages/Wishlist";
+import Checkout from "@/features/checkout/pages/Checkout";
+import OrderConfirmation from "@/features/checkout/pages/OrderConfirmation";
+import Retailers from "@/features/retailers/pages/Retailers";
+import ErrorPage from "@/features/error/pages/ErrorPage";
+import OrdersPage from "@/features/orders/pages/Orders";
 
 const router = createBrowserRouter( // central route tree for the SPA
   createRoutesFromElements(
@@ -44,6 +45,10 @@ const router = createBrowserRouter( // central route tree for the SPA
       <Route
         path="checkout" // checkout page
         element={<Checkout />}
+      />
+      <Route
+        path="account" // account page with user orders
+        element={<Account />}
       />
       <Route
         path="orders" // orders page (protected)

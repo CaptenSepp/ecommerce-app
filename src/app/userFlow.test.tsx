@@ -7,9 +7,9 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom' // memory 
 import cartReducer from '@/features/cart/cartSlice' // cart reducer
 import wishlistReducer from '@/features/wishlist/wishlistSlice' // wishlist reducer
 import Layout from '@/layouts/RootLayout' // layout shell
-import ProductsPage from '@/pages/Products' // products page
-import CartPage from '@/pages/Cart' // cart page
-import Checkout from '@/pages/Checkout' // checkout page
+import ProductsPage from '@/features/products/pages/Products' // products page
+import CartPage from '@/features/cart/pages/Cart' // cart page
+import Checkout from '@/features/checkout/pages/Checkout' // checkout page
 import { ToastContext } from '@/components/ui/toastContext' // toast provider
 import authReducer from '@/features/auth/authSlice' // auth reducer for layout
 import type { Product, Category } from '@/features/products/services' // product types

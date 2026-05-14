@@ -2,7 +2,7 @@ import { User } from "lucide-react"
 import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 import { RootState } from "@/app/store"
-import LoginPage from "@/pages/Login"
+import LoginPage from "@/features/auth/pages/Login"
 import { focusRingClass, getIconLinkClassName } from "./header-tools"
 import { useHeaderDrawer } from "./use-header-drawer"
 
@@ -41,8 +41,8 @@ const LoginDrawer = () => {
         <div className="space-y-4 p-6">
           <LoginPage onSuccess={closeDrawer} />
           <div>
-            <NavLink to="/login" className={`btn btn-primary btn-sm ${focusRingClass}`} onClick={closeDrawer}>
-              Open Login Page
+            <NavLink to={user ? "/account" : "/login"} className={`btn btn-primary btn-sm ${focusRingClass}`} onClick={closeDrawer}>
+              {user ? "Open Account" : "Open Login Page"}
             </NavLink>
           </div>
         </div>

@@ -29,6 +29,11 @@
     background-size: cover; /* fill card area */
   }
 
+  .card--product-fit {
+    background-size: contain; /* show the full odd product image */
+    background-color: var(--brand-white); /* keep transparent image visible */
+  }
+
   .card--product.bg-cover:hover {
     background-size: contain; /* show full product on hover */
     background-repeat: no-repeat; /* keep image clean */
