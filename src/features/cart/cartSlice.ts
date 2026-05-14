@@ -18,6 +18,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action: PayloadAction<Product>) {
+      if (action.payload.stock <= 0) return // Do not add sold-out products.
       const existingItem = state.items.find(cartItem => cartItem.id === action.payload.id)
       if (existingItem) {
         existingItem.quantity += 1 // increase quantity if already in cart
@@ -30,7 +31,12 @@ const cartSlice = createSlice({
     },
     updateQuantity(state, action: PayloadAction<{ id: number; quantity: number }>) {
       const targetItem = state.items.find(cartItem => cartItem.id === action.payload.id)
-      if (targetItem) targetItem.quantity = action.payload.quantity // set explicit quantity
+      if (!targetItem) return // no matching item to update
+      if (action.payload.quantity <= 0) {
+        state.items = state.items.filter(cartItem => cartItem.id !== action.payload.id) // remove zero or negative quantity
+        return
+      }
+      targetItem.quantity = Math.min(action.payload.quantity, targetItem.stock) // cap quantity by stock
     },
     clearCart(state) {
       state.items = [] // drop all items

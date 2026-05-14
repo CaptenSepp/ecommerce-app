@@ -37,7 +37,9 @@ const WishlistItemsList = () => {
 
             <div>
               <span className="item-price">${item.price}</span>
-              <span className="stock-note">In stock</span>
+              <span className={`stock-note${item.stock === 0 ? ' stock-note--empty' : ''}`}>
+                {item.stock} in stock
+              </span>
             </div>
           </div>
 

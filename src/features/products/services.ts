@@ -11,9 +11,15 @@ export interface Category {
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://dummyjson.com" // Allow an env override so the same service can point to another backend without code changes.
 const endpoint = (path: string) => `${API_BASE}${path}` // Build endpoints in one place so every request uses the same base URL rules.
+const outOfStockProductIds = new Set([2, 7, 11, 16, 21, 26, 31, 36, 41, 46]) // Demo out-of-stock products.
 let lastProductsValidationWarnings: string[] = [] // Keep the latest data-quality warnings available for debugging without stopping the app.
 
 export const getLastProductsValidationWarnings = () => lastProductsValidationWarnings
+
+const applyDemoStock = (product: Product): Product => {
+  if (!outOfStockProductIds.has(product.id)) return product // Keep normal API stock for most products.
+  return { ...product, stock: 0 } // Force selected demo products to be out of stock.
+}
 
 export async function getProducts(signal?: AbortSignal): Promise<Product[]> {
   const response = await fetch(endpoint("/products"), { signal })
@@ -36,13 +42,13 @@ export async function getProducts(signal?: AbortSignal): Promise<Product[]> {
   // Save warnings for debugging, but do not block the page if enough product data survived.
   lastProductsValidationWarnings = warnings
   if (warnings.length > 0) console.error("[products] Non-blocking API validation warnings:", warnings)
-  return products
+  return products.map(applyDemoStock)
 }
 
 export async function getProductById(id: number, signal?: AbortSignal): Promise<Product> {
   const response = await fetch(endpoint(`/products/${id}`), { signal })
   if (!response.ok) throw new Error("Product not found") // Turn a bad API response into one clear UI-level error message for the details page.
-  return productSchema.parse(await response.json())
+  return applyDemoStock(productSchema.parse(await response.json()))
 }
 
 export async function getCategories(signal?: AbortSignal): Promise<Category[]> {

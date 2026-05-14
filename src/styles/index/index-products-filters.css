@@ -115,8 +115,35 @@
     z-index: 1; /* keep button above decorative layers */
   }
 
+  .products-card__action-btn--disabled {
+    background: var(--brand-red); /* red state for out-of-stock items */
+    border-color: var(--brand-red); /* keep disabled button edge red */
+    cursor: not-allowed; /* show users the button cannot be clicked */
+    opacity: 1; /* keep the warning color visible */
+    pointer-events: auto; /* keep the blocked cursor visible on hover */
+  }
+
+  .products-card__action-btn--disabled:hover {
+    background: var(--brand-red); /* keep disabled state unchanged */
+    box-shadow: 0 10px 24px rgba(17, 17, 17, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.24); /* same as base */
+    transform: none; /* no hover lift for blocked button */
+  }
+
   .products-card__action-text {
     font-size: 1.2rem; /* smaller desktop label so actions fit inside cards */
+  }
+
+  .products-card__stock-tooltip {
+    position: fixed; /* follow the mouse position from React */
+    z-index: 100; /* show above product cards */
+    max-width: 18rem; /* keep the message small */
+    padding: 0.6rem 0.8rem; /* compact tooltip spacing */
+    border-radius: var(--r-md); /* match app small surfaces */
+    background: var(--brand-black); /* readable tooltip background */
+    color: var(--brand-white); /* readable tooltip text */
+    font-size: 1rem; /* smaller helper text */
+    font-weight: 400; /* keep tooltip text normal */
+    pointer-events: none; /* never block the hovered button */
   }
 
   @media (min-width: 768px) {

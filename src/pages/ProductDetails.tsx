@@ -18,7 +18,7 @@ const ProductDetails = () => {
   }
 
   const handleAddToCart = () => {
-    if (!product) return // Guard first so the action only runs with loaded data.
+    if (!product || product.stock <= 0) return // Guard loaded data and sold-out items.
     dispatch(addToCart(product))
     notify('Added to cart', 'success')
   }
@@ -75,6 +75,8 @@ const ProductDetailsSummary = ({
   onAddToCart,
   onToggleWishlist,
 }: ProductDetailsSummaryProps) => {
+  const isOutOfStock = product.stock <= 0 // Match product card sold-out logic.
+
   return (
     <div>
       <h1 className="u-text-2xl u-font-semibold mb-2">{product.title}</h1>
@@ -83,10 +85,11 @@ const ProductDetailsSummary = ({
       </p>
       <p className="mb-4">{product.description}</p>
       <p className="text-brand-orange u-font-bold u-text-xl mb-4">${product.price}</p>
+      <p className="stock-note mb-4">{product.stock} available in stock</p>
 
       <div className="flex gap-3">
-        <button className="btn btn-primary" onClick={onAddToCart}>
-          Add to Cart
+        <button className="btn btn-primary" onClick={onAddToCart} disabled={isOutOfStock}>
+          {isOutOfStock ? 'Out of stock' : 'Add to Cart'}
         </button>
         <button className="btn btn-secondary" onClick={onToggleWishlist}>
           Wishlist

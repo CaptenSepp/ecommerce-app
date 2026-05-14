@@ -69,6 +69,10 @@
     color: var(--text-muted);
   }
 
+  .stock-note--empty {
+    color: var(--brand-red);
+  }
+
   .media-thumb {
     @apply relative block h-48 w-32 overflow-hidden rounded-md bg-gray-100 sm:h-56 sm:w-40;
   }

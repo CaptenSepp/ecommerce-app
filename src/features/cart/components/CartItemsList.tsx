@@ -35,7 +35,9 @@ const CartItemsList = () => {
 
             <div>
               <span className="item-price">${item.price}</span>
-              <span className="stock-note">In stock</span>
+              <span className={`stock-note${item.stock <= 0 ? ' stock-note--empty' : ''}`}>
+                {item.stock} in stock
+              </span>
             </div>
           </div>
 
@@ -59,6 +61,7 @@ const CartItemsList = () => {
               <button
                 className="btn btn-primary btn-sm"
                 onClick={() => dispatch(addToCart(item))} // increase quantity
+                disabled={item.stock <= 0}
                 aria-label={`Increase quantity of ${item.title}`}
               >
                 +

@@ -27,7 +27,7 @@ const ProductFilters = ({
   return (
     <div className="space-y-4">
       <h2 className="u-text-lg u-font-semibold mb-0">{title}</h2>
-      <form className="space-y-2 u-text-sm">
+      <div className="space-y-2 u-text-sm">
         <fieldset>
           <legend className="mb-2 u-text-sm u-font-medium">Category</legend> {/* explicit group label */}
           <label className="flex items-center gap-2">
@@ -56,7 +56,7 @@ const ProductFilters = ({
             </label>
           ))}
         </fieldset>
-      </form>
+      </div>
       <div className="space-y-2">
         <label className="u-text-sm u-font-medium">Sort by</label>
         <ProductSortSelect
